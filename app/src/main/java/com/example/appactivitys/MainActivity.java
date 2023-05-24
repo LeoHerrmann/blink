@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -15,7 +17,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void launchCustomer(View v){
-        Intent i = new Intent(this, CustomerMain.class);
-        startActivity(i);
+        TextInputLayout usernameInputLayout = findViewById(R.id.userNameInputLayout);
+        String username = String.valueOf(usernameInputLayout.getEditText().getText());
+
+        Intent intent = new Intent();
+
+        if (username.equals("provider")) {
+            intent = new Intent(this, ProviderMain.class);
+        }
+
+        else if (username.equals("deliverer")) {
+            intent = new Intent(this, DelivererMain.class);
+        }
+
+        else {
+            intent = new Intent(this, CustomerMain.class);
+        }
+
+        startActivity(intent);
     }
 }
