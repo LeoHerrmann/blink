@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="240dp"
         android:layout_marginEnd="30dp"
         app:layout_constraintBottom_toTopOf="@+id/userPasswordInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,8 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/username"
-            android:maxLines="1"
-            android:inputType="text" />
+            android:inputType="text"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -39,23 +40,34 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/userPasswordInput"
-            android:maxLines="1"
-            android:inputType="text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/password" />
+            android:layout_height="56dp"
+            android:hint="@string/password"
+            android:inputType="text"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="200dp"
         android:onClick="launchCustomer"
         android:text="@string/login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/userNameInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_launcher" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
