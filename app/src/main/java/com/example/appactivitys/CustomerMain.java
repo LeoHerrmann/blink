@@ -38,4 +38,8 @@ public class CustomerMain extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
+    public void launchCustomerDetails() {
+
+    }
+
 }
