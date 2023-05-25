@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         TextInputLayout usernameInputLayout = findViewById(R.id.userNameInputLayout);
         String username = String.valueOf(usernameInputLayout.getEditText().getText());
 
-        Intent intent = new Intent();
+        Intent intent;
 
         if (username.equals("provider")) {
             intent = new Intent(this, ProviderMain.class);
