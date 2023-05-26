@@ -1,19 +1,16 @@
 package com.example.appactivitys.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.appactivitys.R;
 import com.example.appactivitys.databinding.FragmentHomeBinding;
@@ -35,7 +32,7 @@ public class HomeFragment extends Fragment {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchCustomerDetails(v);
+                launchProductDetails(v);
             }
         });
 
@@ -48,15 +45,12 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
-    public void launchCustomerDetails(View v) {
+    public void launchProductDetails(View v) {
         ProductDetailsFragment nextFragment = new ProductDetailsFragment();
 
-        int idOfCurrentFragment = ((ViewGroup)getView().getParent()).getId();
-
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(idOfCurrentFragment, nextFragment, "findThisFragment")
-                .addToBackStack(null)
-                .commit();
+        NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_customer_main);
+        NavController navController = navHostFragment.getNavController();
+        navController.navigate(R.id.navigation_productDetails);
     }
 
 

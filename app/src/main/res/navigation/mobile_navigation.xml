@@ -9,17 +9,26 @@
         android:id="@+id/navigation_home"
         android:name="com.example.appactivitys.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_productDetails"
+            app:destination="@id/navigation_productDetails" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_cart"
         android:name="com.example.appactivitys.ui.cart.CartFragment"
         android:label="@string/title_cart"
         tools:layout="@layout/fragment_cart" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_profile"
         android:name="com.example.appactivitys.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/navigation_productDetails"
+        android:name="com.example.appactivitys.ui.ProductDetailsFragment"
+        android:label="Produkt"
+        tools:layout="@layout/fragment_product_details" />
 </navigation>
