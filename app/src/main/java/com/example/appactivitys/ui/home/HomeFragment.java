@@ -1,5 +1,7 @@
 package com.example.appactivitys.ui.home;
 
+import static androidx.navigation.Navigation.findNavController;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,12 +48,8 @@ public class HomeFragment extends Fragment {
     }
 
     public void launchProductDetails(View v) {
-        ProductDetailsFragment nextFragment = new ProductDetailsFragment();
-
-        NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_customer_main);
-        NavController navController = navHostFragment.getNavController();
-        navController.navigate(R.id.navigation_productDetails);
+        NavController navController = findNavController(v);
+        navController.navigate(R.id.action_navigation_home_to_productDetailsFragment);
     }
-
 
 }

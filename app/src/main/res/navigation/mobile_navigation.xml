@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
-
-    <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.appactivitys.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_productDetails"
-            app:destination="@id/navigation_productDetails" />
-    </fragment>
+    app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_cart"
@@ -26,9 +17,25 @@
         android:name="com.example.appactivitys.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+
     <fragment
-        android:id="@+id/navigation_productDetails"
+        android:id="@+id/navigation_home"
+        android:name="com.example.appactivitys.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/productDetailsFragment"
         android:name="com.example.appactivitys.ui.ProductDetailsFragment"
         android:label="Produkt"
         tools:layout="@layout/fragment_product_details" />
+
 </navigation>
