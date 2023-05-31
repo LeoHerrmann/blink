@@ -50,94 +50,93 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/resentProductHeader">
 
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="125dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="125dp"
-                                android:layout_height="125dp"
-                                android:padding="4dp"
-                                android:src="@drawable/ic_launcher_background" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="bottom"
-                                android:paddingStart="8dp"
-                                android:paddingEnd="8dp"
-                                android:text="9,99€"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingStart="8dp"
-                                android:paddingEnd="8dp"
-                                android:paddingBottom="8dp"
-                                android:layout_gravity="bottom"
-                                android:text="Muffinkeks"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="125dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="125dp"
-                                android:layout_height="125dp"
-                                android:padding="4dp"
-                                android:src="@drawable/ic_launcher_background" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="bottom"
-                                android:paddingStart="8dp"
-                                android:paddingEnd="8dp"
-                                android:text="9,99€"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingStart="8dp"
-                                android:paddingEnd="8dp"
-                                android:paddingBottom="8dp"
-                                android:layout_gravity="bottom"
-                                android:text="Muffinkeks"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
                         android:id="@+id/productImageView"
+                        android:layout_width="125dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="125dp"
+                                android:layout_height="125dp"
+                                android:padding="4dp"
+                                android:src="@drawable/ic_launcher_background" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:paddingStart="8dp"
+                                android:paddingEnd="8dp"
+                                android:text="9,99€"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="8dp"
+                                android:paddingEnd="8dp"
+                                android:paddingBottom="8dp"
+                                android:layout_gravity="bottom"
+                                android:text="Muffinkeks"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="125dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="125dp"
+                                android:layout_height="125dp"
+                                android:padding="4dp"
+                                android:src="@drawable/ic_launcher_background" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:paddingStart="8dp"
+                                android:paddingEnd="8dp"
+                                android:text="9,99€"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="8dp"
+                                android:paddingEnd="8dp"
+                                android:paddingBottom="8dp"
+                                android:layout_gravity="bottom"
+                                android:text="Muffinkeks"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
                         android:layout_width="125dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="4dp">
@@ -194,70 +193,204 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
 
-            <!--<ListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-
-            </ListView>-->
-
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="1"
+                android:columnCount="2"
                 android:paddingBottom="56dp"
                 android:id="@+id/categoriesGridLayout">
 
-                <ImageView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/gridItem"
-                    android:layout_width="125dp"
-                    android:layout_height="125dp"
+
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:padding="4dp"
-                    android:src="@drawable/ic_launcher_background" />
-
-                <ImageView
                     android:layout_width="125dp"
-                    android:layout_height="125dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/textView"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:padding="4dp"
+                            android:src="@drawable/ic_launcher_background" />
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:paddingBottom="8dp"
+                            android:layout_gravity="bottom"
+                            android:text="Muffinkeks"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:padding="4dp"
-                    android:src="@drawable/ic_launcher_background" />
-
-                <ImageView
                     android:layout_width="125dp"
-                    android:layout_height="125dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/textView2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:padding="4dp"
+                            android:src="@drawable/ic_launcher_background" />
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:paddingBottom="8dp"
+                            android:layout_gravity="bottom"
+                            android:text="Muffinkeks"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:padding="4dp"
-                    android:src="@drawable/ic_launcher_background" />
-
-                <ImageView
                     android:layout_width="125dp"
-                    android:layout_height="125dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/textView3"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:padding="4dp"
+                            android:src="@drawable/ic_launcher_background" />
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:paddingBottom="8dp"
+                            android:layout_gravity="bottom"
+                            android:text="Muffinkeks"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:padding="4dp"
-                    android:src="@drawable/ic_launcher_background" />
-
-                <ImageView
                     android:layout_width="125dp"
-                    android:layout_height="125dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/textView4"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:padding="4dp"
+                            android:src="@drawable/ic_launcher_background" />
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:paddingBottom="8dp"
+                            android:layout_gravity="bottom"
+                            android:text="Muffinkeks"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:padding="4dp"
-                    android:src="@drawable/ic_launcher_background" />
-
-                <ImageView
                     android:layout_width="125dp"
-                    android:layout_height="125dp"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:padding="4dp"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp">
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/textView5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:padding="4dp"
+                            android:src="@drawable/ic_launcher_background" />
+
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:paddingBottom="8dp"
+                            android:layout_gravity="bottom"
+                            android:text="Muffinkeks"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
             </GridLayout>
         </LinearLayout>
 

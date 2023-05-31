@@ -42,16 +42,12 @@ public class HomeFragment extends Fragment {
                 launchProductDetails(v);
             }
         });
-        int displayWidth = getDisplayWidth(requireContext());
-
-
-        View item = root.findViewById(R.id.gridItem);
-        int itemWidth = getItemWidthInPixels(item);
+        int displayWidth = getItemWidthInDP();
+        int itemWidth = 130;
         int columnCount = displayWidth / itemWidth;
-        int magicOne = 1; //Fuer die ganzen Paddings
 
         GridLayout gridLayout = root.findViewById(R.id.categoriesGridLayout);
-        gridLayout.setColumnCount(columnCount - magicOne);
+        gridLayout.setColumnCount(columnCount );
 
         return root;
     }
@@ -74,14 +70,11 @@ public class HomeFragment extends Fragment {
         return displayMetrics.widthPixels;
     }
 
-    private int getItemWidthInPixels(View item) {
-        int itemWidth = item.getWidth();
-        if (itemWidth == 0) {
-            // The item's width is not yet calculated, measure it manually
-            item.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-            itemWidth = item.getMeasuredWidth();
-        }
-        return itemWidth;
+    private int getItemWidthInDP() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) requireContext().getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+        int screenWidthInDp = (int) (displayMetrics.widthPixels / displayMetrics.density);
+        return screenWidthInDp;
     }
-
 }
