@@ -194,14 +194,23 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
 
+            <!--<ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
+            </ListView>-->
+
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="2"
+                android:columnCount="1"
                 android:paddingBottom="56dp"
-                android:rowCount="2">
+                android:id="@+id/categoriesGridLayout">
 
                 <ImageView
+                    android:id="@+id/gridItem"
                     android:layout_width="125dp"
                     android:layout_height="125dp"
                     android:layout_rowWeight="1"
