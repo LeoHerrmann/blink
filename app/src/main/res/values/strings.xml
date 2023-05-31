@@ -50,4 +50,8 @@
     <string name="title_home">Home</string>
     <string name="title_cart">Warenkorb</string>
     <string name="title_profile">Profil</string>
+    <string name="add_to_cart">In den Warenkorb</string>
+    <string name="product_information">Produktinformationen</string>
+    <string name="recently_bought">Zuletzt gekauft</string>
+    <string name="categories">Kategorien</string>
 </resources>
