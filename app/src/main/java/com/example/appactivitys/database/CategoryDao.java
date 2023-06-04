@@ -6,13 +6,9 @@ import androidx.room.Query;
 
 import java.util.List;
 
-//import io.reactivex.rxjava3.core.Single;
-//Auto-Import deaktivieren?
-
 @Dao
 public interface CategoryDao {
     @Query("SELECT * FROM category")
-    //public Single<List<Category>> GetAll();
     public List<Category> GetAll();
 
     @Insert

@@ -24,7 +24,6 @@ public abstract class AppDatabase extends RoomDatabase {
                     public void onCreate(SupportSQLiteDatabase db) {
                         super.onCreate(db);
 
-                        //appDatabase.close();
                         Executors.newSingleThreadExecutor().execute(new Runnable() {
                             @Override
                             public void run() {
@@ -39,8 +38,4 @@ public abstract class AppDatabase extends RoomDatabase {
         }
         return instance;
     }
-
-     public static void destroyInstance() {
-        instance = null;
-     }
 }
