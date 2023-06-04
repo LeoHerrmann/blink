@@ -6,6 +6,10 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Supplier {
+    public Supplier(String name) {
+        this.name = name;
+    }
+
     @PrimaryKey
     @NonNull
     public String name;

@@ -7,12 +7,19 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.appactivitys.R;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.Executors;
 
 @Database(entities = {Product.class, Category.class, Supplier.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ProductDAO productDAO();
     public abstract CategoryDao categoryDao();
+
+    public abstract SupplierDao supplierDao();
 
     private static AppDatabase instance;
 
@@ -29,12 +36,37 @@ public abstract class AppDatabase extends RoomDatabase {
                             public void run() {
                                 AppDatabase appDatabase = AppDatabase.getInstance(context);
                                 CategoryDao categoryDao = appDatabase.categoryDao();
-                                Category c = new Category("testkategorie");
-                                categoryDao.Insert(c);
+                                SupplierDao supplierDao = appDatabase.supplierDao();
+
+                                List<Category> categories = Arrays.asList(
+                                        new Category("Brot & Brötchen"),
+                                        new Category("Käse"),
+                                        new Category("Kaffee"),
+                                        new Category("Tee"),
+                                        new Category("Nudeln & Reis")
+                                );
+
+                                List<Supplier> suppliers = Arrays.asList(
+                                        new Supplier("Aldi Süd"),
+                                        new Supplier("Aldi Nord"),
+                                        new Supplier("Lidl"),
+                                        new Supplier("Rewe"),
+                                        new Supplier("Edeka"),
+                                        new Supplier("Penny"),
+                                        new Supplier("Netto")
+                                );
+
+                                categoryDao.Insert(categories);
+                                supplierDao.Insert(suppliers);
                             }
                         });
                     }
                 }).build();
+
+            /*instance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "database-name")
+                    .allowMainThreadQueries()
+                    .createFromAsset("raw/database.db")
+                    .build();*/
         }
         return instance;
     }

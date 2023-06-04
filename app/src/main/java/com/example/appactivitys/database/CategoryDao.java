@@ -13,4 +13,7 @@ public interface CategoryDao {
 
     @Insert
     public void Insert(Category category);
+
+    @Insert
+    public void Insert(List<Category> categories);
 }

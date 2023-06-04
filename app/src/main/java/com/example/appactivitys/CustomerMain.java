@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.example.appactivitys.database.AppDatabase;
 import com.example.appactivitys.database.Category;
 import com.example.appactivitys.database.Product;
+import com.example.appactivitys.database.Supplier;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +44,7 @@ public class CustomerMain extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-        List<Product> products = db.productDAO().GetAll();
+        List<Supplier> suplliers = db.supplierDao().GetAll();
         List<Category> categories = db.categoryDao().GetAll();
     }
 
