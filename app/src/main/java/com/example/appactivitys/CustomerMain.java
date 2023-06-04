@@ -1,9 +1,6 @@
 package com.example.appactivitys;
 
 import android.os.Bundle;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
@@ -32,6 +29,7 @@ public class CustomerMain extends AppCompatActivity {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_cart, R.id.navigation_profile)
                 .build();
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_customer_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
