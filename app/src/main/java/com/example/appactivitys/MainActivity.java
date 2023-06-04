@@ -1,13 +1,13 @@
 package com.example.appactivitys;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
 
 import com.example.appactivitys.database.AppDatabase;
 import com.example.appactivitys.database.Category;
@@ -17,7 +17,10 @@ import com.example.appactivitys.database.ProductDAO;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
-import java.util.concurrent.Executors;
+
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,21 +29,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RoomDatabase.Callback rdc = new RoomDatabase.Callback() {
-            public void onCreate (SupportSQLiteDatabase db) {
-                //aus irgendeinem Grund wird das nicht ausgefeührt
-                AppDatabase appDatabase = AppDatabase.getInstance(getApplicationContext());
-                CategoryDao categoryDao = appDatabase.categoryDao();
-                Category c = new Category("testkategorie");
-                categoryDao.Insert(c);
+        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+        List<Product> products = db.productDAO().GetAll();
+        List<Category> categories = db.categoryDao().GetAll();
+        /*productDAO.GetaAll().subscribeOn(Schedulers.io()).observeOn(Schedulers.mainThread()).subscribe(new SingleObserver<List<Product>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                // Wird aufgerufen, wenn das Abonnement erstellt wurde
             }
-        };
 
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "database-name").allowMainThreadQueries().fallbackToDestructiveMigration().addCallback(rdc).build();
-        ProductDAO productDAO = db.productDAO();
-        List<Product> products = productDAO.GetaAll();
+            @Override
+            public void onSuccess(List<Product> productList) {
+                // Wird aufgerufen, wenn die Operation erfolgreich abgeschlossen wurde
+                // productList enthält die Liste der Produkte
+            }
 
-
+            @Override
+            public void onError(Throwable e) {
+                // Wird aufgerufen, wenn ein Fehler aufgetreten ist
+            }
+        });
+        db.close();*/
     }
 
     public void launchCustomer(View v){
