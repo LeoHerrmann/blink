@@ -6,11 +6,11 @@ import androidx.room.Transaction;
 
 import java.util.List;
 
-import io.reactivex.rxjava3.core.Single;
+//import io.reactivex.rxjava3.core.Single;
 
 @Dao
 public interface CategoryWithProductsDao {
     @Transaction
     @Query("SELECT * FROM Category")
-    public Single<List<CategoryWithProducts>> getCategoriesWithProducts();
+    public List<CategoryWithProducts> getCategoriesWithProducts();
 }

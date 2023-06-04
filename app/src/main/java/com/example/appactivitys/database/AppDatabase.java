@@ -16,7 +16,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;
 
-    public static synchronized AppDatabase getInstance(Context context) {
+    public static AppDatabase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "database-name")
                 .allowMainThreadQueries()
@@ -24,6 +24,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     public void onCreate(SupportSQLiteDatabase db) {
                         super.onCreate(db);
 
+                        //appDatabase.close();
                         Executors.newSingleThreadExecutor().execute(new Runnable() {
                             @Override
                             public void run() {
@@ -31,7 +32,6 @@ public abstract class AppDatabase extends RoomDatabase {
                                 CategoryDao categoryDao = appDatabase.categoryDao();
                                 Category c = new Category("testkategorie");
                                 categoryDao.Insert(c);
-                                appDatabase.close();
                             }
                         });
                     }

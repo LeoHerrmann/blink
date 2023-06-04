@@ -2,6 +2,9 @@ package com.example.appactivitys;
 
 import android.os.Bundle;
 
+import com.example.appactivitys.database.AppDatabase;
+import com.example.appactivitys.database.Category;
+import com.example.appactivitys.database.Product;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +15,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.appactivitys.databinding.ActivityCustomerMainBinding;
+
+import java.util.List;
 
 public class CustomerMain extends AppCompatActivity {
 
@@ -35,6 +40,10 @@ public class CustomerMain extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_customer_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+        List<Product> products = db.productDAO().GetAll();
+        List<Category> categories = db.categoryDao().GetAll();
     }
 
     @Override
