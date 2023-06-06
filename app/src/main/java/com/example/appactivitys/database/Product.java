@@ -7,11 +7,14 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Product {
 
-    public Product(String name, double price, String categoryName) {
+    public Product(String name, double price, String categoryName, String supplierName) {
         this.name = name;
         this.price = price;
         this.categoryName = categoryName;
+        this.supplierName = supplierName;
+
     }
+
     @PrimaryKey @NonNull
     public Integer productId;
 
@@ -20,5 +23,7 @@ public class Product {
     public double price;
 
     public String categoryName;
+
+    public String supplierName;
 }
 
