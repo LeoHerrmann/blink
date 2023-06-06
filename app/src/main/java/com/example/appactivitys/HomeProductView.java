@@ -13,7 +13,7 @@ import android.view.View;
 /**
  * TODO: document your custom view class.
  */
-public class Home_Category_View extends View {
+public class HomeProductView extends View {
     private String mExampleString; // TODO: use a default from R.string...
     private int mExampleColor = Color.RED; // TODO: use a default from R.color...
     private float mExampleDimension = 0; // TODO: use a default from R.dimen...
@@ -23,17 +23,17 @@ public class Home_Category_View extends View {
     private float mTextWidth;
     private float mTextHeight;
 
-    public Home_Category_View(Context context) {
+    public HomeProductView(Context context) {
         super(context);
         init(null, 0);
     }
 
-    public Home_Category_View(Context context, AttributeSet attrs) {
+    public HomeProductView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs, 0);
     }
 
-    public Home_Category_View(Context context, AttributeSet attrs, int defStyle) {
+    public HomeProductView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(attrs, defStyle);
     }
@@ -41,22 +41,22 @@ public class Home_Category_View extends View {
     private void init(AttributeSet attrs, int defStyle) {
         // Load attributes
         final TypedArray a = getContext().obtainStyledAttributes(
-                attrs, R.styleable.Home_Category_View, defStyle, 0);
+                attrs, R.styleable.HomeProductView, defStyle, 0);
 
         mExampleString = a.getString(
-                R.styleable.Home_Category_View_exampleString);
+                R.styleable.HomeProductView_example2String);
         mExampleColor = a.getColor(
-                R.styleable.Home_Category_View_exampleColor,
+                R.styleable.HomeProductView_example2Color,
                 mExampleColor);
         // Use getDimensionPixelSize or getDimensionPixelOffset when dealing with
         // values that should fall on pixel boundaries.
         mExampleDimension = a.getDimension(
-                R.styleable.Home_Category_View_exampleDimension,
+                R.styleable.HomeProductView_example2Dimension,
                 mExampleDimension);
 
-        if (a.hasValue(R.styleable.Home_Category_View_exampleDrawable)) {
+        if (a.hasValue(R.styleable.HomeProductView_example2Drawable)) {
             mExampleDrawable = a.getDrawable(
-                    R.styleable.Home_Category_View_exampleDrawable);
+                    R.styleable.HomeProductView_example2Drawable);
             mExampleDrawable.setCallback(this);
         }
 

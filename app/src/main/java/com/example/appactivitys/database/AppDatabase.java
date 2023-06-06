@@ -7,16 +7,13 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.appactivitys.R;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 
 @Database(entities = {Product.class, Category.class, Supplier.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
-    public abstract ProductDAO productDAO();
+    public abstract ProductDAO productDao();
     public abstract CategoryDao categoryDao();
 
     public abstract SupplierDao supplierDao();
@@ -37,7 +34,7 @@ public abstract class AppDatabase extends RoomDatabase {
                                 AppDatabase appDatabase = AppDatabase.getInstance(context);
                                 CategoryDao categoryDao = appDatabase.categoryDao();
                                 SupplierDao supplierDao = appDatabase.supplierDao();
-                                ProductDAO productDao = appDatabase.productDAO();
+                                ProductDAO productDao = appDatabase.productDao();
 
                                 List<Category> categories = Arrays.asList(
                                         new Category("Brot & Brötchen"),

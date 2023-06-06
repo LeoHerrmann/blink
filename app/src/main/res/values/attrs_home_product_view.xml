@@ -1,0 +1,8 @@
+<resources>
+    <declare-styleable name="HomeProductView">
+        <attr name="example2String" format="string" />
+        <attr name="example2Dimension" format="dimension" />
+        <attr name="example2Color" format="color" />
+        <attr name="example2Drawable" format="color|reference" />
+    </declare-styleable>
+</resources>

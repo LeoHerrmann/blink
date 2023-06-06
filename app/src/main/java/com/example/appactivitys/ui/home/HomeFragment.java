@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import androidx.navigation.NavController;
 import com.example.appactivitys.R;
 import com.example.appactivitys.database.AppDatabase;
 import com.example.appactivitys.database.Category;
+import com.example.appactivitys.database.Product;
 import com.example.appactivitys.databinding.FragmentHomeBinding;
 
 import java.util.List;
@@ -35,20 +37,21 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        CardView cardView = root.findViewById(R.id.productImageView);
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchProductDetails(v);
-            }
-        });
-
         AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
         List<Category> categories = db.categoryDao().GetAll();
 
         for (Category category : categories) {
             addCategoryView(category.name);
         }
+
+        List<Product> products = db.productDao().GetAll();
+
+        for (int i = 0; i  < products.size(); i++) {
+            if (i % 23 == 0) {
+                addProductView(products.get(i));
+            }
+        }
+
 
         int displayWidth = getItemWidthInDP();
         int itemWidth = 130;
@@ -81,7 +84,7 @@ public class HomeFragment extends Fragment {
 
     private void addCategoryView(String categoryName) {
         GridLayout categoriesGridLayout = binding.categoriesGridLayout;
-        View categoryView = getLayoutInflater().inflate(R.layout.sample_home__category__view, null);
+        View categoryView = getLayoutInflater().inflate(R.layout.sample_home_category_view, null);
         TextView categoryTextView = categoryView.findViewById(R.id.categoryTextView);
         categoryTextView.setText(categoryName);
         GridLayout.LayoutParams gridParams = new GridLayout.LayoutParams();
@@ -96,5 +99,27 @@ public class HomeFragment extends Fragment {
 
         categoryView.setLayoutParams(gridParams);
         categoriesGridLayout.addView(categoryView);
+    }
+
+    private void addProductView(Product product) {
+        double price = product.price;
+        String priceString = String.valueOf(price) + "€"; //Bruder
+
+        LinearLayout productContainer = binding.productContainer;
+        View productView = getLayoutInflater().inflate(R.layout.sample_home_product_view, null); //Bruder
+        TextView priceAndSupplierView = productView.findViewById(R.id.priceAndSupplierTextView);
+        TextView nameView = productView.findViewById(R.id.nameTextView);
+
+        priceAndSupplierView.setText(priceString + "  ·  " + product.supplierName);
+        nameView.setText(product.name);
+
+        productView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchProductDetails(v);
+            }
+        });
+
+        productContainer.addView(productView);
     }
 }
