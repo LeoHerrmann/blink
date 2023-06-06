@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment {
         List<Product> products = db.productDao().GetAll();
 
         for (int i = 0; i  < products.size(); i++) {
-            if (i % 23 == 0) {
+            if (i % 23 == 1) {
                 addProductView(products.get(i));
             }
         }
@@ -71,7 +71,20 @@ public class HomeFragment extends Fragment {
 
     public void launchProductDetails(View v) {
         NavController navController = findNavController(v);
-        navController.navigate(R.id.action_navigation_home_to_productDetailsFragment);
+
+        TextView priceTextView = v.findViewById(R.id.priceTextView);
+        TextView supplierTextView = v.findViewById(R.id.supplierTextView);
+        TextView productTextView = v.findViewById(R.id.nameTextView);
+        String price = (String) priceTextView.getText();
+        String supplierName = (String) supplierTextView.getText();
+        String productName = (String) productTextView.getText();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("productName", productName);
+        bundle.putString("supplierName", supplierName);
+        bundle.putString("price", price);
+
+        navController.navigate(R.id.action_navigation_home_to_productDetailsFragment, bundle);
     }
 
     private int getItemWidthInDP() {
@@ -102,15 +115,15 @@ public class HomeFragment extends Fragment {
     }
 
     private void addProductView(Product product) {
-        double price = product.price;
-        String priceString = String.valueOf(price) + "€"; //Bruder
-
         LinearLayout productContainer = binding.productContainer;
         View productView = getLayoutInflater().inflate(R.layout.sample_home_product_view, null); //Bruder
-        TextView priceAndSupplierView = productView.findViewById(R.id.priceAndSupplierTextView);
+        TextView priceTextView = productView.findViewById(R.id.priceTextView);
+        TextView supplierTextView = productView.findViewById(R.id.supplierTextView);
         TextView nameView = productView.findViewById(R.id.nameTextView);
 
-        priceAndSupplierView.setText(priceString + "  ·  " + product.supplierName);
+        String priceString = getPriceString(product.price);
+        priceTextView.setText(priceString);
+        supplierTextView.setText(product.supplierName);
         nameView.setText(product.name);
 
         productView.setOnClickListener(new View.OnClickListener() {
@@ -121,5 +134,30 @@ public class HomeFragment extends Fragment {
         });
 
         productContainer.addView(productView);
+    }
+
+    private String getPriceString(double price) {
+        String priceString = String.valueOf(price);
+
+        if (priceString.contains(".")) {
+            // Wir trennen den String in zwei Teile: den Teil vor dem Punkt und den Teil danach
+            String[] teile = priceString.split("\\.");
+
+            // Überprüfen, ob der Teil nach dem Punkt weniger als zwei Stellen hat
+            if (teile[1].length() < 2) {
+                // Füge Nullen hinzu, um auf zwei Nachkommastellen zu kommen
+                teile[1] = teile[1] + "0";
+            }
+
+            // Verbinde die Teile wieder zu einem String
+            priceString = teile[0] + "." + teile[1];
+        } else {
+            // Wenn der String keinen Punkt enthält, fügen wir ".00" hinzu
+            priceString = priceString + ".00";
+        }
+
+        priceString += "€";
+
+        return priceString;
     }
 }
