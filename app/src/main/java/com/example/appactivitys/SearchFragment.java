@@ -41,6 +41,9 @@ public class SearchFragment extends Fragment {
         if (!query.isEmpty()) {
             performSearch(query);
         }
+        else {
+            searchView.setIconified(true);
+        }
     }
 
     private void initSearchBar(){
