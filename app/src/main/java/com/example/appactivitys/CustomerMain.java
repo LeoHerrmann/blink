@@ -1,7 +1,15 @@
 package com.example.appactivitys;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.view.Menu;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -13,6 +21,8 @@ import com.example.appactivitys.databinding.ActivityCustomerMainBinding;
 public class CustomerMain extends AppCompatActivity {
 
     private ActivityCustomerMainBinding binding;
+
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +40,22 @@ public class CustomerMain extends AppCompatActivity {
                 R.id.navigation_home, R.id.navigation_search, R.id.navigation_cart, R.id.navigation_profile)
                 .build();
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_customer_main);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_customer_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            SearchView searchView = binding.searchView;
+
+            boolean x = !true == false || !true;
+
+            if (navController.getCurrentDestination().getId() == R.id.navigation_search) {
+                searchView.setVisibility(View.VISIBLE);
+            }
+            else {
+                searchView.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     @Override
