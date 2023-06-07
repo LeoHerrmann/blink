@@ -36,6 +36,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
@@ -57,7 +58,6 @@ public class HomeFragment extends Fragment {
             }
         }
 
-        initSearchBar(); //Bruder
 
 
         int displayWidth = getItemWidthInDP();
@@ -179,26 +179,5 @@ public class HomeFragment extends Fragment {
         priceString += "€";
 
         return priceString;
-    }
-
-    private void initSearchBar(){
-        SearchView searchBar = binding.searchBar;
-
-        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                performSearch(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                // Hier kannst du Aktionen ausführen, wenn sich der Text im Suchfeld ändert
-                return false;
-            }
-        });
-    }
-    private void performSearch(String query) {
-        Log.d("suche", query); //Bruder
     }
 }

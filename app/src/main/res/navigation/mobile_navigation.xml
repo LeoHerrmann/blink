@@ -37,5 +37,10 @@
         android:name="com.example.appactivitys.ui.ProductDetailsFragment"
         android:label="Produkt"
         tools:layout="@layout/fragment_product_details" />
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.example.appactivitys.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search" />
 
 </navigation>

@@ -7,10 +7,12 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface ProductDAO {
+public interface ProductDao {
     @Query("SELECT * FROM Product")
-    //public Single<List<Product>> GetaAll();
     public List<Product> GetAll();
+
+    @Query("SELECT * FROM Product WHERE name LIKE '%' || :searchString || '%'")
+    public List<Product> GetWithNameLike(String searchString);
 
     @Insert
     public void Insert(List<Product> products);

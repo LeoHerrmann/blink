@@ -54,4 +54,7 @@
     <string name="product_information">Produktinformationen</string>
     <string name="recently_bought">Zuletzt gekauft</string>
     <string name="categories">Kategorien</string>
+    <string name="search">Suche</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
 
 @Database(entities = {Product.class, Category.class, Supplier.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
-    public abstract ProductDAO productDao();
+    public abstract ProductDao productDao();
     public abstract CategoryDao categoryDao();
 
     public abstract SupplierDao supplierDao();
@@ -34,7 +34,7 @@ public abstract class AppDatabase extends RoomDatabase {
                                 AppDatabase appDatabase = AppDatabase.getInstance(context);
                                 CategoryDao categoryDao = appDatabase.categoryDao();
                                 SupplierDao supplierDao = appDatabase.supplierDao();
-                                ProductDAO productDao = appDatabase.productDao();
+                                ProductDao productDao = appDatabase.productDao();
 
                                 List<Category> categories = Arrays.asList(
                                         new Category("Brot & Brötchen"),
