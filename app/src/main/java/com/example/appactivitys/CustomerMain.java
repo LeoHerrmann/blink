@@ -47,8 +47,6 @@ public class CustomerMain extends AppCompatActivity {
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             SearchView searchView = binding.searchView;
 
-            boolean x = !true == false || !true;
-
             if (navController.getCurrentDestination().getId() == R.id.navigation_search) {
                 searchView.setVisibility(View.VISIBLE);
             }

@@ -5,9 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -15,10 +13,7 @@ import android.widget.TextView;
 
 import com.example.appactivitys.database.AppDatabase;
 import com.example.appactivitys.database.Product;
-import com.example.appactivitys.databinding.FragmentHomeBinding;
 import com.example.appactivitys.databinding.FragmentSearchBinding;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -36,13 +31,26 @@ public class SearchFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        SearchView searchView = getActivity().findViewById(R.id.searchView);
+        String query = searchView.getQuery().toString();
+
+        if (!query.isEmpty()) {
+            performSearch(query);
+        }
+    }
+
     private void initSearchBar(){
-        androidx.appcompat.widget.SearchView searchView = getActivity().findViewById(R.id.searchView);
+        SearchView searchView = getActivity().findViewById(R.id.searchView);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 performSearch(query);
+                searchView.clearFocus();
                 return true;
             }
 
@@ -55,10 +63,11 @@ public class SearchFragment extends Fragment {
     }
 
     private void performSearch(String query) {
-        Log.d("suche", query);
-
         AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
         List<Product> products = db.productDao().GetWithNameLike(query);
+
+        LinearLayout productContainer = binding.productContainer;
+        productContainer.removeAllViews();
 
         for (Product product : products) {
             View productView = getLayoutInflater().inflate(R.layout.sample_search_product_view, null);
@@ -70,7 +79,6 @@ public class SearchFragment extends Fragment {
             priceTextView.setText(getPriceString(product.price));
             supplierTextView.setText(product.supplierName);
 
-            LinearLayout productContainer = binding.productContainer;
             productContainer.addView(productView);
         }
     }
