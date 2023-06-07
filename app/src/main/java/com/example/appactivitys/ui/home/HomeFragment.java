@@ -5,13 +5,18 @@ import static androidx.navigation.Navigation.findNavController;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -51,6 +56,8 @@ public class HomeFragment extends Fragment {
                 addProductView(products.get(i));
             }
         }
+
+        initSearchBar(); //Bruder
 
 
         int displayWidth = getItemWidthInDP();
@@ -110,8 +117,21 @@ public class HomeFragment extends Fragment {
         );
         gridParams.height = GridLayout.LayoutParams.WRAP_CONTENT;
 
+
+
         categoryView.setLayoutParams(gridParams);
         categoriesGridLayout.addView(categoryView);
+
+        categoryView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchCategoryDetails(categoryName);
+            }
+        });
+    }
+
+    private void launchCategoryDetails(String categoryName){
+        Log.d("test", categoryName);
     }
 
     private void addProductView(Product product) {
@@ -159,5 +179,26 @@ public class HomeFragment extends Fragment {
         priceString += "€";
 
         return priceString;
+    }
+
+    private void initSearchBar(){
+        SearchView searchBar = binding.searchBar;
+
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                performSearch(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Hier kannst du Aktionen ausführen, wenn sich der Text im Suchfeld ändert
+                return false;
+            }
+        });
+    }
+    private void performSearch(String query) {
+        Log.d("suche", query); //Bruder
     }
 }
