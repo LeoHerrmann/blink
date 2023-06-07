@@ -33,9 +33,6 @@ public class SearchFragment extends Fragment {
 
         initSearchBar();
 
-        //SearchView searchView = getActivity().findViewById(R.id.searchView);
-        //searchView.setVisibility(View.VISIBLE);
-
         return root;
     }
 

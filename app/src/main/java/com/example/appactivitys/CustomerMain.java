@@ -53,7 +53,7 @@ public class CustomerMain extends AppCompatActivity {
                 searchView.setVisibility(View.VISIBLE);
             }
             else {
-                searchView.setVisibility(View.INVISIBLE);
+                searchView.setVisibility(View.GONE);
             }
         });
     }
