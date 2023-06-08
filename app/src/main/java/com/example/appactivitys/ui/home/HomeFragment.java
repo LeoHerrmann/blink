@@ -7,28 +7,24 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 
 import com.example.appactivitys.R;
 import com.example.appactivitys.database.AppDatabase;
-import com.example.appactivitys.database.Category;
-import com.example.appactivitys.database.Product;
+import com.example.appactivitys.database.entities.Category;
+import com.example.appactivitys.database.entities.Product;
 import com.example.appactivitys.databinding.FragmentHomeBinding;
 
 import java.util.List;
@@ -122,7 +118,9 @@ public class HomeFragment extends Fragment {
         categoryView.setLayoutParams(gridParams);
         categoriesGridLayout.addView(categoryView);
 
-        categoryView.setOnClickListener(new View.OnClickListener() {
+        ConstraintLayout categoryCardLayout = categoryView.findViewById(R.id.categoryLayout);
+
+        categoryCardLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchCategoryDetails(categoryName);
@@ -146,7 +144,8 @@ public class HomeFragment extends Fragment {
         supplierTextView.setText(product.supplierName);
         nameView.setText(product.name);
 
-        productView.setOnClickListener(new View.OnClickListener() {
+        LinearLayout productViewLayout = productView.findViewById(R.id.productLayout);
+        productViewLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchProductDetails(v);

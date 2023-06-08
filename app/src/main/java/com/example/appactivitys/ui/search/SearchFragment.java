@@ -1,18 +1,23 @@
-package com.example.appactivitys;
+package com.example.appactivitys.ui.search;
+
+import static androidx.navigation.Navigation.findNavController;
 
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.appactivitys.R;
 import com.example.appactivitys.database.AppDatabase;
-import com.example.appactivitys.database.Product;
+import com.example.appactivitys.database.entities.Product;
 import com.example.appactivitys.databinding.FragmentSearchBinding;
 
 import java.util.List;
@@ -28,6 +33,8 @@ public class SearchFragment extends Fragment {
 
         initSearchBar();
 
+        performSearch("");
+
         return root;
     }
 
@@ -40,8 +47,10 @@ public class SearchFragment extends Fragment {
 
         if (!query.isEmpty()) {
             performSearch(query);
+            Log.d("", "query not empty -> search performed");
         }
         else {
+            Log.d("", "query empty -> search not performed");
             searchView.setIconified(true);
         }
     }
@@ -60,6 +69,7 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 // Hier kannst du Aktionen ausführen, wenn sich der Text im Suchfeld ändert
+                performSearch(newText);
                 return false;
             }
         });
@@ -82,8 +92,34 @@ public class SearchFragment extends Fragment {
             priceTextView.setText(getPriceString(product.price));
             supplierTextView.setText(product.supplierName);
 
+            productView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    launchProductDetails(v);
+                }
+            });
+
             productContainer.addView(productView);
         }
+    }
+
+    public void launchProductDetails(View v) {
+        NavController navController = findNavController(v);
+
+        TextView priceTextView = v.findViewById(R.id.priceTextView);
+        TextView supplierTextView = v.findViewById(R.id.supplierTextView);
+        TextView productTextView = v.findViewById(R.id.nameTextView);
+        String price = (String) priceTextView.getText();
+        String supplierName = (String) supplierTextView.getText();
+        String productName = (String) productTextView.getText();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("productName", productName);
+        bundle.putString("supplierName", supplierName);
+        bundle.putString("price", price);
+        bundle.putString("navigationOrigin", "search");
+
+        navController.navigate(R.id.action_navigation_search_to_productDetailsFragment, bundle);
     }
 
     private String getPriceString(double price) {

@@ -7,6 +7,13 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.appactivitys.database.daos.CategoryDao;
+import com.example.appactivitys.database.daos.ProductDao;
+import com.example.appactivitys.database.daos.SupplierDao;
+import com.example.appactivitys.database.entities.Category;
+import com.example.appactivitys.database.entities.Product;
+import com.example.appactivitys.database.entities.Supplier;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;

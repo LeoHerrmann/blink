@@ -1,8 +1,10 @@
-package com.example.appactivitys.database;
+package com.example.appactivitys.database.daos;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+
+import com.example.appactivitys.database.entities.Category;
 
 import java.util.List;
 

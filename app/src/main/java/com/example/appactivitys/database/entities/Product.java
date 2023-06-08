@@ -1,4 +1,4 @@
-package com.example.appactivitys.database;
+package com.example.appactivitys.database.entities;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;

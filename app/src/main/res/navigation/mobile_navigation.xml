@@ -21,8 +21,8 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.appactivitys.ui.home.HomeFragment"
-        android:label="Home"
-        tools:layout="@layout/fragment_home" >
+        android:label="Start"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_navigation_home_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment"
@@ -34,13 +34,21 @@
 
     <fragment
         android:id="@+id/productDetailsFragment"
-        android:name="com.example.appactivitys.ui.ProductDetailsFragment"
+        android:name="com.example.appactivitys.ui.productDetails.ProductDetailsFragment"
         android:label="Produkt"
         tools:layout="@layout/fragment_product_details" />
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.example.appactivitys.SearchFragment"
+        android:name="com.example.appactivitys.ui.search.SearchFragment"
         android:label="@string/search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_navigation_search_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
 
 </navigation>

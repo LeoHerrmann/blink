@@ -1,12 +1,12 @@
-package com.example.appactivitys.database;
+package com.example.appactivitys.database.entities;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class Supplier {
-    public Supplier(String name) {
+public class Category {
+    public Category(String name) {
         this.name = name;
     }
 
@@ -14,3 +14,4 @@ public class Supplier {
     @NonNull
     public String name;
 }
+

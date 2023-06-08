@@ -1,4 +1,4 @@
-package com.example.appactivitys.ui;
+package com.example.appactivitys.ui.productDetails;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,20 +6,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import com.example.appactivitys.R;
-import com.example.appactivitys.databinding.FragmentHomeBinding;
 import com.example.appactivitys.databinding.FragmentProductDetailsBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ProductDetailsFragment extends Fragment {
@@ -48,6 +43,7 @@ public class ProductDetailsFragment extends Fragment {
         String price = getArguments().getString("price");
         String productName = getArguments().getString("productName");
         String supplierName = getArguments().getString("supplierName");
+        String navigationOridin = getArguments().getString("navigationOrigin");
 
         binding.priceTextView.setText(price);
         binding.supplierTextView.setText(supplierName);
@@ -57,7 +53,15 @@ public class ProductDetailsFragment extends Fragment {
 
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.nav_view);
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem item = menu.findItem(R.id.navigation_home);
+        MenuItem item;
+
+        if (navigationOridin == "search") {
+            item = menu.findItem(R.id.navigation_search);
+        }
+        else {
+            item = menu.findItem(R.id.navigation_home);
+        }
+
         item.setChecked(true);
     }
 

@@ -1,4 +1,4 @@
-package com.example.appactivitys.ui;
+package com.example.appactivitys.ui.productDetails;
 
 import androidx.lifecycle.ViewModel;
 
