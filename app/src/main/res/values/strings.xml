@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">App Activitys</string>
+    <string name="app_name">Blink</string>
     <string name="login">Einloggen</string>
     <string name="username">Benutzername</string>
     <string name="password">Passwort</string>
