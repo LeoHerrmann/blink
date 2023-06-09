@@ -5,6 +5,7 @@ import static androidx.navigation.Navigation.findNavController;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -17,12 +18,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Category;
 import com.example.blink.database.entities.Product;
 import com.example.blink.databinding.FragmentSearchBinding;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.chip.Chip;
 
@@ -57,8 +60,38 @@ public class SearchFragment extends Fragment {
     }
 
     private void showCategoryFilterView() {
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
         bottomSheetDialog.setContentView(R.layout.sample_category_filter_view);
+    bottomSheetDialog.;
+        BottomSheetBehavior bottomSheetBehavior = bottomSheetDialog.getBehavior();
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    Log.d("", "STATE_HIDDEN");
+                }
+                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                    Log.d("", "STATE_EXPANDED");
+                }
+                if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                    Log.d("", "STATE_COLLAPSED");
+                }
+                if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+                    Log.d("", "STATE_DRAGGING");
+                }
+                if (newState == BottomSheetBehavior.STATE_SETTLING) {
+                    Log.d("", "STATE_SETTLING");
+                }
+                Log.d("", "määääh");
+
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+
         LinearLayout checkboxContainer = bottomSheetDialog.findViewById(R.id.checkboxContainer);
 
         for (Category category : categories) {
