@@ -2,6 +2,7 @@ package com.example.blink.ui.search;
 
 import static androidx.navigation.Navigation.findNavController;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
@@ -12,19 +13,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
+import com.example.blink.database.entities.Category;
 import com.example.blink.database.entities.Product;
 import com.example.blink.databinding.FragmentSearchBinding;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.chip.Chip;
 
 import java.util.List;
 
 public class SearchFragment extends Fragment {
 
     private FragmentSearchBinding binding;
+    private List<Category> categories;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,7 +42,43 @@ public class SearchFragment extends Fragment {
 
         performSearch("");
 
+        AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
+        categories = db.categoryDao().GetAll();
+
+        Chip categoryFilterButton = binding.categoryFilterChip;
+
+        categoryFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCategoryFilterView();
+            }});
+
         return root;
+    }
+
+    private void showCategoryFilterView() {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+        bottomSheetDialog.setContentView(R.layout.sample_category_filter_view);
+        LinearLayout checkboxContainer = bottomSheetDialog.findViewById(R.id.checkboxContainer);
+
+        for (Category category : categories) {
+            Context context = getActivity();
+            CheckBox checkBox = new CheckBox(context);
+            checkBox.setText(category.name);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    dpToPx(56)
+            );
+
+            checkboxContainer.addView(checkBox, layoutParams);
+        }
+
+        bottomSheetDialog.show();
+    }
+
+    private int dpToPx(int dp) {
+        float density = getResources().getDisplayMetrics().density;
+        return Math.round(dp * density);
     }
 
     @Override
