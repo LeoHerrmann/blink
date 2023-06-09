@@ -158,6 +158,7 @@ public abstract class AppDatabase extends RoomDatabase {
                                         new Product("Bauernbrot", 0.13, "Brot & Brötchen", "Edeka"),
                                         new Product("Bauernbrot", 0.13, "Brot & Brötchen", "Netto"),
                                         new Product("Fladenbrot", 0.20, "Brot & Brötchen", "Aldi Süd"),
+                                        new Product("Ein Euro", 0.90, "Brot & Brötchen", "Aldi Süd"),
                                         new Product("Fladenbrot", 0.20, "Brot & Brötchen", "Aldi Nord"),
                                         new Product("Fladenbrot", 0.20, "Brot & Brötchen", "Lidl"),
                                         new Product("Fladenbrot", 0.20, "Brot & Brötchen", "Rewe"),
