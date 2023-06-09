@@ -16,16 +16,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="4dp">
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
 
         <ImageView
             android:id="@+id/productImage"
             android:layout_width="0dp"
-            android:layout_height="56dp"
+            android:layout_height="72dp"
+            android:padding="8dp"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_launcher" />
+            app:srcCompat="@drawable/ic_launcher_background" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -54,10 +56,10 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:orientation="horizontal">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <Button
                 android:id="@+id/minusButton"
@@ -70,9 +72,9 @@
                 android:id="@+id/counterTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="8dp"
                 android:text="0"
-                android:textSize="16sp"
-                android:paddingHorizontal="8dp"/>
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/plusButton"
