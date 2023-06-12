@@ -10,11 +10,15 @@ import java.util.List;
 
 @Dao
 public interface ProductDao {
+    @Query("SELECT * FROM Product WHERE categoryName IN (:categories) AND supplierName IN (:suppliers)")
+    public List<Product> GetAll(List<String> categories, List<String> suppliers);
+
     @Query("SELECT * FROM Product")
     public List<Product> GetAll();
 
-    @Query("SELECT * FROM Product WHERE name LIKE '%' || :searchString || '%'")
-    public List<Product> GetWithNameLike(String searchString);
+
+    @Query("SELECT * FROM Product WHERE name LIKE '%' || :searchString || '%' AND categoryName IN (:categories) AND supplierName IN (:suppliers)")
+    public List<Product> GetWithNameLike(String searchString, List<String> categories, List<String> suppliers);
 
     @Insert
     public void Insert(List<Product> products);

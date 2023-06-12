@@ -25,6 +25,7 @@ import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Category;
 import com.example.blink.database.entities.Product;
+import com.example.blink.database.entities.Supplier;
 import com.example.blink.databinding.FragmentSearchBinding;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -36,9 +37,12 @@ import java.util.List;
 public class SearchFragment extends Fragment {
 
     private FragmentSearchBinding binding;
+
     private List<Category> categories;
+    private List<Supplier> suppliers;
 
     private List<String> namesOfSelectedCategories = new ArrayList<>();
+    private List<String> namesOfSelectedSuppliers = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,38 +51,58 @@ public class SearchFragment extends Fragment {
 
         initSearchBar();
 
-        performSearch("");
-
         AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
         categories = db.categoryDao().GetAll();
+        suppliers = db.supplierDao().GetAll();
 
         for (Category category : categories) {
             namesOfSelectedCategories.add(category.name);
         }
 
+        for (Supplier supplier : suppliers) {
+            namesOfSelectedSuppliers.add(supplier.name);
+        }
+
+        performSearch();
+
+        //TODO: auslagern
         Chip categoryFilterButton = binding.categoryFilterChip;
 
         categoryFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showCategoryFilterView();
-            }});
+            }}
+        );
 
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        SearchView searchView = getActivity().findViewById(R.id.searchView);
+        String query = searchView.getQuery().toString();
+
+        if (!query.isEmpty()) {
+            performSearch();
+            Log.d("", "query not empty -> search performed");
+        }
+        else {
+            Log.d("", "query empty -> search not performed");
+            searchView.setIconified(true);
+        }
     }
 
     private void showCategoryFilterView() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
         bottomSheetDialog.setContentView(R.layout.sample_category_filter_view);
 
-        LinearLayout checkboxContainer = bottomSheetDialog.findViewById(R.id.checkboxContainer);
-        int childElementCount = checkboxContainer.getChildCount();
-
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                Log.d("", "Hugabuga");
-
+                //TODO: auslagern :D
                 //herausfinden, welche Checkboxen ausgewählt sind
                 LinearLayout checkboxContainer = bottomSheetDialog.findViewById(R.id.checkboxContainer);
                 int childElementCount = checkboxContainer.getChildCount();
@@ -97,12 +121,15 @@ public class SearchFragment extends Fragment {
                     }
                 }
 
-                Log.d("", selectedCategories.toString());
-                //ausgewählte Checkboxen im als Attribute des Fragments abspeichern
-                //anfrage an Datenbank ausführen
+                //ausgewähöte Kategorien abspeichern
+                namesOfSelectedCategories = selectedCategories;
+
+                //Suche ausführen
+                performSearch();
             }
         });
 
+        //Für jede Kategorie Checkbox hinzufügen
         for (Category category : categories) {
             Context context = getActivity();
             CheckBox checkBox = new CheckBox(context);
@@ -117,6 +144,7 @@ public class SearchFragment extends Fragment {
                     dpToPx(56)
             );
 
+            LinearLayout checkboxContainer = bottomSheetDialog.findViewById(R.id.checkboxContainer);
             checkboxContainer.addView(checkBox, layoutParams);
         }
 
@@ -128,46 +156,31 @@ public class SearchFragment extends Fragment {
         return Math.round(dp * density);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        SearchView searchView = getActivity().findViewById(R.id.searchView);
-        String query = searchView.getQuery().toString();
-
-        if (!query.isEmpty()) {
-            performSearch(query);
-            Log.d("", "query not empty -> search performed");
-        }
-        else {
-            Log.d("", "query empty -> search not performed");
-            searchView.setIconified(true);
-        }
-    }
-
     private void initSearchBar(){
         SearchView searchView = getActivity().findViewById(R.id.searchView);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                performSearch(query);
+                performSearch();
                 searchView.clearFocus();
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // Hier kannst du Aktionen ausführen, wenn sich der Text im Suchfeld ändert
-                performSearch(newText);
+                performSearch();
                 return false;
             }
         });
     }
 
-    private void performSearch(String query) {
+    private void performSearch() {
+        SearchView searchView = getActivity().findViewById(R.id.searchView);
+        String query = searchView.getQuery().toString();
+
         AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
-        List<Product> products = db.productDao().GetWithNameLike(query);
+        List<Product> products = db.productDao().GetWithNameLike(query, namesOfSelectedCategories, namesOfSelectedSuppliers);
 
         LinearLayout productContainer = binding.productContainer;
         productContainer.removeAllViews();
@@ -193,7 +206,7 @@ public class SearchFragment extends Fragment {
         }
     }
 
-    public void launchProductDetails(View v) {
+    private void launchProductDetails(View v) {
         NavController navController = findNavController(v);
 
         TextView priceTextView = v.findViewById(R.id.priceTextView);
