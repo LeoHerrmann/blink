@@ -3,6 +3,7 @@ package com.example.blink.ui.search;
 import static androidx.navigation.Navigation.findNavController;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -62,33 +63,12 @@ public class SearchFragment extends Fragment {
     private void showCategoryFilterView() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
         bottomSheetDialog.setContentView(R.layout.sample_category_filter_view);
-    bottomSheetDialog.;
-        BottomSheetBehavior bottomSheetBehavior = bottomSheetDialog.getBehavior();
-        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+
+
+        bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                    Log.d("", "STATE_HIDDEN");
-                }
-                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-                    Log.d("", "STATE_EXPANDED");
-                }
-                if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
-                    Log.d("", "STATE_COLLAPSED");
-                }
-                if (newState == BottomSheetBehavior.STATE_DRAGGING) {
-                    Log.d("", "STATE_DRAGGING");
-                }
-                if (newState == BottomSheetBehavior.STATE_SETTLING) {
-                    Log.d("", "STATE_SETTLING");
-                }
-                Log.d("", "määääh");
-
-            }
-
-            @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-
+            public void onDismiss(DialogInterface dialog) {
+                Log.d("", "Hugabuga");
             }
         });
 
