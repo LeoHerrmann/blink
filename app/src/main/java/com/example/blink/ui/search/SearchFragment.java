@@ -30,12 +30,15 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.chip.Chip;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchFragment extends Fragment {
 
     private FragmentSearchBinding binding;
     private List<Category> categories;
+
+    private List<String> namesOfSelectedCategories = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +51,10 @@ public class SearchFragment extends Fragment {
 
         AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
         categories = db.categoryDao().GetAll();
+
+        for (Category category : categories) {
+            namesOfSelectedCategories.add(category.name);
+        }
 
         Chip categoryFilterButton = binding.categoryFilterChip;
 
@@ -64,20 +71,47 @@ public class SearchFragment extends Fragment {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
         bottomSheetDialog.setContentView(R.layout.sample_category_filter_view);
 
+        LinearLayout checkboxContainer = bottomSheetDialog.findViewById(R.id.checkboxContainer);
+        int childElementCount = checkboxContainer.getChildCount();
 
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 Log.d("", "Hugabuga");
+
+                //herausfinden, welche Checkboxen ausgewählt sind
+                LinearLayout checkboxContainer = bottomSheetDialog.findViewById(R.id.checkboxContainer);
+                int childElementCount = checkboxContainer.getChildCount();
+
+                List<String> selectedCategories = new ArrayList<>();
+
+                for (int i = 0; i < childElementCount; i++) {
+                    View childElement = checkboxContainer.getChildAt(i);
+
+                    if (childElement instanceof CheckBox) {
+                        CheckBox childAsCheckbox = (CheckBox) childElement;
+                        if (childAsCheckbox.isChecked()) {
+                            String checkBoxText = childAsCheckbox.getText().toString();
+                            selectedCategories.add(checkBoxText);
+                        }
+                    }
+                }
+
+                Log.d("", selectedCategories.toString());
+                //ausgewählte Checkboxen im als Attribute des Fragments abspeichern
+                //anfrage an Datenbank ausführen
             }
         });
-
-        LinearLayout checkboxContainer = bottomSheetDialog.findViewById(R.id.checkboxContainer);
 
         for (Category category : categories) {
             Context context = getActivity();
             CheckBox checkBox = new CheckBox(context);
             checkBox.setText(category.name);
+
+            if (namesOfSelectedCategories.contains(category.name)) {
+                checkBox.setChecked(true);
+            }
+
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     dpToPx(56)
