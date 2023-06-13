@@ -60,6 +60,7 @@ public class SearchFragment extends Fragment {
         performSearch();
 
         setupCategoryFilter();
+        setupSupplierFilter();
         return root;
     }
 
@@ -80,6 +81,17 @@ public class SearchFragment extends Fragment {
         }
     }
 
+    private void setupSupplierFilter() {
+        Chip supplierFilterButton = binding.supplierFilterChip;
+
+        supplierFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSupplierFilterView();
+            }}
+        );
+    }
+
     private void setupCategoryFilter() {
         Chip categoryFilterButton = binding.categoryFilterChip;
 
@@ -89,7 +101,6 @@ public class SearchFragment extends Fragment {
                 showCategoryFilterView();
             }}
         );
-
     }
 
     private void showCategoryFilterView() {
@@ -133,6 +144,62 @@ public class SearchFragment extends Fragment {
             checkBox.setText(category.name);
 
             if (customerMainViewModel.selectedCategoryFilters.getValue().contains(category.name)) {
+                checkBox.setChecked(true);
+            }
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    dpToPx(56)
+            );
+
+            LinearLayout checkboxContainer = bottomSheetDialog.findViewById(R.id.checkboxContainer);
+            checkboxContainer.addView(checkBox, layoutParams);
+        }
+
+        bottomSheetDialog.show();
+    }
+
+    private void showSupplierFilterView() {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+        bottomSheetDialog.setContentView(R.layout.sample_supplier_filter_view);
+
+        bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                //TODO: auslagern :D
+                //herausfinden, welche Checkboxen ausgewählt sind
+                LinearLayout checkboxContainer = bottomSheetDialog.findViewById(R.id.checkboxContainer);
+                int childElementCount = checkboxContainer.getChildCount();
+
+                ArrayList<String> selectedSuppliers = new ArrayList<>();
+
+                for (int i = 0; i < childElementCount; i++) {
+                    View childElement = checkboxContainer.getChildAt(i);
+
+                    if (childElement instanceof CheckBox) {
+                        CheckBox childAsCheckbox = (CheckBox) childElement;
+                        if (childAsCheckbox.isChecked()) {
+                            String checkBoxText = childAsCheckbox.getText().toString();
+                            selectedSuppliers.add(checkBoxText);
+                        }
+                    }
+                }
+
+                //ausgewähöte Kategorien abspeichern
+                customerMainViewModel.selectedSupplierFilters.setValue(selectedSuppliers);
+
+                //Suche ausführen
+                performSearch();
+            }
+        });
+
+        //Für jede Kategorie Checkbox hinzufügen
+        for (Supplier supplier : suppliers) {
+            Context context = getActivity();
+            CheckBox checkBox = new CheckBox(context);
+            checkBox.setText(supplier.name);
+
+            if (customerMainViewModel.selectedSupplierFilters.getValue().contains(supplier.name)) {
                 checkBox.setChecked(true);
             }
 

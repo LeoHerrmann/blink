@@ -45,4 +45,5 @@
     <string name="Category">Kategorie</string>
     <string name="SortingAZ">Sortierung: A-Z</string>
     <string name="Supplier">Anbieter</string>
+    <string name="suppliers">Anbieter</string>
 </resources>
