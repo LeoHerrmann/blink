@@ -6,12 +6,21 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.blink.database.AppDatabase;
+import com.example.blink.database.entities.Category;
+import com.example.blink.database.entities.Supplier;
 import com.example.blink.databinding.ActivityCustomerMainBinding;
+import com.example.blink.ui.search.CustomerMainViewModel;
+import com.example.blink.ui.search.SearchFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerMain extends AppCompatActivity {
 
@@ -19,9 +28,31 @@ public class CustomerMain extends AppCompatActivity {
 
     private NavController navController;
 
+    private CustomerMainViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+        List<Category> categories = db.categoryDao().GetAll();
+        List<Supplier> suppliers = db.supplierDao().GetAll();
+
+        ArrayList<String> selectedCategoryFilters = new ArrayList<>();
+        ArrayList<String> selectedSupplierFilters = new ArrayList<>();
+
+        for (Category category : categories) {
+            selectedCategoryFilters.add(category.name);
+        }
+
+        for (Supplier supplier : suppliers) {
+            selectedSupplierFilters.add(supplier.name);
+        }
+
+        viewModel = new ViewModelProvider(this).get(CustomerMainViewModel.class);
+
+        viewModel.selectedCategoryFilters.setValue(selectedCategoryFilters);
+        viewModel.selectedSupplierFilters.setValue(selectedSupplierFilters);
 
         binding = ActivityCustomerMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

@@ -55,13 +55,7 @@ public class HomeFragment extends Fragment {
         }
 
 
-
-        int displayWidth = getItemWidthInDP();
-        int itemWidth = 130;
-        int columnCount = displayWidth / itemWidth;
-
-        GridLayout gridLayout = binding.categoriesGridLayout;
-        gridLayout.setColumnCount(columnCount);
+        initializeCategoriesGrid();
 
         return root;
     }
@@ -88,6 +82,15 @@ public class HomeFragment extends Fragment {
         bundle.putString("price", price);
 
         navController.navigate(R.id.action_navigation_home_to_productDetailsFragment, bundle);
+    }
+
+    private void initializeCategoriesGrid() {
+        int displayWidth = getItemWidthInDP();
+        int itemWidth = 130;
+        int columnCount = displayWidth / itemWidth;
+
+        GridLayout gridLayout = binding.categoriesGridLayout;
+        gridLayout.setColumnCount(columnCount);
     }
 
     private int getItemWidthInDP() {

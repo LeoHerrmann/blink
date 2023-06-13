@@ -6,28 +6,27 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.blink.CustomerMain;
 import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Category;
 import com.example.blink.database.entities.Product;
 import com.example.blink.database.entities.Supplier;
 import com.example.blink.databinding.FragmentSearchBinding;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.chip.Chip;
 
@@ -38,43 +37,29 @@ public class SearchFragment extends Fragment {
 
     private FragmentSearchBinding binding;
 
+    private CustomerMainViewModel customerMainViewModel;
+
     private List<Category> categories;
     private List<Supplier> suppliers;
 
-    private List<String> namesOfSelectedCategories = new ArrayList<>();
-    private List<String> namesOfSelectedSuppliers = new ArrayList<>();
+    
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSearchBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        initSearchBar();
-
-        AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
+        AppDatabase db = AppDatabase.getInstance(getActivity().getApplicationContext());
         categories = db.categoryDao().GetAll();
         suppliers = db.supplierDao().GetAll();
 
-        for (Category category : categories) {
-            namesOfSelectedCategories.add(category.name);
-        }
+        customerMainViewModel = new ViewModelProvider(getActivity()).get(CustomerMainViewModel.class);
 
-        for (Supplier supplier : suppliers) {
-            namesOfSelectedSuppliers.add(supplier.name);
-        }
+        initSearchBar();
 
         performSearch();
 
-        //TODO: auslagern
-        Chip categoryFilterButton = binding.categoryFilterChip;
-
-        categoryFilterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showCategoryFilterView();
-            }}
-        );
-
+        setupCategoryFilter();
         return root;
     }
 
@@ -95,6 +80,18 @@ public class SearchFragment extends Fragment {
         }
     }
 
+    private void setupCategoryFilter() {
+        Chip categoryFilterButton = binding.categoryFilterChip;
+
+        categoryFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCategoryFilterView();
+            }}
+        );
+
+    }
+
     private void showCategoryFilterView() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
         bottomSheetDialog.setContentView(R.layout.sample_category_filter_view);
@@ -107,7 +104,7 @@ public class SearchFragment extends Fragment {
                 LinearLayout checkboxContainer = bottomSheetDialog.findViewById(R.id.checkboxContainer);
                 int childElementCount = checkboxContainer.getChildCount();
 
-                List<String> selectedCategories = new ArrayList<>();
+                ArrayList<String> selectedCategories = new ArrayList<>();
 
                 for (int i = 0; i < childElementCount; i++) {
                     View childElement = checkboxContainer.getChildAt(i);
@@ -122,7 +119,7 @@ public class SearchFragment extends Fragment {
                 }
 
                 //ausgewähöte Kategorien abspeichern
-                namesOfSelectedCategories = selectedCategories;
+                customerMainViewModel.selectedCategoryFilters.setValue(selectedCategories);
 
                 //Suche ausführen
                 performSearch();
@@ -135,7 +132,7 @@ public class SearchFragment extends Fragment {
             CheckBox checkBox = new CheckBox(context);
             checkBox.setText(category.name);
 
-            if (namesOfSelectedCategories.contains(category.name)) {
+            if (customerMainViewModel.selectedCategoryFilters.getValue().contains(category.name)) {
                 checkBox.setChecked(true);
             }
 
@@ -180,7 +177,7 @@ public class SearchFragment extends Fragment {
         String query = searchView.getQuery().toString();
 
         AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
-        List<Product> products = db.productDao().GetWithNameLike(query, namesOfSelectedCategories, namesOfSelectedSuppliers);
+        List<Product> products = db.productDao().GetWithNameLike(query, customerMainViewModel.selectedCategoryFilters.getValue(), customerMainViewModel.selectedSupplierFilters.getValue());
 
         LinearLayout productContainer = binding.productContainer;
         productContainer.removeAllViews();
