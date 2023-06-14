@@ -7,9 +7,11 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.blink.database.daos.CartItemDao;
 import com.example.blink.database.daos.CategoryDao;
 import com.example.blink.database.daos.ProductDao;
 import com.example.blink.database.daos.SupplierDao;
+import com.example.blink.database.entities.CartItem;
 import com.example.blink.database.entities.Category;
 import com.example.blink.database.entities.Product;
 import com.example.blink.database.entities.Supplier;
@@ -18,12 +20,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Product.class, Category.class, Supplier.class}, version = 3)
+@Database(entities = {Product.class, Category.class, Supplier.class, CartItem.class}, version = 4)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ProductDao productDao();
     public abstract CategoryDao categoryDao();
-
     public abstract SupplierDao supplierDao();
+    public abstract CartItemDao cartItemDao();
 
     private static AppDatabase instance;
 
@@ -79,7 +81,6 @@ public abstract class AppDatabase extends RoomDatabase {
                                         new Product("Milchbrötchen", 0.27, "Brot & Brötchen", "Edeka"),
                                         new Product("Milchbrötchen", 0.31, "Brot & Brötchen", "Penny"),
                                         new Product("Milchbrötchen", 0.27, "Brot & Brötchen", "Netto"),
-
                                         new Product("Roggenmischbrot", 0.18, "Brot & Brötchen", "Netto"),
                                         new Product("Croissants", 0.62, "Brot & Brötchen", "Aldi Süd"),
                                         new Product("Croissants", 0.68, "Brot & Brötchen", "Aldi Nord"),
@@ -95,7 +96,6 @@ public abstract class AppDatabase extends RoomDatabase {
                                         new Product("Dreikorntoast", 0.14, "Brot & Brötchen", "Edeka"),
                                         new Product("Dreikorntoast", 0.12, "Brot & Brötchen", "Penny"),
                                         new Product("Dreikorntoast", 0.12, "Brot & Brötchen", "Netto"),
-
                                         new Product("Toastbrötchen", 0.30, "Brot & Brötchen", "Edeka"),
                                         new Product("Toastbrötchen", 0.36, "Brot & Brötchen", "Penny"),
                                         new Product("Toastbrötchen", 0.27, "Brot & Brötchen", "Netto"),
@@ -131,7 +131,6 @@ public abstract class AppDatabase extends RoomDatabase {
                                         new Product("Baguette", 0.27, "Brot & Brötchen", "Rewe"),
                                         new Product("Finn-Brötchen", 0.38, "Brot & Brötchen", "Aldi Süd"),
                                         new Product("Finn-Brötchen", 0.38, "Brot & Brötchen", "Aldi Nord"),
-
                                         new Product("Finn-Brötchen", 0.38, "Brot & Brötchen", "Edeka"),
                                         new Product("Finn-Brötchen", 0.38, "Brot & Brötchen", "Penny"),
                                         new Product("Finn-Brötchen", 0.34, "Brot & Brötchen", "Netto"),
@@ -290,11 +289,6 @@ public abstract class AppDatabase extends RoomDatabase {
                         });
                     }
                 }).build();
-
-            /*instance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "database-name")
-                    .allowMainThreadQueries()
-                    .createFromAsset("raw/database.db")
-                    .build();*/
         }
         return instance;
     }
