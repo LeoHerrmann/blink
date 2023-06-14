@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,8 +43,6 @@ public class SearchFragment extends Fragment {
     private List<Category> categories;
     private List<Supplier> suppliers;
 
-    
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSearchBinding.inflate(inflater, container, false);
@@ -58,12 +55,10 @@ public class SearchFragment extends Fragment {
         customerMainViewModel = new ViewModelProvider(getActivity()).get(CustomerMainViewModel.class);
 
         initSearchBar();
+        setupDialogs();
 
         performSearch();
 
-        setupOrderDialog();
-        setupCategoryFilterDialog();
-        setupSupplierFilterDialog();
         return root;
     }
 
@@ -84,37 +79,14 @@ public class SearchFragment extends Fragment {
         }
     }
 
-    private void setupCategoryFilterDialog() {
+    private void setupDialogs() {
         Chip categoryFilterButton = binding.categoryFilterChip;
-
-        categoryFilterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showCategoryFilterView();
-            }}
-        );
-    }
-
-    private void setupSupplierFilterDialog() {
         Chip supplierFilterButton = binding.supplierFilterChip;
-
-        supplierFilterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSupplierFilterView();
-            }}
-        );
-    }
-
-    private void setupOrderDialog() {
         Chip orderButton = binding.orderChip;
 
-        orderButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showOrderView();
-            }
-        });
+        categoryFilterButton.setOnClickListener(v -> showCategoryFilterView());
+        supplierFilterButton.setOnClickListener(v -> showSupplierFilterView());
+        orderButton.setOnClickListener(v -> showOrderView());
     }
 
     private void showCategoryFilterView() {
@@ -348,8 +320,20 @@ public class SearchFragment extends Fragment {
         SearchView searchView = getActivity().findViewById(R.id.searchView);
         String query = searchView.getQuery().toString();
 
+        String order = customerMainViewModel.selectedSortOrder.getValue();
+
+        if (order == null) {
+            order = "NameAZ";
+        }
+
         AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
-        List<Product> products = db.productDao().GetWithNameLike(query, customerMainViewModel.selectedCategoryFilters.getValue(), customerMainViewModel.selectedSupplierFilters.getValue());
+
+        List<Product> products = db.productDao().GetWithNameLike(
+                query,
+                order,
+                customerMainViewModel.selectedCategoryFilters.getValue(),
+                customerMainViewModel.selectedSupplierFilters.getValue()
+        );
 
         LinearLayout productContainer = binding.productContainer;
         productContainer.removeAllViews();
