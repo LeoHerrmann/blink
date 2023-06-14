@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment {
         List<Product> products = db.productDao().GetAll();
 
         for (int i = 0; i  < products.size(); i++) {
-            if (i % 23 == 3) {
+            if (i % 23 == 5) {
                 addProductView(products.get(i));
             }
         }

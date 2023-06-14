@@ -65,6 +65,8 @@ public abstract class AppDatabase extends RoomDatabase {
                                 List<Product> products = Arrays.asList(
                                         new Product("Rotes Pony", 20000, "Ponies", "Rewe"),
                                         new Product("Langhaariges Pony", 25000, "Ponies", "Rewe"),
+                                        new Product("Pferdefleischlasagne", 6.99, "Ponies", "Rewe"),
+                                        new Product("Pony mit Sitzheizung", 40000, "Ponies", "Rewe"),
                                         new Product("Kräuter-Baguette", 0.28, "Brot & Brötchen", "Aldi Süd"),
                                         new Product("Kräuter-Baguette", 0.28, "Brot & Brötchen", "Aldi Nord"),
                                         new Product("Kräuter-Baguette", 0.34, "Brot & Brötchen", "Lidl"),
