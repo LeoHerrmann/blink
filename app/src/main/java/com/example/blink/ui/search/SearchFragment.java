@@ -131,6 +131,8 @@ public class SearchFragment extends Fragment {
 
                 ArrayList<String> selectedCategories = new ArrayList<>();
 
+                binding.categoryFilterChip.setChecked(false);
+
                 for (int i = 0; i < childElementCount; i++) {
                     View childElement = checkboxContainer.getChildAt(i);
 
@@ -139,6 +141,9 @@ public class SearchFragment extends Fragment {
                         if (childAsCheckbox.isChecked()) {
                             String checkBoxText = childAsCheckbox.getText().toString();
                             selectedCategories.add(checkBoxText);
+                        }
+                        else {
+                            binding.categoryFilterChip.setChecked(true);
                         }
                     }
                 }
@@ -151,6 +156,8 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        binding.categoryFilterChip.setChecked(false);
+
         //Für jede Kategorie Checkbox hinzufügen
         for (Category category : categories) {
             Context context = getActivity();
@@ -159,6 +166,9 @@ public class SearchFragment extends Fragment {
 
             if (customerMainViewModel.selectedCategoryFilters.getValue().contains(category.name)) {
                 checkBox.setChecked(true);
+            }
+            else {
+                binding.categoryFilterChip.setChecked(true);
             }
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -187,6 +197,8 @@ public class SearchFragment extends Fragment {
 
                 ArrayList<String> selectedSuppliers = new ArrayList<>();
 
+                binding.supplierFilterChip.setChecked(false);
+
                 for (int i = 0; i < childElementCount; i++) {
                     View childElement = checkboxContainer.getChildAt(i);
 
@@ -195,6 +207,9 @@ public class SearchFragment extends Fragment {
                         if (childAsCheckbox.isChecked()) {
                             String checkBoxText = childAsCheckbox.getText().toString();
                             selectedSuppliers.add(checkBoxText);
+                        }
+                        else {
+                            binding.supplierFilterChip.setChecked(true);
                         }
                     }
                 }
@@ -207,6 +222,8 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        binding.supplierFilterChip.setChecked(false);
+
         //Für jede Kategorie Checkbox hinzufügen
         for (Supplier supplier : suppliers) {
             Context context = getActivity();
@@ -215,6 +232,9 @@ public class SearchFragment extends Fragment {
 
             if (customerMainViewModel.selectedSupplierFilters.getValue().contains(supplier.name)) {
                 checkBox.setChecked(true);
+            }
+            else {
+                binding.supplierFilterChip.setChecked(true);
             }
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(

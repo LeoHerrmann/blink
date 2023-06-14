@@ -36,7 +36,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/Category"
                     app:closeIcon="@drawable/baseline_arrow_drop_down_24"
-                    app:closeIconVisible="true"/>
+                    app:closeIconVisible="true"
+                    android:checkable="true"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/supplierFilterChip"
@@ -44,7 +45,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/Supplier"
                     app:closeIcon="@drawable/baseline_arrow_drop_down_24"
-                    app:closeIconVisible="true"/>
+                    app:closeIconVisible="true"
+                    android:checkable="true"/>
 
             </com.google.android.material.chip.ChipGroup>
 
