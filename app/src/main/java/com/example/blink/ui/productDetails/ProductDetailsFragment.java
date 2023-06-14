@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.blink.R;
 import com.example.blink.databinding.FragmentProductDetailsBinding;
@@ -19,13 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ProductDetailsFragment extends Fragment {
 
-    private ProductDetailsViewModel mViewModel;
     private FragmentProductDetailsBinding binding;
-
-
-    public static ProductDetailsFragment newInstance() {
-        return new ProductDetailsFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -43,7 +36,7 @@ public class ProductDetailsFragment extends Fragment {
         String price = getArguments().getString("price");
         String productName = getArguments().getString("productName");
         String supplierName = getArguments().getString("supplierName");
-        String navigationOridin = getArguments().getString("navigationOrigin");
+        String navigationOrigin = getArguments().getString("navigationOrigin");
 
         binding.priceTextView.setText(price);
         binding.supplierTextView.setText(supplierName);
@@ -55,21 +48,13 @@ public class ProductDetailsFragment extends Fragment {
         Menu menu = bottomNavigationView.getMenu();
         MenuItem item;
 
-        if (navigationOridin == "search") {
+        if (navigationOrigin == "search") {
             item = menu.findItem(R.id.navigation_search);
-        }
-        else {
+        } else {
             item = menu.findItem(R.id.navigation_home);
         }
 
         item.setChecked(true);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ProductDetailsViewModel.class);
-        // TODO: Use the ViewModel
     }
 
 }

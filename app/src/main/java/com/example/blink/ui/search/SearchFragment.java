@@ -84,6 +84,27 @@ public class SearchFragment extends Fragment {
         Chip supplierFilterButton = binding.supplierFilterChip;
         Chip orderButton = binding.orderChip;
 
+        if (customerMainViewModel.selectedCategoryFilters.getValue().size() < categories.size()) {
+            binding.categoryFilterChip.setChecked(true);
+        }
+
+        if (customerMainViewModel.selectedSupplierFilters.getValue().size() < suppliers.size()) {
+            binding.supplierFilterChip.setChecked(true);
+        }
+
+        if (customerMainViewModel.selectedSortOrder.getValue() == "NameZA") {
+            orderButton.setText(R.string.SortingZA);
+        }
+        else if (customerMainViewModel.selectedSortOrder.getValue() == "Price09") {
+            orderButton.setText(R.string.Sorting09);
+        }
+        else if (customerMainViewModel.selectedSortOrder.getValue() == "Price90") {
+            orderButton.setText(R.string.Sorting90);
+        }
+        else {
+            orderButton.setText(R.string.SortingAZ);
+        }
+
         categoryFilterButton.setOnClickListener(v -> showCategoryFilterView());
         supplierFilterButton.setOnClickListener(v -> showSupplierFilterView());
         orderButton.setOnClickListener(v -> showOrderView());
@@ -120,15 +141,13 @@ public class SearchFragment extends Fragment {
                     }
                 }
 
-                //ausgewähöte Kategorien abspeichern
+                //ausgewählte Kategorien abspeichern
                 customerMainViewModel.selectedCategoryFilters.setValue(selectedCategories);
 
                 //Suche ausführen
                 performSearch();
             }
         });
-
-        binding.categoryFilterChip.setChecked(false);
 
         //Für jede Kategorie Checkbox hinzufügen
         for (Category category : categories) {
@@ -138,9 +157,6 @@ public class SearchFragment extends Fragment {
 
             if (customerMainViewModel.selectedCategoryFilters.getValue().contains(category.name)) {
                 checkBox.setChecked(true);
-            }
-            else {
-                binding.categoryFilterChip.setChecked(true);
             }
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -194,8 +210,6 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        binding.supplierFilterChip.setChecked(false);
-
         //Für jede Kategorie Checkbox hinzufügen
         for (Supplier supplier : suppliers) {
             Context context = getActivity();
@@ -204,9 +218,6 @@ public class SearchFragment extends Fragment {
 
             if (customerMainViewModel.selectedSupplierFilters.getValue().contains(supplier.name)) {
                 checkBox.setChecked(true);
-            }
-            else {
-                binding.supplierFilterChip.setChecked(true);
             }
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(

@@ -1,7 +1,5 @@
 package com.example.blink.ui.home;
 
-import static androidx.navigation.Navigation.findNavController;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -20,24 +18,30 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.blink.CustomerMainViewModel;
 import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Category;
 import com.example.blink.database.entities.Product;
 import com.example.blink.databinding.FragmentHomeBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+    private CustomerMainViewModel customerMainViewModel;
 
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        customerMainViewModel = new ViewModelProvider(getActivity()).get(CustomerMainViewModel.class);
 
         AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
         List<Category> categories = db.categoryDao().GetAll();
@@ -49,11 +53,10 @@ public class HomeFragment extends Fragment {
         List<Product> products = db.productDao().GetAll();
 
         for (int i = 0; i  < products.size(); i++) {
-            if (i % 23 == 1) {
+            if (i % 23 == 3) {
                 addProductView(products.get(i));
             }
         }
-
 
         initializeCategoriesGrid();
 
@@ -67,8 +70,6 @@ public class HomeFragment extends Fragment {
     }
 
     public void launchProductDetails(View v) {
-        NavController navController = findNavController(v);
-
         TextView priceTextView = v.findViewById(R.id.priceTextView);
         TextView supplierTextView = v.findViewById(R.id.supplierTextView);
         TextView productTextView = v.findViewById(R.id.nameTextView);
@@ -81,7 +82,20 @@ public class HomeFragment extends Fragment {
         bundle.putString("supplierName", supplierName);
         bundle.putString("price", price);
 
+        NavController navController = NavHostFragment.findNavController(this);
         navController.navigate(R.id.action_navigation_home_to_productDetailsFragment, bundle);
+    }
+
+    private void launchCategoryDetails(String categoryName){
+        Log.d("test", categoryName);
+        ArrayList<String> selectedCategories = new ArrayList<String>();
+        selectedCategories.add(categoryName);
+        customerMainViewModel.selectedCategoryFilters.setValue(selectedCategories);
+
+        NavController navController = NavHostFragment.findNavController(this);
+        navController.navigate(R.id.action_navigation_home_to_navigation_search, null, new NavOptions.Builder()
+                .setPopUpTo(R.id.navigation_home, true)
+                .build());
     }
 
     private void initializeCategoriesGrid() {
@@ -116,8 +130,6 @@ public class HomeFragment extends Fragment {
         );
         gridParams.height = GridLayout.LayoutParams.WRAP_CONTENT;
 
-
-
         categoryView.setLayoutParams(gridParams);
         categoriesGridLayout.addView(categoryView);
 
@@ -129,10 +141,6 @@ public class HomeFragment extends Fragment {
                 launchCategoryDetails(categoryName);
             }
         });
-    }
-
-    private void launchCategoryDetails(String categoryName){
-        Log.d("test", categoryName);
     }
 
     private void addProductView(Product product) {

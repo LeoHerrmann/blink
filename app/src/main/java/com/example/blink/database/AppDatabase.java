@@ -48,7 +48,8 @@ public abstract class AppDatabase extends RoomDatabase {
                                         new Category("Käse"),
                                         new Category("Kaffee"),
                                         new Category("Tee"),
-                                        new Category("Nudeln & Reis")
+                                        new Category("Nudeln & Reis"),
+                                        new Category("Ponies")
                                 );
 
                                 List<Supplier> suppliers = Arrays.asList(
@@ -62,6 +63,8 @@ public abstract class AppDatabase extends RoomDatabase {
                                 );
 
                                 List<Product> products = Arrays.asList(
+                                        new Product("Rotes Pony", 20000, "Ponies", "Rewe"),
+                                        new Product("Langhaariges Pony", 25000, "Ponies", "Rewe"),
                                         new Product("Kräuter-Baguette", 0.28, "Brot & Brötchen", "Aldi Süd"),
                                         new Product("Kräuter-Baguette", 0.28, "Brot & Brötchen", "Aldi Nord"),
                                         new Product("Kräuter-Baguette", 0.34, "Brot & Brötchen", "Lidl"),
