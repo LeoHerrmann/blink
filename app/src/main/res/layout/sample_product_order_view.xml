@@ -1,0 +1,53 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="24dp"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:gravity="center_vertical"
+        android:text="@string/sortOrder"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/checkboxContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <RadioButton
+            android:id="@+id/radioNameAZ"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/NameAZ"/>
+
+        <RadioButton
+            android:id="@+id/radioNameZA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/NameZA"/>
+
+        <RadioButton
+            android:id="@+id/radioPrice09"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Price09"/>
+
+        <RadioButton
+            android:id="@+id/radioPrice90"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Price90"/>
+
+    </RadioGroup>
+
+</LinearLayout>

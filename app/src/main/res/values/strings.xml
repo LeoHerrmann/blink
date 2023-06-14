@@ -43,7 +43,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Category">Kategorie</string>
-    <string name="SortingAZ">Sortierung: A-Z</string>
     <string name="Supplier">Anbieter</string>
     <string name="suppliers">Anbieter</string>
+    <string name="sortOrder">Sortierung</string>
+    <string name="NameAZ">Produktname A-Z</string>
+    <string name="NameZA">Produktname Z-A</string>
+    <string name="Price09">Preis 0-9</string>
+    <string name="Price90">Preis 9-0</string>
+    <string name="SortingAZ">Sortierung: Name A-Z</string>
+    <string name="Sorting90">Sortierung: Preis 9-0</string>
+    <string name="Sorting09">Sortierung: Preis 0-9</string>
+    <string name="SortingZA">Sortierung: Name Z-A</string>
 </resources>

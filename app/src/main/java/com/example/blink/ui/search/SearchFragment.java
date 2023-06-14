@@ -8,19 +8,21 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.blink.CustomerMain;
+import com.example.blink.CustomerMainViewModel;
 import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Category;
@@ -59,8 +61,9 @@ public class SearchFragment extends Fragment {
 
         performSearch();
 
-        setupCategoryFilter();
-        setupSupplierFilter();
+        setupOrderDialog();
+        setupCategoryFilterDialog();
+        setupSupplierFilterDialog();
         return root;
     }
 
@@ -81,7 +84,18 @@ public class SearchFragment extends Fragment {
         }
     }
 
-    private void setupSupplierFilter() {
+    private void setupCategoryFilterDialog() {
+        Chip categoryFilterButton = binding.categoryFilterChip;
+
+        categoryFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCategoryFilterView();
+            }}
+        );
+    }
+
+    private void setupSupplierFilterDialog() {
         Chip supplierFilterButton = binding.supplierFilterChip;
 
         supplierFilterButton.setOnClickListener(new View.OnClickListener() {
@@ -92,15 +106,15 @@ public class SearchFragment extends Fragment {
         );
     }
 
-    private void setupCategoryFilter() {
-        Chip categoryFilterButton = binding.categoryFilterChip;
+    private void setupOrderDialog() {
+        Chip orderButton = binding.orderChip;
 
-        categoryFilterButton.setOnClickListener(new View.OnClickListener() {
+        orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCategoryFilterView();
-            }}
-        );
+                showOrderView();
+            }
+        });
     }
 
     private void showCategoryFilterView() {
@@ -211,6 +225,77 @@ public class SearchFragment extends Fragment {
             LinearLayout checkboxContainer = bottomSheetDialog.findViewById(R.id.checkboxContainer);
             checkboxContainer.addView(checkBox, layoutParams);
         }
+
+        bottomSheetDialog.show();
+    }
+
+    private void showOrderView() {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+        bottomSheetDialog.setContentView(R.layout.sample_product_order_view);
+
+        bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                //TODO: auslagern :D
+                //herausfinden, welcher Radiobutton ausgewählt ist
+                RadioGroup checkboxContainer = bottomSheetDialog.findViewById(R.id.checkboxContainer);
+                int childElementCount = checkboxContainer.getChildCount();
+
+                String selectedOrder = "NameAZ";
+
+                for (int i = 0; i < childElementCount; i++) {
+                    View childElement = checkboxContainer.getChildAt(i);
+
+                    if (childElement instanceof RadioButton) {
+                        RadioButton childAsRadioButton = (RadioButton) childElement;
+                        if (childAsRadioButton.isChecked()) {
+                            if (childAsRadioButton.getId() == R.id.radioNameAZ) {
+                                selectedOrder = "NameAZ";
+                                binding.orderChip.setText(R.string.SortingAZ);
+                            }
+                            else if (childAsRadioButton.getId() == R.id.radioNameZA) {
+                                selectedOrder = "NameZA";
+                                binding.orderChip.setText(R.string.SortingZA);
+                            }
+                            else if (childAsRadioButton.getId() == R.id.radioPrice09) {
+                                selectedOrder = "Price09";
+                                binding.orderChip.setText(R.string.Sorting09);
+                            }
+                            else if (childAsRadioButton.getId() == R.id.radioPrice90) {
+                                selectedOrder = "Price90";
+                                binding.orderChip.setText(R.string.Sorting90);
+                            }
+                        }
+                    }
+                }
+
+                //ausgewähöte Kategorien abspeichern
+                customerMainViewModel.selectedSortOrder.setValue(selectedOrder);
+
+                //Suche ausführen
+                performSearch();
+            }
+        });
+
+        //Richtigen Radio-Button auswählen
+
+        String selectedOrder = customerMainViewModel.selectedSortOrder.getValue();
+        RadioButton radiotoSelect;
+
+        if (selectedOrder == "NameZA") {
+            radiotoSelect = bottomSheetDialog.findViewById(R.id.radioNameZA);
+        }
+        else if (selectedOrder == "Price09") {
+            radiotoSelect = bottomSheetDialog.findViewById(R.id.radioPrice09);
+        }
+        else if (selectedOrder == "Price90") {
+            radiotoSelect = bottomSheetDialog.findViewById(R.id.radioPrice90);
+        }
+        else {
+            radiotoSelect = bottomSheetDialog.findViewById(R.id.radioNameAZ);
+        }
+
+        radiotoSelect.setChecked(true);
 
         bottomSheetDialog.show();
     }

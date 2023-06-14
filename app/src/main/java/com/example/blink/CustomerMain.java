@@ -16,8 +16,6 @@ import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Category;
 import com.example.blink.database.entities.Supplier;
 import com.example.blink.databinding.ActivityCustomerMainBinding;
-import com.example.blink.ui.search.CustomerMainViewModel;
-import com.example.blink.ui.search.SearchFragment;
 
 import java.util.ArrayList;
 import java.util.List;
