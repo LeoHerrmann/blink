@@ -26,6 +26,9 @@ public interface ProductDao {
     )
     List<Product> GetWithNameLike(String searchString, String order, List<String> categories, List<String> suppliers);
 
+    @Query("Select productId FROM Product WHERE name = :name AND price = :price AND supplierName = :supplierName")
+    Integer GetProductId(String name, double price, String supplierName);
+
     @Insert
     void Insert(List<Product> products);
 }
