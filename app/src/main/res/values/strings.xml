@@ -57,4 +57,6 @@
     <string name="count">Anzahl</string>
     <string name="added_to_cart">Hinzugefügt</string>
     <string name="remove">Entfernen</string>
+    <string name="orders">Bestellungen</string>
+    <string name="products">Produkte</string>
 </resources>

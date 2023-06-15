@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/providerProductsFragment"
+        android:icon="@drawable/baseline_dashboard_customize_24"
+        android:title="@string/products" />
+
+    <item
+        android:id="@+id/providerOrdersFragment"
+        android:icon="@drawable/baseline_storefront_24"
+        android:title="@string/orders" />
+
+</menu>
