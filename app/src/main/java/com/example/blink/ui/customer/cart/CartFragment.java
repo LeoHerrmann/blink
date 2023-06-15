@@ -1,4 +1,4 @@
-package com.example.blink.ui.cart;
+package com.example.blink.ui.customer.cart;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,19 +15,19 @@ import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.CartItem;
 import com.example.blink.database.entities.Product;
-import com.example.blink.databinding.FragmentCartBinding;
+import com.example.blink.databinding.FragmentCustomerCartBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CartFragment extends Fragment {
 
-    private FragmentCartBinding binding;
+    private FragmentCustomerCartBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentCartBinding.inflate(inflater, container, false);
+        binding = FragmentCustomerCartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         AppDatabase db = AppDatabase.getInstance(getActivity().getApplicationContext());
