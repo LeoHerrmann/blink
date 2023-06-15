@@ -1,4 +1,4 @@
-package com.example.blink.ui.search;
+package com.example.blink.ui.customer.search;
 
 import static androidx.navigation.Navigation.findNavController;
 
@@ -21,13 +21,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.blink.CustomerMainViewModel;
+import com.example.blink.ui.customer.CustomerActivityViewModel;
 import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Category;
 import com.example.blink.database.entities.Product;
 import com.example.blink.database.entities.Supplier;
-import com.example.blink.databinding.FragmentSearchBinding;
+import com.example.blink.databinding.FragmentCustomerSearchBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.chip.Chip;
 
@@ -36,23 +36,23 @@ import java.util.List;
 
 public class SearchFragment extends Fragment {
 
-    private FragmentSearchBinding binding;
+    private FragmentCustomerSearchBinding binding;
 
-    private CustomerMainViewModel customerMainViewModel;
+    private CustomerActivityViewModel customerMainViewModel;
 
     private List<Category> categories;
     private List<Supplier> suppliers;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentSearchBinding.inflate(inflater, container, false);
+        binding = FragmentCustomerSearchBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         AppDatabase db = AppDatabase.getInstance(getActivity().getApplicationContext());
         categories = db.categoryDao().GetAll();
         suppliers = db.supplierDao().GetAll();
 
-        customerMainViewModel = new ViewModelProvider(getActivity()).get(CustomerMainViewModel.class);
+        customerMainViewModel = new ViewModelProvider(getActivity()).get(CustomerActivityViewModel.class);
 
         initSearchBar();
         setupDialogs();

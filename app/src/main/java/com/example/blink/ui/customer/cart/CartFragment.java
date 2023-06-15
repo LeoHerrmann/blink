@@ -1,4 +1,4 @@
-package com.example.blink.ui.cart;
+package com.example.blink.ui.customer.cart;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,18 +9,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.blink.databinding.FragmentCartBinding;
+import com.example.blink.databinding.FragmentCustomerCartBinding;
 
 public class CartFragment extends Fragment {
 
-    private FragmentCartBinding binding;
+    private FragmentCustomerCartBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         CartViewModel cartViewModel =
                 new ViewModelProvider(this).get(CartViewModel.class);
 
-        binding = FragmentCartBinding.inflate(inflater, container, false);
+        binding = FragmentCustomerCartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         return root;

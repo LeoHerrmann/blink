@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/providerProductsFragment"
-        android:name="com.example.blink.ProviderProductsFragment"
+        android:name="com.example.blink.ui.provider.ProviderProductsFragment"
         android:label="@string/products"
         tools:layout="@layout/fragment_provider_products" />
 
     <fragment
         android:id="@+id/providerOrdersFragment"
-        android:name="com.example.blink.ProviderOrdersFragment"
+        android:name="com.example.blink.ui.provider.ProviderOrdersFragment"
         android:label="@string/orders"
         tools:layout="@layout/fragment_provider_orders" />
 </navigation>

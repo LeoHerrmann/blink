@@ -1,4 +1,4 @@
-package com.example.blink.ui.productDetails;
+package com.example.blink.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

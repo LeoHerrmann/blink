@@ -1,4 +1,4 @@
-package com.example.blink.ui.profile;
+package com.example.blink.ui.customer.profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,18 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.blink.databinding.FragmentProfileBinding;
+import com.example.blink.databinding.FragmentCustomerProfileBinding;
 
 public class ProfileFragment extends Fragment {
 
-    private FragmentProfileBinding binding;
+    private FragmentCustomerProfileBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         ProfileViewModel profileViewModel =
                 new ViewModelProvider(this).get(ProfileViewModel.class);
 
-        binding = FragmentProfileBinding.inflate(inflater, container, false);
+        binding = FragmentCustomerProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textNotifications;

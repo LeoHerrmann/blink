@@ -1,4 +1,4 @@
-package com.example.blink.ui.home;
+package com.example.blink.ui.customer.home;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -21,27 +21,27 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.blink.CustomerMainViewModel;
+import com.example.blink.ui.customer.CustomerActivityViewModel;
 import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Category;
 import com.example.blink.database.entities.Product;
-import com.example.blink.databinding.FragmentHomeBinding;
+import com.example.blink.databinding.FragmentCustomerHomeBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private FragmentCustomerHomeBinding binding;
 
-    private CustomerMainViewModel customerMainViewModel;
+    private CustomerActivityViewModel customerMainViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentCustomerHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        customerMainViewModel = new ViewModelProvider(getActivity()).get(CustomerMainViewModel.class);
+        customerMainViewModel = new ViewModelProvider(getActivity()).get(CustomerActivityViewModel.class);
 
         AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
         List<Category> categories = db.categoryDao().GetAll();

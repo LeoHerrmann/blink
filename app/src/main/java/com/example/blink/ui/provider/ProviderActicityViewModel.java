@@ -1,10 +1,8 @@
-package com.example.blink;
+package com.example.blink.ui.provider;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.ArrayList;
-
-public class ProviderMainViewModel extends ViewModel {
+public class ProviderActicityViewModel extends ViewModel {
     public MutableLiveData<String> providerName = new MutableLiveData<>();
 }

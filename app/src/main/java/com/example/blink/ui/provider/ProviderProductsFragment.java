@@ -1,4 +1,4 @@
-package com.example.blink;
+package com.example.blink.ui.provider;
 
 import android.os.Bundle;
 
@@ -10,13 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.blink.databinding.FragmentProviderProductsBinding;
-import com.example.blink.databinding.FragmentSearchBinding;
 
 public class ProviderProductsFragment extends Fragment {
 
     FragmentProviderProductsBinding binding;
 
-    ProviderMainViewModel viewModel;
+    ProviderActicityViewModel viewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -25,7 +24,7 @@ public class ProviderProductsFragment extends Fragment {
         binding = FragmentProviderProductsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        viewModel = new ViewModelProvider(getActivity()).get(ProviderMainViewModel.class);
+        viewModel = new ViewModelProvider(getActivity()).get(ProviderActicityViewModel.class);
         String providerName = viewModel.providerName.getValue();
         binding.textView.setText("Hallo " + providerName);
 

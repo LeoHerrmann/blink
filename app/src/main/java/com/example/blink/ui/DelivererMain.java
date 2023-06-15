@@ -1,8 +1,10 @@
-package com.example.blink;
+package com.example.blink.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.blink.R;
 
 public class DelivererMain extends AppCompatActivity {
 

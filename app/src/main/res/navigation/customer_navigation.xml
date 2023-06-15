@@ -8,21 +8,21 @@
 
     <fragment
         android:id="@+id/navigation_cart"
-        android:name="com.example.blink.ui.cart.CartFragment"
+        android:name="com.example.blink.ui.customer.cart.CartFragment"
         android:label="@string/title_cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_customer_cart" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.blink.ui.profile.ProfileFragment"
+        android:name="com.example.blink.ui.customer.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_customer_profile" />
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.blink.ui.home.HomeFragment"
+        android:name="com.example.blink.ui.customer.home.HomeFragment"
         android:label="Start"
-        tools:layout="@layout/fragment_home">
+        tools:layout="@layout/fragment_customer_home">
         <action
             android:id="@+id/action_navigation_home_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment"
@@ -37,14 +37,14 @@
 
     <fragment
         android:id="@+id/productDetailsFragment"
-        android:name="com.example.blink.ui.productDetails.ProductDetailsFragment"
+        android:name="com.example.blink.ui.ProductDetailsFragment"
         android:label="Produkt"
         tools:layout="@layout/fragment_product_details" />
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.example.blink.ui.search.SearchFragment"
+        android:name="com.example.blink.ui.customer.search.SearchFragment"
         android:label="@string/search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_customer_search" >
         <action
             android:id="@+id/action_navigation_search_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment"

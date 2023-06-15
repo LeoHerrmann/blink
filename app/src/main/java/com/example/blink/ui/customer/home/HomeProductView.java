@@ -1,4 +1,4 @@
-package com.example.blink;
+package com.example.blink.ui.customer.home;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,10 +10,12 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.example.blink.R;
+
 /**
  * TODO: document your custom view class.
  */
-public class CategoryFilterView extends View {
+public class HomeProductView extends View {
     private String mExampleString; // TODO: use a default from R.string...
     private int mExampleColor = Color.RED; // TODO: use a default from R.color...
     private float mExampleDimension = 0; // TODO: use a default from R.dimen...
@@ -23,17 +25,17 @@ public class CategoryFilterView extends View {
     private float mTextWidth;
     private float mTextHeight;
 
-    public CategoryFilterView(Context context) {
+    public HomeProductView(Context context) {
         super(context);
         init(null, 0);
     }
 
-    public CategoryFilterView(Context context, AttributeSet attrs) {
+    public HomeProductView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs, 0);
     }
 
-    public CategoryFilterView(Context context, AttributeSet attrs, int defStyle) {
+    public HomeProductView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(attrs, defStyle);
     }
@@ -41,22 +43,22 @@ public class CategoryFilterView extends View {
     private void init(AttributeSet attrs, int defStyle) {
         // Load attributes
         final TypedArray a = getContext().obtainStyledAttributes(
-                attrs, R.styleable.CategoryFilterView, defStyle, 0);
+                attrs, R.styleable.HomeProductView, defStyle, 0);
 
         mExampleString = a.getString(
-                R.styleable.CategoryFilterView_exampleString);
+                R.styleable.HomeProductView_example2String);
         mExampleColor = a.getColor(
-                R.styleable.CategoryFilterView_exampleColor,
+                R.styleable.HomeProductView_example2Color,
                 mExampleColor);
         // Use getDimensionPixelSize or getDimensionPixelOffset when dealing with
         // values that should fall on pixel boundaries.
         mExampleDimension = a.getDimension(
-                R.styleable.CategoryFilterView_exampleDimension,
+                R.styleable.HomeProductView_example2Dimension,
                 mExampleDimension);
 
-        if (a.hasValue(R.styleable.CategoryFilterView_exampleDrawable)) {
+        if (a.hasValue(R.styleable.HomeProductView_example2Drawable)) {
             mExampleDrawable = a.getDrawable(
-                    R.styleable.CategoryFilterView_exampleDrawable);
+                    R.styleable.HomeProductView_example2Drawable);
             mExampleDrawable.setCallback(this);
         }
 

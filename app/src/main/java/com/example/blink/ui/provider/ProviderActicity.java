@@ -1,4 +1,4 @@
-package com.example.blink;
+package com.example.blink.ui.provider;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,26 +10,26 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
-import com.example.blink.databinding.ActivityCustomerMainBinding;
-import com.example.blink.databinding.ActivityProviderMainBinding;
+import com.example.blink.R;
+import com.example.blink.databinding.ActivityProviderBinding;
 
-public class ProviderMain extends AppCompatActivity {
+public class ProviderActicity extends AppCompatActivity {
 
     public static final String usernameKey = "usernameKey";
 
-    private ActivityProviderMainBinding binding;
+    private ActivityProviderBinding binding;
 
-    private ProviderMainViewModel viewModel;
+    private ProviderActicityViewModel viewModel;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        viewModel = new ViewModelProvider(this).get(ProviderMainViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ProviderActicityViewModel.class);
         viewModel.providerName.setValue(getIntent().getStringExtra(usernameKey));
 
-        binding = ActivityProviderMainBinding.inflate(getLayoutInflater());
+        binding = ActivityProviderBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         Toolbar toolbar = findViewById(R.id.toolbar);

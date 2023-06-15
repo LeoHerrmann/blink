@@ -1,4 +1,4 @@
-package com.example.blink;
+package com.example.blink.ui.customer;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,21 +12,22 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Category;
 import com.example.blink.database.entities.Supplier;
-import com.example.blink.databinding.ActivityCustomerMainBinding;
+import com.example.blink.databinding.ActivityCustomerBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerMain extends AppCompatActivity {
+public class CustomerActicity extends AppCompatActivity {
 
-    private ActivityCustomerMainBinding binding;
+    private ActivityCustomerBinding binding;
 
     private NavController navController;
 
-    private CustomerMainViewModel viewModel;
+    private CustomerActivityViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +48,12 @@ public class CustomerMain extends AppCompatActivity {
             selectedSupplierFilters.add(supplier.name);
         }
 
-        viewModel = new ViewModelProvider(this).get(CustomerMainViewModel.class);
+        viewModel = new ViewModelProvider(this).get(CustomerActivityViewModel.class);
 
         viewModel.selectedCategoryFilters.setValue(selectedCategoryFilters);
         viewModel.selectedSupplierFilters.setValue(selectedSupplierFilters);
 
-        binding = ActivityCustomerMainBinding.inflate(getLayoutInflater());
+        binding = ActivityCustomerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
