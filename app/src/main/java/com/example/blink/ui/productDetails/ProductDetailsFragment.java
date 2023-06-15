@@ -1,6 +1,8 @@
 package com.example.blink.ui.productDetails;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -107,6 +110,18 @@ public class ProductDetailsFragment extends Fragment {
             db.cartItemDao().UpdateCartItem(existingCartItem);
         }
 
-    }
+        Button addToCartButton = binding.addToCartButton;
+
+
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                addToCartButton.setText(R.string.add_to_cart);
+            }
+        }, 2000);
+        addToCartButton.setText(R.string.added_to_cart);
+            }
 
 }

@@ -55,4 +55,5 @@
     <string name="Sorting09">Sortierung: Preis 0-9</string>
     <string name="SortingZA">Sortierung: Name Z-A</string>
     <string name="count">Anzahl</string>
+    <string name="added_to_cart">Hinzugefügt</string>
 </resources>
