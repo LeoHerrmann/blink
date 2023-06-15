@@ -13,7 +13,6 @@ public interface ProductDao {
     @Query("SELECT * FROM Product")
     List<Product> GetAll();
 
-
     @Query("SELECT * FROM Product WHERE" +
             " name LIKE '%' || :searchString || '%' AND " +
             "categoryName IN (:categories) AND " +
@@ -28,6 +27,9 @@ public interface ProductDao {
 
     @Query("Select productId FROM Product WHERE name = :name AND price = :price AND supplierName = :supplierName")
     Integer GetProductId(String name, double price, String supplierName);
+
+    @Query("SELECT * FROM Product WHERE productId IN (:productIds)")
+    List<Product> GetProductsWithIds(List<Integer> productIds);
 
     @Insert
     void Insert(List<Product> products);

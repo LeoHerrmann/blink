@@ -56,4 +56,5 @@
     <string name="SortingZA">Sortierung: Name Z-A</string>
     <string name="count">Anzahl</string>
     <string name="added_to_cart">Hinzugefügt</string>
+    <string name="remove">Entfernen</string>
 </resources>
