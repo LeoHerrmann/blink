@@ -13,17 +13,17 @@
         android:theme="@style/Theme.AppActivitys"
         tools:targetApi="31" >
         <activity
-            android:name=".CustomerMain"
+            android:name=".ui.customer.CustomerActicity"
             android:exported="false"
             android:label="@string/title_activity_customer_main" />
         <activity
-            android:name=".ProviderMain"
+            android:name=".ui.provider.ProviderActicity"
             android:exported="false" />
         <activity
-            android:name=".DelivererMain"
+            android:name=".ui.DelivererMain"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.LoginActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
