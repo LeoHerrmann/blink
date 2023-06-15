@@ -54,4 +54,5 @@
     <string name="Sorting90">Sortierung: Preis 9-0</string>
     <string name="Sorting09">Sortierung: Preis 0-9</string>
     <string name="SortingZA">Sortierung: Name Z-A</string>
+    <string name="count">Anzahl</string>
 </resources>

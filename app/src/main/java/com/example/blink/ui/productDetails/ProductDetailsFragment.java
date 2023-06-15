@@ -6,6 +6,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,11 +22,19 @@ public class ProductDetailsFragment extends Fragment {
 
     private FragmentProductDetailsBinding binding;
 
+    private static final String[] NUMBERS = new String[] {
+            "1", "2", "3", "4", "5"
+    };
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentProductDetailsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, NUMBERS);
+        AutoCompleteTextView textView = binding.autoCompleteTextView;
+        textView.setAdapter(adapter);
 
         return root;
     }
