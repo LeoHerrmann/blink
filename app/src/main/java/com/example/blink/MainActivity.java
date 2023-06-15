@@ -6,7 +6,13 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.blink.database.AppDatabase;
+import com.example.blink.database.entities.Category;
+import com.example.blink.database.entities.Supplier;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -21,10 +27,19 @@ public class MainActivity extends AppCompatActivity {
         TextInputLayout usernameInputLayout = findViewById(R.id.userNameInputLayout);
         String username = String.valueOf(usernameInputLayout.getEditText().getText());
 
+        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+        List<Supplier> suppliers = db.supplierDao().GetAll();
+        List<String> supplierNames = new ArrayList<>();
+
+        for (Supplier supplier : suppliers) {
+            supplierNames.add(supplier.name);
+        }
+
         Intent intent;
 
-        if (username.equals("provider")) {
+        if (supplierNames.contains(username)) {
             intent = new Intent(this, ProviderMain.class);
+            intent.putExtra(ProviderMain.usernameKey, username);
         }
 
         else if (username.equals("deliverer")) {

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/provider_navigation.xml"
+    app:startDestination="@id/providerProductsFragment">
+
+    <fragment
+        android:id="@+id/providerProductsFragment"
+        android:name="com.example.blink.ProviderProductsFragment"
+        android:label="@string/products"
+        tools:layout="@layout/fragment_provider_products" />
+
+    <fragment
+        android:id="@+id/providerOrdersFragment"
+        android:name="com.example.blink.ProviderOrdersFragment"
+        android:label="@string/orders"
+        tools:layout="@layout/fragment_provider_orders" />
+</navigation>
