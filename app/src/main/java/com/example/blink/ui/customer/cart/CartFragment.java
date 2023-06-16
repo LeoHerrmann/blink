@@ -1,11 +1,15 @@
 package com.example.blink.ui.customer.cart;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,9 +28,7 @@ public class CartFragment extends Fragment {
 
     private FragmentCustomerCartBinding binding;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCustomerCartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -40,6 +42,8 @@ public class CartFragment extends Fragment {
 
         List<Product> products = db.productDao().GetProductsWithIds(productIds);
 
+        double priceTotal = 0;
+
         for (CartItem cartItem : cartItems) {
             String name = "";
             String price = "";
@@ -48,8 +52,9 @@ public class CartFragment extends Fragment {
             for (Product product : products) {
                 if (product.productId == cartItem.productId) {
                     name = product.name;
-                    price = getPriceString(product.price);
+                    price = String.format("%.2f€", product.price);
                     supplier = product.supplierName;
+                    priceTotal = priceTotal + (product.price * cartItem.count);
                 }
             }
 
@@ -57,24 +62,30 @@ public class CartFragment extends Fragment {
             TextView nameTextView = cartItemView.findViewById(R.id.productName);
             TextView priceTextView = cartItemView.findViewById(R.id.productPrice);
             TextView supplierTextView = cartItemView.findViewById(R.id.productSupplier);
-            AutoCompleteTextView countInput = cartItemView.findViewById(R.id.countInput);
+            EditText countInput = cartItemView.findViewById(R.id.countInput);
 
             nameTextView.setText(name);
             priceTextView.setText(price);
             supplierTextView.setText(supplier);
-            countInput.setText(cartItem.count.toString());
 
-            ArrayList<String> NUMBERS = new ArrayList<>();
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, NUMBERS);
-            AutoCompleteTextView textView = countInput;
-            textView.setAdapter(adapter);
+            Handler handler = new Handler(Looper.getMainLooper());
 
-            for(Integer i = 1; i < cartItem.count*1.3 || i < 5; i++){
-                NUMBERS.add(i.toString());
-            }
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    countInput.setText(cartItem.count.toString());
+                }
+            }, 500);
 
             binding.mainContent.addView(cartItemView);
         }
+
+        binding.checkoutButton.setText(
+            getString(R.string.sum) +
+            String.format("%.2f€", priceTotal) +
+            " - " +
+            getString(R.string.checkout)
+        );
 
         return root;
     }
@@ -83,30 +94,5 @@ public class CartFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    private String getPriceString(double price) {
-        String priceString = String.valueOf(price);
-
-        if (priceString.contains(".")) {
-            // Wir trennen den String in zwei Teile: den Teil vor dem Punkt und den Teil danach
-            String[] teile = priceString.split("\\.");
-
-            // Überprüfen, ob der Teil nach dem Punkt weniger als zwei Stellen hat
-            if (teile[1].length() < 2) {
-                // Füge Nullen hinzu, um auf zwei Nachkommastellen zu kommen
-                teile[1] = teile[1] + "0";
-            }
-
-            // Verbinde die Teile wieder zu einem String
-            priceString = teile[0] + "." + teile[1];
-        } else {
-            // Wenn der String keinen Punkt enthält, fügen wir ".00" hinzu
-            priceString = priceString + ".00";
-        }
-
-        priceString += "€";
-
-        return priceString;
     }
 }

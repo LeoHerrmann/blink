@@ -64,4 +64,6 @@
     <string name="description">Beschreibung</string>
     <string name="add_product">Produkt hinzufügen</string>
     <string name="category">Kategorie</string>
+    <string name="checkout">Zur Kasse</string>
+    <string name="sum">"Summe: "</string>
 </resources>
