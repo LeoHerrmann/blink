@@ -59,4 +59,8 @@
     <string name="remove">Entfernen</string>
     <string name="orders">Bestellungen</string>
     <string name="products">Produkte</string>
+    <string name="productName">Produktname</string>
+    <string name="price">Preis</string>
+    <string name="description">Beschreibung</string>
+    <string name="add_product">Produkt hinzufügen</string>
 </resources>
