@@ -63,13 +63,11 @@ public class ProviderProductsFragment extends Fragment {
             View productView = getLayoutInflater().inflate(R.layout.sample_search_product_view, null);
             TextView nameTextView = productView.findViewById(R.id.nameTextView);
             TextView priceTextView = productView.findViewById(R.id.priceTextView);
-            TextView middleDotTextView = productView.findViewById(R.id.middleDotTextView);
             TextView supplierTextView = productView.findViewById(R.id.supplierTextView);
 
             nameTextView.setText(product.name);
             priceTextView.setText(getPriceString(product.price));
-            middleDotTextView.setText("");
-            supplierTextView.setText("");
+            supplierTextView.setText(product.categoryName);
             productView.setClickable(false);
 
             productContainer.addView(productView);
