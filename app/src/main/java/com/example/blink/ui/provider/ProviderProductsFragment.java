@@ -34,9 +34,20 @@ public class ProviderProductsFragment extends Fragment {
 
         viewModel = new ViewModelProvider(getActivity()).get(ProviderActicityViewModel.class);
 
+        setupFab();
         listProducts();
 
         return root;
+    }
+
+    private void setupFab() {
+        binding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = findNavController(v);
+                navController.navigate(R.id.action_providerProductsFragment_to_providerAddProduct);
+            }
+        });
     }
 
     private void listProducts() {

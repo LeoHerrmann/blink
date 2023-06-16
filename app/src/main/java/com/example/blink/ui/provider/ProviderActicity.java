@@ -43,4 +43,10 @@ public class ProviderActicity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_provider_main);
+        return navController.navigateUp() || super.onSupportNavigateUp();
+    }
 }
