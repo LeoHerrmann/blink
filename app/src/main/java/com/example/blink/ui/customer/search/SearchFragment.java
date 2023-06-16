@@ -371,8 +371,6 @@ public class SearchFragment extends Fragment {
     }
 
     private void launchProductDetails(View v) {
-        NavController navController = findNavController(v);
-
         TextView priceTextView = v.findViewById(R.id.priceTextView);
         TextView supplierTextView = v.findViewById(R.id.supplierTextView);
         TextView productTextView = v.findViewById(R.id.nameTextView);
@@ -386,6 +384,7 @@ public class SearchFragment extends Fragment {
         bundle.putString("price", price);
         bundle.putString("navigationOrigin", "search");
 
+        NavController navController = findNavController(v);
         navController.navigate(R.id.action_navigation_search_to_productDetailsFragment, bundle);
     }
 

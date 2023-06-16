@@ -111,7 +111,7 @@ public class ProductDetailsFragment extends Fragment {
         }
 
         Button addToCartButton = binding.addToCartButton;
-
+        addToCartButton.setText(R.string.added_to_cart);
 
         Handler handler = new Handler(Looper.getMainLooper());
 
@@ -121,7 +121,6 @@ public class ProductDetailsFragment extends Fragment {
                 addToCartButton.setText(R.string.add_to_cart);
             }
         }, 2000);
-        addToCartButton.setText(R.string.added_to_cart);
-            }
+    }
 
 }
