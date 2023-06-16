@@ -68,8 +68,7 @@ public class ProviderProductsFragment extends Fragment {
 
             nameTextView.setText(product.name);
             priceTextView.setText(getPriceString(product.price));
-            middleDotTextView.setText("");
-            supplierTextView.setText("");
+            supplierTextView.setText(product.categoryName);
             productView.setClickable(false);
 
             productContainer.addView(productView);
