@@ -49,6 +49,7 @@
                 android:text="12.99€ · Rehve" />
 
             <TextView
+                android:id="@+id/middleDotTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" · " />
