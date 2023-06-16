@@ -28,9 +28,7 @@ public class ProviderProductsFragment extends Fragment {
     ProviderActicityViewModel viewModel;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProviderProductsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
