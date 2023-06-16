@@ -1,64 +1,82 @@
 package com.example.blink;
 
+import static androidx.navigation.Navigation.findNavController;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProviderAddProduct#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.blink.database.AppDatabase;
+import com.example.blink.database.entities.Category;
+import com.example.blink.database.entities.Product;
+import com.example.blink.databinding.FragmentCustomerSearchBinding;
+import com.example.blink.databinding.FragmentProviderAddProductBinding;
+import com.example.blink.ui.customer.CustomerActivityViewModel;
+import com.example.blink.ui.provider.ProviderActicityViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProviderAddProduct extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ProviderAddProduct() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProviderAddProduct.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProviderAddProduct newInstance(String param1, String param2) {
-        ProviderAddProduct fragment = new ProviderAddProduct();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    FragmentProviderAddProductBinding binding;
+    ProviderActicityViewModel viewModel;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentProviderAddProductBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+        viewModel = new ViewModelProvider(getActivity()).get(ProviderActicityViewModel.class);
+
+        setupCategoryInput();
+        setupAddProductButton();
+
+        return root;
+    }
+
+    private void setupCategoryInput() {
+        AppDatabase db = AppDatabase.getInstance(getActivity().getApplicationContext());
+        List<Category> categories = db.categoryDao().GetAll();
+        List<String> categoryNames = new ArrayList<>();
+
+        for (Category category : categories) {
+            categoryNames.add(category.name);
         }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, categoryNames);
+        AutoCompleteTextView textView = binding.categoryInput;
+        textView.setAdapter(adapter);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_provider_add_product, container, false);
+    private void setupAddProductButton() {
+        binding.addProductButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = binding.productNameInput.getText().toString();
+                Double price = Double.valueOf(binding.productPriceInput.getText().toString());
+                String categoryName = binding.categoryInput.getText().toString();
+                String supplierName = viewModel.providerName.getValue();
+
+                Product newProduct = new Product(name, price, categoryName, supplierName);
+
+                AppDatabase db = AppDatabase.getInstance(getActivity().getApplicationContext());
+                db.productDao().Insert(newProduct);
+
+                NavController navController = findNavController(v);
+                navController.navigate(R.id.action_providerAddProduct_to_providerProductsFragment, null, new NavOptions.Builder()
+                        .setPopUpTo(R.id.providerProductsFragment, true)
+                        .build());
+            }
+        });
     }
 }

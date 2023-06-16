@@ -63,4 +63,5 @@
     <string name="price">Preis</string>
     <string name="description">Beschreibung</string>
     <string name="add_product">Produkt hinzufügen</string>
+    <string name="category">Kategorie</string>
 </resources>

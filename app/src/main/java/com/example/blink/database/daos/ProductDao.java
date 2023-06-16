@@ -36,5 +36,8 @@ public interface ProductDao {
 
     @Insert
     void Insert(List<Product> products);
+
+    @Insert
+    void Insert(Product product);
 }
 
