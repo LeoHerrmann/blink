@@ -69,11 +69,6 @@ public abstract class AppDatabase extends RoomDatabase {
                                         new Product("Langhaariges Pony", 25000, "Ponies", "Rewe"),
                                         new Product("Pferdefleischlasagne", 6.99, "Ponies", "Rewe"),
                                         new Product("Pony mit Sitzheizung", 40000, "Ponies", "Rewe"),
-                                        new Product("Kräuter-Baguette", 0.28, "Brot & Brötchen", "Aldi Süd"),
-                                        new Product("Kräuter-Baguette", 0.28, "Brot & Brötchen", "Aldi Nord"),
-                                        new Product("Kräuter-Baguette", 0.34, "Brot & Brötchen", "Lidl"),
-                                        new Product("Kräuter-Baguette", 0.34, "Brot & Brötchen", "Rewe"),
-                                        new Product("Kräuter-Baguette", 0.34, "Brot & Brötchen", "Edeka"),
                                         new Product("Milchbrötchen", 0.27, "Brot & Brötchen", "Aldi Süd"),
                                         new Product("Milchbrötchen", 0.27, "Brot & Brötchen", "Aldi Nord"),
                                         new Product("Milchbrötchen", 0.27, "Brot & Brötchen", "Lidl"),
@@ -279,6 +274,11 @@ public abstract class AppDatabase extends RoomDatabase {
                                         new Product("Reis", 0.98, "Nudeln & Reis", "Netto"),
                                         new Product("Milchreis", 1.4, "Nudeln & Reis", "Aldi Süd"),
                                         new Product("Milchreis", 1.0, "Nudeln & Reis", "Aldi Nord"),
+                                        new Product("Kräuter-Baguette", 0.28, "Brot & Brötchen", "Aldi Süd"),
+                                        new Product("Kräuter-Baguette", 0.28, "Brot & Brötchen", "Aldi Nord"),
+                                        new Product("Kräuter-Baguette", 0.34, "Brot & Brötchen", "Lidl"),
+                                        new Product("Kräuter-Baguette", 0.34, "Brot & Brötchen", "Rewe"),
+                                        new Product("Kräuter-Baguette", 0.34, "Brot & Brötchen", "Edeka"),
                                         new Product("Milchreis", 1.2, "Nudeln & Reis", "Rewe")
                                 );
 

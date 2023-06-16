@@ -40,7 +40,7 @@ public class CartFragment extends Fragment {
             productIds.add(cartItem.productId);
         }
 
-        List<Product> products = db.productDao().GetProductsWithIds(productIds);
+        List<Product> products = db.productDao().GetAll();
 
         double priceTotal = 0;
 
@@ -50,7 +50,7 @@ public class CartFragment extends Fragment {
             String supplier = "";
 
             for (Product product : products) {
-                if (product.productId == cartItem.productId) {
+                if( product.productId == cartItem.cartItemId) {
                     name = product.name;
                     price = String.format("%.2f€", product.price);
                     supplier = product.supplierName;

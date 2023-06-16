@@ -66,4 +66,5 @@
     <string name="category">Kategorie</string>
     <string name="checkout">Zur Kasse</string>
     <string name="sum">"Summe: "</string>
+    <string name="remove_from_cart">remove_from_cart</string>
 </resources>
