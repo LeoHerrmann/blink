@@ -2,8 +2,10 @@ package com.example.blink.ui.provider;
 
 import static androidx.navigation.Navigation.findNavController;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -11,6 +13,7 @@ import androidx.navigation.NavController;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +21,7 @@ import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Product;
 import com.example.blink.databinding.FragmentProviderProductsBinding;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 
@@ -34,14 +38,14 @@ public class ProviderProductsFragment extends Fragment {
 
         viewModel = new ViewModelProvider(getActivity()).get(ProviderActicityViewModel.class);
 
-        setupFab();
+        setupNewProductButton();
         listProducts();
 
         return root;
     }
 
-    private void setupFab() {
-        binding.fab.setOnClickListener(new View.OnClickListener() {
+    private void setupNewProductButton() {
+        binding.newProductButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 NavController navController = findNavController(v);
@@ -60,42 +64,63 @@ public class ProviderProductsFragment extends Fragment {
         productContainer.removeAllViews();
 
         for (Product product : products) {
-            View productView = getLayoutInflater().inflate(R.layout.sample_search_product_view, null);
+            View productView = getLayoutInflater().inflate(R.layout.sample_provider_products_product_view, null);
             TextView nameTextView = productView.findViewById(R.id.nameTextView);
             TextView priceTextView = productView.findViewById(R.id.priceTextView);
-            TextView supplierTextView = productView.findViewById(R.id.supplierTextView);
+            TextView categoryTextView = productView.findViewById(R.id.categoryTextView);
+            ImageButton deleteButton = productView.findViewById(R.id.deleteButton);
 
             nameTextView.setText(product.name);
-            priceTextView.setText(getPriceString(product.price));
-            supplierTextView.setText(product.categoryName);
-            productView.setClickable(false);
+            priceTextView.setText(String.format("%.2f€", product.price));
+            categoryTextView.setText(product.categoryName);
+
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                   openConfirmDeleteDialog(view);
+                }
+            });
 
             productContainer.addView(productView);
         }
     }
 
-    private String getPriceString(double price) {
-        String priceString = String.valueOf(price);
+    private void openConfirmDeleteDialog(View view) {
+        View productView = (View) view.getParent();
+        TextView nameTextView = productView.findViewById(R.id.nameTextView);
+        TextView priceTextView = productView.findViewById(R.id.priceTextView);
 
-        if (priceString.contains(".")) {
-            // Wir trennen den String in zwei Teile: den Teil vor dem Punkt und den Teil danach
-            String[] teile = priceString.split("\\.");
+        String name = nameTextView.getText().toString();
+        String price = priceTextView.getText().toString();
+        String priceWithoutEuro = price.substring(0, price.length() - 1);
+        String supplier = viewModel.providerName.getValue();
 
-            // Überprüfen, ob der Teil nach dem Punkt weniger als zwei Stellen hat
-            if (teile[1].length() < 2) {
-                // Füge Nullen hinzu, um auf zwei Nachkommastellen zu kommen
-                teile[1] = teile[1] + "0";
-            }
+        AppDatabase db = AppDatabase.getInstance(getActivity().getApplicationContext());
+        Integer productId = db.productDao().GetProductId(name, Double.parseDouble(priceWithoutEuro), supplier);
 
-            // Verbinde die Teile wieder zu einem String
-            priceString = teile[0] + "." + teile[1];
-        } else {
-            // Wenn der String keinen Punkt enthält, fügen wir ".00" hinzu
-            priceString = priceString + ".00";
-        }
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
+        builder.setMessage("Sind sie sicher, dass sie das Produkt '" + name + "' löschen möchten?")
+                .setTitle(R.string.delete_product)
+                .setPositiveButton(R.string.delete_product, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteProduct(productId);
+                        listProducts();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-        priceString += "€";
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
-        return priceString;
+    private void deleteProduct(Integer productId) {
+        AppDatabase db = AppDatabase.getInstance(getActivity().getApplicationContext());
+        db.productDao().Delete(productId);
+        db.cartItemDao().DeleteByProductId(productId);
     }
 }

@@ -27,11 +27,24 @@
 
     <fragment
         android:id="@+id/providerAddProduct"
-        android:name="com.example.blink.ProviderAddProduct"
+        android:name="com.example.blink.ui.provider.ProviderAddProductFragment"
         android:label="Neues Produkt"
         tools:layout="@layout/fragment_provider_add_product" >
         <action
-            android:id="@+id/action_providerAddProduct_to_providerProductsFragment"
+            android:id="@+id/action_providerAddProduct_to_productAddedFragment"
+            app:destination="@id/productAddedFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/productAddedFragment"
+        android:name="com.example.blink.ui.provider.providerProductAddedFragment"
+        android:label="@string/product_added"
+        tools:layout="@layout/fragment_provider_product_added">
+        <action
+            android:id="@+id/action_productAddedFragment_to_providerProductsFragment"
             app:destination="@id/providerProductsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"

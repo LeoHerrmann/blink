@@ -52,6 +52,7 @@ public class CustomerActicity extends AppCompatActivity {
 
         viewModel.selectedCategoryFilters.setValue(selectedCategoryFilters);
         viewModel.selectedSupplierFilters.setValue(selectedSupplierFilters);
+        viewModel.selectedSortOrder.setValue("NameAZ");
 
         binding = ActivityCustomerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

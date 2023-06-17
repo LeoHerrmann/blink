@@ -17,18 +17,18 @@ public interface CartItemDao {
     CartItem GetByProductId(Integer productId);
 
     @Query("DELETE FROM CartItem WHERE cartItemId = :cartItemId")
-    void deleteCartItem(Integer cartItemId);
+    void DeleteCartItem(Integer cartItemId);
 
+    @Query("DELETE FROM CartItem WHERE productId = :productId")
+    void DeleteByProductId(Integer productId);
 
     @Query("UPDATE CartItem SET count = :count WHERE cartItemId = :cartItemId")
-    void updateCount(Integer cartItemId, Integer count);
+    void UpdateCount(Integer cartItemId, Integer count);
 
     @Update
     void UpdateCartItem(CartItem cartItem);
 
     @Insert
     void Insert(CartItem cartItem);
-
-
 }
 
