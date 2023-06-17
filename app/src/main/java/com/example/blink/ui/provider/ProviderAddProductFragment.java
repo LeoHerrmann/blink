@@ -7,8 +7,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.NavOptions;
-import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,15 +18,12 @@ import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Category;
 import com.example.blink.database.entities.Product;
-import com.example.blink.databinding.FragmentCustomerSearchBinding;
 import com.example.blink.databinding.FragmentProviderAddProductBinding;
-import com.example.blink.ui.customer.CustomerActivityViewModel;
-import com.example.blink.ui.provider.ProviderActicityViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProviderAddProduct extends Fragment {
+public class ProviderAddProductFragment extends Fragment {
     FragmentProviderAddProductBinding binding;
     ProviderActicityViewModel viewModel;
 
@@ -54,7 +49,7 @@ public class ProviderAddProduct extends Fragment {
             categoryNames.add(category.name);
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, categoryNames);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, categoryNames);
         AutoCompleteTextView textView = binding.categoryInput;
         textView.setAdapter(adapter);
     }
@@ -80,9 +75,7 @@ public class ProviderAddProduct extends Fragment {
                 db.productDao().Insert(newProduct);
 
                 NavController navController = findNavController(v);
-                navController.navigate(R.id.action_providerAddProduct_to_providerProductsFragment, null, new NavOptions.Builder()
-                        .setPopUpTo(R.id.providerProductsFragment, true)
-                        .build());
+                navController.navigate(R.id.action_providerAddProduct_to_productAddedFragment);
             }
         });
     }

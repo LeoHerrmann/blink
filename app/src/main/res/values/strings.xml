@@ -48,11 +48,11 @@
     <string name="sortOrder">Sortierung</string>
     <string name="NameAZ">Produktname A-Z</string>
     <string name="NameZA">Produktname Z-A</string>
-    <string name="Price09">Preis 0-9</string>
-    <string name="Price90">Preis 9-0</string>
+    <string name="Price09">Preis 0–9</string>
+    <string name="Price90">Preis 9–0</string>
     <string name="SortingAZ">Sortierung: Name A-Z</string>
-    <string name="Sorting90">Sortierung: Preis 9-0</string>
-    <string name="Sorting09">Sortierung: Preis 0-9</string>
+    <string name="Sorting90">Sortierung: Preis 9–0</string>
+    <string name="Sorting09">Sortierung: Preis 0–9</string>
     <string name="SortingZA">Sortierung: Name Z-A</string>
     <string name="count">Anzahl</string>
     <string name="added_to_cart">Hinzugefügt</string>
@@ -67,4 +67,7 @@
     <string name="checkout">Zur Kasse</string>
     <string name="sum">"Summe: "</string>
     <string name="remove_from_cart">remove_from_cart</string>
+    <string name="product_added">Produkt hinzugefügt</string>
+    <string name="your_product_was_added">Ihr Produkt wurde hinzugefügt.</string>
+    <string name="back_to_products">Zurück zu den Produkten</string>
 </resources>
