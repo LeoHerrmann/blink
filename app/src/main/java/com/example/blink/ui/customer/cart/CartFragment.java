@@ -1,15 +1,26 @@
 package com.example.blink.ui.customer.cart;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
@@ -21,92 +32,107 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CartFragment extends Fragment {
-
     private FragmentCustomerCartBinding binding;
+    private AppDatabase db;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCustomerCartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        db = AppDatabase.getInstance(requireContext().getApplicationContext());
 
-        AppDatabase db = AppDatabase.getInstance(getActivity().getApplicationContext());
+        updateFragmentContent();
+
+        return root;
+    }
+
+    private void initDeleteButton(int ID){
+        db.cartItemDao().deleteCartItem(ID);
+        updateFragmentContent();
+    }
+
+    private void updateFragmentContent() {
         List<CartItem> cartItems = db.cartItemDao().GetAll();
-        ArrayList<Integer> productIds = new ArrayList<>();
+        List<Product> products = db.productDao().GetAll();
+        double priceTotal = 0;
 
-        for (CartItem cartItem : cartItems) {
-            productIds.add(cartItem.productId);
-        }
-
-        List<Product> products = db.productDao().GetProductsWithIds(productIds);
+        binding.mainContent.removeAllViews();
 
         for (CartItem cartItem : cartItems) {
             String name = "";
             String price = "";
             String supplier = "";
 
+            ImageButton deleteButton;
+            EditText countInputRefresh;
+            View cartItemView = getLayoutInflater().inflate(R.layout.sample_cart_item_view, null);
+
             for (Product product : products) {
-                if (product.productId == cartItem.productId) {
+                if (product.productId.equals(cartItem.productId)) {
                     name = product.name;
-                    price = getPriceString(product.price);
+                    price = String.format("%.2f€", product.price);
                     supplier = product.supplierName;
+                    priceTotal = priceTotal + (product.price * cartItem.count);
+
+                    deleteButton = cartItemView.findViewById(R.id.removeFromCart);
+                    deleteButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            initDeleteButton(cartItem.cartItemId);
+                        }
+                    });
                 }
             }
 
-            View cartItemView = getLayoutInflater().inflate(R.layout.sample_cart_item_view, null);
             TextView nameTextView = cartItemView.findViewById(R.id.productName);
             TextView priceTextView = cartItemView.findViewById(R.id.productPrice);
             TextView supplierTextView = cartItemView.findViewById(R.id.productSupplier);
-            AutoCompleteTextView countInput = cartItemView.findViewById(R.id.countInput);
+            EditText countInput = cartItemView.findViewById(R.id.countInput);
 
             nameTextView.setText(name);
             priceTextView.setText(price);
             supplierTextView.setText(supplier);
+
             countInput.setText(cartItem.count.toString());
 
-            ArrayList<String> NUMBERS = new ArrayList<>();
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, NUMBERS);
-            AutoCompleteTextView textView = countInput;
-            textView.setAdapter(adapter);
+            countInput.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    // Vor dem Ändern des Textes (nicht benötigt)
+                }
 
-            for(Integer i = 1; i < cartItem.count*1.3 || i < 5; i++){
-                NUMBERS.add(i.toString());
-            }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    // Während des Ändern des Textes (nicht benötigt)
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    String inputText = s.toString();
+                    if (!inputText.isEmpty()) {
+                        int newCount = Integer.parseInt(inputText);
+                        cartItem.count = newCount;
+                        db.cartItemDao().updateCount(cartItem.cartItemId, newCount);
+
+                        if(newCount == 0){
+                            db.cartItemDao().deleteCartItem(cartItem.cartItemId);
+                        }
+
+                        updateFragmentContent();
+                    }
+
+
+                }
+            });
 
             binding.mainContent.addView(cartItemView);
         }
 
-        return root;
+        binding.checkoutButton.setText(getString(R.string.sum) + String.format("%.2f€", priceTotal) + " - " + getString(R.string.checkout));
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    private String getPriceString(double price) {
-        String priceString = String.valueOf(price);
-
-        if (priceString.contains(".")) {
-            // Wir trennen den String in zwei Teile: den Teil vor dem Punkt und den Teil danach
-            String[] teile = priceString.split("\\.");
-
-            // Überprüfen, ob der Teil nach dem Punkt weniger als zwei Stellen hat
-            if (teile[1].length() < 2) {
-                // Füge Nullen hinzu, um auf zwei Nachkommastellen zu kommen
-                teile[1] = teile[1] + "0";
-            }
-
-            // Verbinde die Teile wieder zu einem String
-            priceString = teile[0] + "." + teile[1];
-        } else {
-            // Wenn der String keinen Punkt enthält, fügen wir ".00" hinzu
-            priceString = priceString + ".00";
-        }
-
-        priceString += "€";
-
-        return priceString;
     }
 }

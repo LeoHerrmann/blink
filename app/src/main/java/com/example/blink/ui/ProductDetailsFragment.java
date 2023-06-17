@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,19 +32,11 @@ public class ProductDetailsFragment extends Fragment {
 
     private FragmentProductDetailsBinding binding;
 
-    private static final String[] NUMBERS = new String[] {
-            "1", "2", "3", "4", "5"
-    };
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentProductDetailsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, NUMBERS);
-        AutoCompleteTextView textView = binding.countInput;
-        textView.setAdapter(adapter);
 
         Button addToCartButton = binding.addToCartButton;
         addToCartButton.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +78,13 @@ public class ProductDetailsFragment extends Fragment {
     }
 
     public void addToCart(){
-        int count = Integer.parseInt(binding.countInput.getText().toString());
+        String countInput = binding.countInput.getText().toString();
+
+        if (countInput.isEmpty()) {
+            return;
+        }
+
+        int count = Integer.parseInt(countInput);
 
         String price = getArguments().getString("price");
         String priceWithoutEuro = price.substring(0, price.length() - 1);
