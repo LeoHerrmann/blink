@@ -60,42 +60,17 @@ public class ProviderProductsFragment extends Fragment {
         productContainer.removeAllViews();
 
         for (Product product : products) {
-            View productView = getLayoutInflater().inflate(R.layout.sample_customer_search_product_view, null);
+            View productView = getLayoutInflater().inflate(R.layout.sample_provider_products_product_view, null);
             TextView nameTextView = productView.findViewById(R.id.nameTextView);
             TextView priceTextView = productView.findViewById(R.id.priceTextView);
-            TextView supplierTextView = productView.findViewById(R.id.supplierTextView);
+            TextView categoryTextView = productView.findViewById(R.id.categoryTextView);
 
             nameTextView.setText(product.name);
-            priceTextView.setText(getPriceString(product.price));
-            supplierTextView.setText(product.categoryName);
+            priceTextView.setText(String.format("%.2f€", product.price));
+            categoryTextView.setText(product.categoryName);
             productView.setClickable(false);
 
             productContainer.addView(productView);
         }
-    }
-
-    private String getPriceString(double price) {
-        String priceString = String.valueOf(price);
-
-        if (priceString.contains(".")) {
-            // Wir trennen den String in zwei Teile: den Teil vor dem Punkt und den Teil danach
-            String[] teile = priceString.split("\\.");
-
-            // Überprüfen, ob der Teil nach dem Punkt weniger als zwei Stellen hat
-            if (teile[1].length() < 2) {
-                // Füge Nullen hinzu, um auf zwei Nachkommastellen zu kommen
-                teile[1] = teile[1] + "0";
-            }
-
-            // Verbinde die Teile wieder zu einem String
-            priceString = teile[0] + "." + teile[1];
-        } else {
-            // Wenn der String keinen Punkt enthält, fügen wir ".00" hinzu
-            priceString = priceString + ".00";
-        }
-
-        priceString += "€";
-
-        return priceString;
     }
 }

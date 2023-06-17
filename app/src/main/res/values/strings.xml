@@ -70,4 +70,5 @@
     <string name="product_added">Produkt hinzugefügt</string>
     <string name="your_product_was_added">Ihr Produkt wurde hinzugefügt.</string>
     <string name="back_to_products">Zurück zu den Produkten</string>
+    <string name="delete">Entfernen</string>
 </resources>
