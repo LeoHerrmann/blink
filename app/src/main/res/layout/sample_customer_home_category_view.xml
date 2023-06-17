@@ -1,7 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/gridItem"
@@ -38,7 +39,7 @@
                 android:paddingEnd="8dp"
                 android:paddingBottom="8dp"
                 android:layout_gravity="bottom"
-                android:text="Muffinkeks"
+                tools:text="Muffinkeks"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
