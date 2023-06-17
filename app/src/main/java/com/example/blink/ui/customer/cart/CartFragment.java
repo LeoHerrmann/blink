@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -55,7 +56,6 @@ public class CartFragment extends Fragment {
             String price = "";
             String supplier = "";
 
-            ImageButton deleteButton;
             View cartItemView = getLayoutInflater().inflate(R.layout.sample_customer_cart_product_view, null);
 
             for (Product product : products) {
@@ -64,7 +64,7 @@ public class CartFragment extends Fragment {
                     price = String.format("%.2f€", product.price);
                     supplier = product.supplierName;
 
-                    deleteButton = cartItemView.findViewById(R.id.removeFromCart);
+                    Button deleteButton = cartItemView.findViewById(R.id.removeFromCart);
                     deleteButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
