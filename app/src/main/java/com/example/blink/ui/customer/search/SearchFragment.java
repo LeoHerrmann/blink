@@ -92,13 +92,13 @@ public class SearchFragment extends Fragment {
             binding.supplierFilterChip.setChecked(true);
         }
 
-        if (customerMainViewModel.selectedSortOrder.getValue() == "NameZA") {
+        if (customerMainViewModel.selectedSortOrder.getValue().equals("NameZA")) {
             orderButton.setText(R.string.SortingZA);
         }
-        else if (customerMainViewModel.selectedSortOrder.getValue() == "Price09") {
+        else if (customerMainViewModel.selectedSortOrder.getValue().equals("Price09")) {
             orderButton.setText(R.string.Sorting09);
         }
-        else if (customerMainViewModel.selectedSortOrder.getValue() == "Price90") {
+        else if (customerMainViewModel.selectedSortOrder.getValue().equals("Price90")) {
             orderButton.setText(R.string.Sorting90);
         }
         else {
@@ -112,7 +112,7 @@ public class SearchFragment extends Fragment {
 
     private void showCategoryFilterView() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
-        bottomSheetDialog.setContentView(R.layout.sample_category_filter_view);
+        bottomSheetDialog.setContentView(R.layout.sample_customer_search_filter_category_view);
 
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
@@ -173,7 +173,7 @@ public class SearchFragment extends Fragment {
 
     private void showSupplierFilterView() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
-        bottomSheetDialog.setContentView(R.layout.sample_supplier_filter_view);
+        bottomSheetDialog.setContentView(R.layout.sample_customer_search_filter_supplier_view);
 
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
@@ -234,7 +234,7 @@ public class SearchFragment extends Fragment {
 
     private void showOrderView() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
-        bottomSheetDialog.setContentView(R.layout.sample_product_order_view);
+        bottomSheetDialog.setContentView(R.layout.sample_customer_search_order_view);
 
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
@@ -285,13 +285,13 @@ public class SearchFragment extends Fragment {
         String selectedOrder = customerMainViewModel.selectedSortOrder.getValue();
         RadioButton radiotoSelect;
 
-        if (selectedOrder == "NameZA") {
+        if (selectedOrder.equals("NameZA")) {
             radiotoSelect = bottomSheetDialog.findViewById(R.id.radioNameZA);
         }
-        else if (selectedOrder == "Price09") {
+        else if (selectedOrder.equals("Price09")) {
             radiotoSelect = bottomSheetDialog.findViewById(R.id.radioPrice09);
         }
-        else if (selectedOrder == "Price90") {
+        else if (selectedOrder.equals("Price90")) {
             radiotoSelect = bottomSheetDialog.findViewById(R.id.radioPrice90);
         }
         else {
@@ -350,7 +350,7 @@ public class SearchFragment extends Fragment {
         productContainer.removeAllViews();
 
         for (Product product : products) {
-            View productView = getLayoutInflater().inflate(R.layout.sample_search_product_view, null);
+            View productView = getLayoutInflater().inflate(R.layout.sample_customer_search_product_view, null);
             TextView nameTextView = productView.findViewById(R.id.nameTextView);
             TextView priceTextView = productView.findViewById(R.id.priceTextView);
             TextView supplierTextView = productView.findViewById(R.id.supplierTextView);

@@ -117,7 +117,7 @@ public class HomeFragment extends Fragment {
 
     private void addCategoryView(String categoryName) {
         GridLayout categoriesGridLayout = binding.categoriesGridLayout;
-        View categoryView = getLayoutInflater().inflate(R.layout.sample_home_category_view, null);
+        View categoryView = getLayoutInflater().inflate(R.layout.sample_customer_home_category_view, null);
         TextView categoryTextView = categoryView.findViewById(R.id.categoryTextView);
         categoryTextView.setText(categoryName);
         GridLayout.LayoutParams gridParams = new GridLayout.LayoutParams();
@@ -145,7 +145,7 @@ public class HomeFragment extends Fragment {
 
     private void addProductView(Product product) {
         LinearLayout productContainer = binding.productContainer;
-        View productView = getLayoutInflater().inflate(R.layout.sample_home_product_view, null); //Bruder
+        View productView = getLayoutInflater().inflate(R.layout.sample_customer_home_product_view, null); //Bruder
         TextView priceTextView = productView.findViewById(R.id.priceTextView);
         TextView supplierTextView = productView.findViewById(R.id.supplierTextView);
         TextView nameView = productView.findViewById(R.id.nameTextView);

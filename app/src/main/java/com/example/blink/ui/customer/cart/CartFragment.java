@@ -1,26 +1,17 @@
 package com.example.blink.ui.customer.cart;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
@@ -28,7 +19,6 @@ import com.example.blink.database.entities.CartItem;
 import com.example.blink.database.entities.Product;
 import com.example.blink.databinding.FragmentCustomerCartBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CartFragment extends Fragment {
@@ -63,8 +53,7 @@ public class CartFragment extends Fragment {
             String supplier = "";
 
             ImageButton deleteButton;
-            EditText countInputRefresh;
-            View cartItemView = getLayoutInflater().inflate(R.layout.sample_cart_item_view, null);
+            View cartItemView = getLayoutInflater().inflate(R.layout.sample_customer_cart_product_view, null);
 
             for (Product product : products) {
                 if (product.productId.equals(cartItem.productId)) {

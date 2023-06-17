@@ -60,7 +60,7 @@ public class ProviderProductsFragment extends Fragment {
         productContainer.removeAllViews();
 
         for (Product product : products) {
-            View productView = getLayoutInflater().inflate(R.layout.sample_search_product_view, null);
+            View productView = getLayoutInflater().inflate(R.layout.sample_customer_search_product_view, null);
             TextView nameTextView = productView.findViewById(R.id.nameTextView);
             TextView priceTextView = productView.findViewById(R.id.priceTextView);
             TextView supplierTextView = productView.findViewById(R.id.supplierTextView);
