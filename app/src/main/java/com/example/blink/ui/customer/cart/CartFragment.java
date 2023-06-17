@@ -36,7 +36,7 @@ public class CartFragment extends Fragment {
     }
 
     private void initDeleteButton(int ID){
-        db.cartItemDao().deleteCartItem(ID);
+        db.cartItemDao().DeleteCartItem(ID);
         updateFragmentContent();
     }
 
@@ -100,10 +100,10 @@ public class CartFragment extends Fragment {
                     if (!inputText.isEmpty()) {
                         int newCount = Integer.parseInt(inputText);
                         cartItem.count = newCount;
-                        db.cartItemDao().updateCount(cartItem.cartItemId, newCount);
+                        db.cartItemDao().UpdateCount(cartItem.cartItemId, newCount);
 
                         if(newCount == 0){
-                            db.cartItemDao().deleteCartItem(cartItem.cartItemId);
+                            db.cartItemDao().DeleteCartItem(cartItem.cartItemId);
                         }
 
                         updateFragmentContent();

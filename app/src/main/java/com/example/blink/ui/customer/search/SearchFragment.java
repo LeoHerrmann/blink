@@ -356,7 +356,7 @@ public class SearchFragment extends Fragment {
             TextView supplierTextView = productView.findViewById(R.id.supplierTextView);
 
             nameTextView.setText(product.name);
-            priceTextView.setText(getPriceString(product.price));
+            priceTextView.setText(String.format("%.2f€", product.price));
             supplierTextView.setText(product.supplierName);
 
             productView.setOnClickListener(new View.OnClickListener() {
@@ -386,30 +386,5 @@ public class SearchFragment extends Fragment {
 
         NavController navController = findNavController(v);
         navController.navigate(R.id.action_navigation_search_to_productDetailsFragment, bundle);
-    }
-
-    private String getPriceString(double price) {
-        String priceString = String.valueOf(price);
-
-        if (priceString.contains(".")) {
-            // Wir trennen den String in zwei Teile: den Teil vor dem Punkt und den Teil danach
-            String[] teile = priceString.split("\\.");
-
-            // Überprüfen, ob der Teil nach dem Punkt weniger als zwei Stellen hat
-            if (teile[1].length() < 2) {
-                // Füge Nullen hinzu, um auf zwei Nachkommastellen zu kommen
-                teile[1] = teile[1] + "0";
-            }
-
-            // Verbinde die Teile wieder zu einem String
-            priceString = teile[0] + "." + teile[1];
-        } else {
-            // Wenn der String keinen Punkt enthält, fügen wir ".00" hinzu
-            priceString = priceString + ".00";
-        }
-
-        priceString += "€";
-
-        return priceString;
     }
 }

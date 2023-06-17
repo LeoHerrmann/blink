@@ -39,5 +39,8 @@ public interface ProductDao {
 
     @Insert
     void Insert(Product product);
+
+    @Query("DELETE FROM Product WHERE productId = :productId")
+    void Delete(Integer productId);
 }
 

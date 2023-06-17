@@ -71,4 +71,8 @@
     <string name="your_product_was_added">Ihr Produkt wurde hinzugefügt.</string>
     <string name="back_to_products">Zurück zu den Produkten</string>
     <string name="delete">Entfernen</string>
+    <string name="new_product">Neues Produkt</string>
+    <string name="delete_product">Produkt löschen</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="middle_dot_with_spaces">·</string>
 </resources>

@@ -38,14 +38,14 @@ public class ProviderProductsFragment extends Fragment {
 
         viewModel = new ViewModelProvider(getActivity()).get(ProviderActicityViewModel.class);
 
-        setupFab();
+        setupNewProductButton();
         listProducts();
 
         return root;
     }
 
-    private void setupFab() {
-        binding.fab.setOnClickListener(new View.OnClickListener() {
+    private void setupNewProductButton() {
+        binding.newProductButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 NavController navController = findNavController(v);
@@ -76,8 +76,8 @@ public class ProviderProductsFragment extends Fragment {
 
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                   openConfirmDeleteDialog();
+                public void onClick(View view) {
+                   openConfirmDeleteDialog(view);
                 }
             });
 
@@ -85,17 +85,30 @@ public class ProviderProductsFragment extends Fragment {
         }
     }
 
-    private void openConfirmDeleteDialog() {
+    private void openConfirmDeleteDialog(View view) {
+        View productView = (View) view.getParent();
+        TextView nameTextView = productView.findViewById(R.id.nameTextView);
+        TextView priceTextView = productView.findViewById(R.id.priceTextView);
+
+        String name = nameTextView.getText().toString();
+        String price = priceTextView.getText().toString();
+        String priceWithoutEuro = price.substring(0, price.length() - 1);
+        String supplier = viewModel.providerName.getValue();
+
+        AppDatabase db = AppDatabase.getInstance(getActivity().getApplicationContext());
+        Integer productId = db.productDao().GetProductId(name, Double.parseDouble(priceWithoutEuro), supplier);
+
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
-        builder.setMessage("Sind sie sicher, dass sie das Produkt löschen möchten?")
-                .setTitle("Produkt löschen")
-                .setPositiveButton("Produkt löschen", new DialogInterface.OnClickListener() {
+        builder.setMessage("Sind sie sicher, dass sie das Produkt '" + name + "' löschen möchten?")
+                .setTitle(R.string.delete_product)
+                .setPositiveButton(R.string.delete_product, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteProduct();
+                        deleteProduct(productId);
+                        listProducts();
                     }
                 })
-                .setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -105,7 +118,9 @@ public class ProviderProductsFragment extends Fragment {
         dialog.show();
     }
 
-    private void deleteProduct() {
-
+    private void deleteProduct(Integer productId) {
+        AppDatabase db = AppDatabase.getInstance(getActivity().getApplicationContext());
+        db.productDao().Delete(productId);
+        db.cartItemDao().DeleteByProductId(productId);
     }
 }
