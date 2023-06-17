@@ -2,8 +2,10 @@ package com.example.blink.ui.provider;
 
 import static androidx.navigation.Navigation.findNavController;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -11,6 +13,7 @@ import androidx.navigation.NavController;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +21,7 @@ import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Product;
 import com.example.blink.databinding.FragmentProviderProductsBinding;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 
@@ -64,13 +68,44 @@ public class ProviderProductsFragment extends Fragment {
             TextView nameTextView = productView.findViewById(R.id.nameTextView);
             TextView priceTextView = productView.findViewById(R.id.priceTextView);
             TextView categoryTextView = productView.findViewById(R.id.categoryTextView);
+            ImageButton deleteButton = productView.findViewById(R.id.deleteButton);
 
             nameTextView.setText(product.name);
             priceTextView.setText(String.format("%.2f€", product.price));
             categoryTextView.setText(product.categoryName);
-            productView.setClickable(false);
+
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   openConfirmDeleteDialog();
+                }
+            });
 
             productContainer.addView(productView);
         }
+    }
+
+    private void openConfirmDeleteDialog() {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
+        builder.setMessage("Sind sie sicher, dass sie das Produkt löschen möchten?")
+                .setTitle("Produkt löschen")
+                .setPositiveButton("Produkt löschen", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteProduct();
+                    }
+                })
+                .setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void deleteProduct() {
+
     }
 }
