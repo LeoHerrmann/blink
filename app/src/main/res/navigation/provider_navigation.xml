@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/providerAddProduct"
-        android:name="com.example.blink.ProviderAddProduct"
+        android:name="com.example.blink.ui.provider.ProviderAddProduct"
         android:label="Neues Produkt"
         tools:layout="@layout/fragment_provider_add_product" >
         <action

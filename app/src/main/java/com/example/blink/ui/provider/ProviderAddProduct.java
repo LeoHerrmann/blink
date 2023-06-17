@@ -1,4 +1,4 @@
-package com.example.blink;
+package com.example.blink.ui.provider;
 
 import static androidx.navigation.Navigation.findNavController;
 
@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
+import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Category;
 import com.example.blink.database.entities.Product;
@@ -63,9 +64,15 @@ public class ProviderAddProduct extends Fragment {
             @Override
             public void onClick(View v) {
                 String name = binding.productNameInput.getText().toString();
-                Double price = Double.valueOf(binding.productPriceInput.getText().toString());
+                String priceInput = binding.productPriceInput.getText().toString();
                 String categoryName = binding.categoryInput.getText().toString();
                 String supplierName = viewModel.providerName.getValue();
+
+                if (name.isEmpty() || priceInput.isEmpty() || categoryName.isEmpty()) {
+                    return;
+                }
+
+                Double price = Double.valueOf(priceInput);
 
                 Product newProduct = new Product(name, price, categoryName, supplierName);
 
