@@ -19,10 +19,16 @@ public interface CartItemDao {
     @Query("DELETE FROM CartItem WHERE cartItemId = :cartItemId")
     void deleteCartItem(Integer cartItemId);
 
+
+    @Query("UPDATE CartItem SET count = :count WHERE cartItemId = :cartItemId")
+    void updateCount(Integer cartItemId, Integer count);
+
     @Update
     void UpdateCartItem(CartItem cartItem);
 
     @Insert
     void Insert(CartItem cartItem);
+
+
 }
 

@@ -4,6 +4,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +30,7 @@ import com.example.blink.databinding.FragmentCustomerCartBinding;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class CartFragment extends Fragment {
     private FragmentCustomerCartBinding binding;
     private AppDatabase db;
@@ -59,6 +63,7 @@ public class CartFragment extends Fragment {
             String supplier = "";
 
             ImageButton deleteButton;
+            EditText countInputRefresh;
             View cartItemView = getLayoutInflater().inflate(R.layout.sample_cart_item_view, null);
 
             for (Product product : products) {
@@ -87,14 +92,37 @@ public class CartFragment extends Fragment {
             priceTextView.setText(price);
             supplierTextView.setText(supplier);
 
-            Handler handler = new Handler(Looper.getMainLooper());
+            countInput.setText(cartItem.count.toString());
 
-            handler.postDelayed(new Runnable() {
+            countInput.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void run() {
-                    countInput.setText(cartItem.count.toString());
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    // Vor dem Ändern des Textes (nicht benötigt)
                 }
-            }, 500);
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    // Während des Ändern des Textes (nicht benötigt)
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    String inputText = s.toString();
+                    if (!inputText.isEmpty()) {
+                        int newCount = Integer.parseInt(inputText);
+                        cartItem.count = newCount;
+                        db.cartItemDao().updateCount(cartItem.cartItemId, newCount);
+
+                        if(newCount == 0){
+                            db.cartItemDao().deleteCartItem(cartItem.cartItemId);
+                        }
+
+                        updateFragmentContent();
+                    }
+
+
+                }
+            });
 
             binding.mainContent.addView(cartItemView);
         }
