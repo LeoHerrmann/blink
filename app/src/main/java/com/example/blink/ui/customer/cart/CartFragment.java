@@ -27,28 +27,31 @@ import com.example.blink.databinding.FragmentCustomerCartBinding;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class CartFragment extends Fragment {
-
     private FragmentCustomerCartBinding binding;
+    private AppDatabase db;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCustomerCartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
+        db = AppDatabase.getInstance(requireContext().getApplicationContext());
 
+        updateFragmentContent();
 
+        return root;
+    }
 
+    private void initDeleteButton(int ID){
+        db.cartItemDao().deleteCartItem(ID);
+        updateFragmentContent();
+    }
+
+    private void updateFragmentContent() {
         List<CartItem> cartItems = db.cartItemDao().GetAll();
-        ArrayList<Integer> productIds = new ArrayList<>();
-
-        for (CartItem cartItem : cartItems) {
-            productIds.add(cartItem.productId);
-        }
-
         List<Product> products = db.productDao().GetAll();
-
         double priceTotal = 0;
+
+        binding.mainContent.removeAllViews();
 
         for (CartItem cartItem : cartItems) {
             String name = "";
@@ -59,13 +62,11 @@ public class CartFragment extends Fragment {
             View cartItemView = getLayoutInflater().inflate(R.layout.sample_cart_item_view, null);
 
             for (Product product : products) {
-                if( product.productId.equals(cartItem.productId)) {
+                if (product.productId.equals(cartItem.productId)) {
                     name = product.name;
                     price = String.format("%.2f€", product.price);
                     supplier = product.supplierName;
                     priceTotal = priceTotal + (product.price * cartItem.count);
-
-
 
                     deleteButton = cartItemView.findViewById(R.id.removeFromCart);
                     deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -77,13 +78,10 @@ public class CartFragment extends Fragment {
                 }
             }
 
-
             TextView nameTextView = cartItemView.findViewById(R.id.productName);
             TextView priceTextView = cartItemView.findViewById(R.id.productPrice);
             TextView supplierTextView = cartItemView.findViewById(R.id.productSupplier);
             EditText countInput = cartItemView.findViewById(R.id.countInput);
-
-
 
             nameTextView.setText(name);
             priceTextView.setText(price);
@@ -101,22 +99,9 @@ public class CartFragment extends Fragment {
             binding.mainContent.addView(cartItemView);
         }
 
-        binding.checkoutButton.setText(
-            getString(R.string.sum) +
-            String.format("%.2f€", priceTotal) +
-            " - " +
-            getString(R.string.checkout)
-        );
-
-        return root;
+        binding.checkoutButton.setText(getString(R.string.sum) + String.format("%.2f€", priceTotal) + " - " + getString(R.string.checkout));
     }
 
-    private void initDeleteButton(int ID){
-        AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
-        db.cartItemDao().deleteCartItem(ID);
-
-
-    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
