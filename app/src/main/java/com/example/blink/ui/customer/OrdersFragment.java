@@ -28,6 +28,12 @@ public class OrdersFragment extends Fragment {
         binding = FragmentCustomerOrdersBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        createOrderViews();
+
+        return root;
+    }
+
+    private void createOrderViews() {
         AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
         List<Order> orders = db.orderDao().GetAll();
 
@@ -43,13 +49,11 @@ public class OrdersFragment extends Fragment {
             orderNumberTextView.setText(order.orderId.toString());
             priceTextView.setText(String.format("%.2f€", order.price));
             shipmentMethodTextView.setText(getShipmentMethodText(order.shippingMethod));
-            paymentMethodTextView.setText(getPaymentMethodText(order.shippingMethod));
-            statusChip.setText(getStatusText(order.shippingMethod));
+            paymentMethodTextView.setText(getPaymentMethodText(order.paymentMethod));
+            statusChip.setText(getStatusText(order.status));
 
             binding.ordersContainer.addView(orderView);
         }
-
-        return root;
     }
 
     private String getShipmentMethodText(String shippingMethod) {
