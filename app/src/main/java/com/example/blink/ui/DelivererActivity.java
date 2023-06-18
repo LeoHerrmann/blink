@@ -31,7 +31,7 @@ public class DelivererActivity extends AppCompatActivity {
 
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.auftraege);
+        getSupportActionBar().setTitle(R.string.auftraege);
 
         createOrderViews();
 
