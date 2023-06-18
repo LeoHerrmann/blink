@@ -1,4 +1,6 @@
-package com.example.blink.ui.customer.cart;
+package com.example.blink.ui.customer;
+
+import static androidx.navigation.Navigation.findNavController;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,11 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 
 import com.example.blink.CustomTextWatcher;
 import com.example.blink.R;
@@ -35,9 +37,20 @@ public class CartFragment extends Fragment {
         View root = binding.getRoot();
         db = AppDatabase.getInstance(requireContext().getApplicationContext());
 
+        setupCheckoutButton();
         updateFragmentContent();
 
         return root;
+    }
+
+    private void setupCheckoutButton() {
+        binding.checkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = findNavController(v);
+                navController.navigate(R.id.action_navigation_cart_to_customerCheckoutFragment);
+            }
+        });
     }
 
     private void initDeleteButton(int ID){

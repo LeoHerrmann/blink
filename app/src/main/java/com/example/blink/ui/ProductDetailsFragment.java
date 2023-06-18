@@ -8,11 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,11 +18,8 @@ import androidx.fragment.app.Fragment;
 import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.CartItem;
-import com.example.blink.database.entities.Category;
 import com.example.blink.databinding.FragmentProductDetailsBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.List;
 
 public class ProductDetailsFragment extends Fragment {
 
@@ -68,10 +61,10 @@ public class ProductDetailsFragment extends Fragment {
         Menu menu = bottomNavigationView.getMenu();
         MenuItem item;
 
-        if (navigationOrigin == "search") {
-            item = menu.findItem(R.id.navigation_search);
+        if (navigationOrigin.equals("search")) {
+            item = menu.findItem(R.id.customerSearchFragment);
         } else {
-            item = menu.findItem(R.id.navigation_home);
+            item = menu.findItem(R.id.customerHomeFragment);
         }
 
         item.setChecked(true);
