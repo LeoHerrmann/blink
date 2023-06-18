@@ -1,4 +1,4 @@
-package com.example.blink.ui.customer.search;
+package com.example.blink.ui.customer;
 
 import static androidx.navigation.Navigation.findNavController;
 
@@ -21,7 +21,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.blink.ui.customer.CustomerActivityViewModel;
 import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Category;

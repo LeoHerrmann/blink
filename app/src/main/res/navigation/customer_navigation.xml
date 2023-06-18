@@ -4,35 +4,65 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigation_home">
+    app:startDestination="@id/customerHomeFragment">
 
     <fragment
-        android:id="@+id/navigation_cart"
-        android:name="com.example.blink.ui.customer.cart.CartFragment"
+        android:id="@+id/customerCartFragment"
+        android:name="com.example.blink.ui.customer.CartFragment"
         android:label="@string/title_cart"
-        tools:layout="@layout/fragment_customer_cart" />
+        tools:layout="@layout/fragment_customer_cart" >
+        <action
+            android:id="@+id/action_navigation_cart_to_customerCheckoutFragment"
+            app:destination="@id/customerCheckoutFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.example.blink.ui.customer.profile.ProfileFragment"
-        android:label="@string/title_profile"
-        tools:layout="@layout/fragment_customer_profile" />
+        android:id="@+id/customerOrdersFragment"
+        android:name="com.example.blink.ui.customer.orders.OrderFragment"
+        android:label="Bestellungen"
+        tools:layout="@layout/fragment_customer_orders" />
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.blink.ui.customer.home.HomeFragment"
+        android:id="@+id/customerHomeFragment"
+        android:name="com.example.blink.ui.customer.HomeFragment"
         android:label="Start"
         tools:layout="@layout/fragment_customer_home">
         <action
             android:id="@+id/action_navigation_home_to_productDetailsFragment"
-            app:destination="@id/productDetailsFragment"
+            app:destination="@id/customerProductDetailsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_navigation_home_to_navigation_search"
-            app:destination="@id/navigation_search"
+            app:destination="@id/customerSearchFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/customerHomeFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/customerProductDetailsFragment"
+        android:name="com.example.blink.ui.ProductDetailsFragment"
+        android:label="Produkt"
+        tools:layout="@layout/fragment_product_details" />
+
+    <fragment
+        android:id="@+id/customerSearchFragment"
+        android:name="com.example.blink.ui.customer.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_customer_search" >
+        <action
+            android:id="@+id/action_navigation_search_to_productDetailsFragment"
+            app:destination="@id/customerProductDetailsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -40,22 +70,34 @@
     </fragment>
 
     <fragment
-        android:id="@+id/productDetailsFragment"
-        android:name="com.example.blink.ui.ProductDetailsFragment"
-        android:label="Produkt"
-        tools:layout="@layout/fragment_product_details" />
-    <fragment
-        android:id="@+id/navigation_search"
-        android:name="com.example.blink.ui.customer.search.SearchFragment"
-        android:label="@string/search"
-        tools:layout="@layout/fragment_customer_search" >
+        android:id="@+id/customerCheckoutFragment"
+        android:name="com.example.blink.ui.customer.CustomerCheckoutFragment"
+        android:label="Kasse"
+        tools:layout="@layout/fragment_customer_checkout">
         <action
-            android:id="@+id/action_navigation_search_to_productDetailsFragment"
-            app:destination="@id/productDetailsFragment"
+            android:id="@+id/action_customerCheckoutFragment_to_customerCheckoutSuccessFragment"
+            app:destination="@id/customerCheckoutSuccessFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/customerHomeFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/customerCheckoutSuccessFragment"
+        android:name="com.example.blink.ui.customer.CustomerCheckoutSuccessFragment"
+        android:label="Bestellung eingereicht">
+        <action
+            android:id="@+id/action_customerCheckoutSuccessFragment_to_navigation_profile"
+            app:destination="@id/customerOrdersFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/customerHomeFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.blink.ui.customer.home;
+package com.example.blink.ui.customer;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,15 +18,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.blink.ui.customer.CustomerActivityViewModel;
 import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Category;
 import com.example.blink.database.entities.Product;
 import com.example.blink.databinding.FragmentCustomerHomeBinding;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,10 +91,8 @@ public class HomeFragment extends Fragment {
         selectedCategories.add(categoryName);
         customerMainViewModel.selectedCategoryFilters.setValue(selectedCategories);
 
-        NavController navController = NavHostFragment.findNavController(this);
-        navController.navigate(R.id.action_navigation_home_to_navigation_search, null, new NavOptions.Builder()
-                .setPopUpTo(R.id.navigation_home, true)
-                .build());
+        NavigationBarView navView = getActivity().findViewById(R.id.nav_view);
+        navView.setSelectedItemId(R.id.customerSearchFragment);
     }
 
     private void initializeCategoriesGrid() {
