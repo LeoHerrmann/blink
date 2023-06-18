@@ -15,4 +15,7 @@ public interface OrderDao {
 
     @Insert
     void Insert(Order order);
+
+    @Query("SELECT * FROM `order` WHERE shippingMethod = :shippingMethod")
+    List<Order> GetWithShipmentMethod(String shippingMethod);
 }

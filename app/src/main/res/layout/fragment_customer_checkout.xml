@@ -22,7 +22,7 @@
             android:id="@+id/radioPickup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/self_pick_up"
+            android:text="@string/pick_up"
             android:checked="true"/>
 
         <RadioButton

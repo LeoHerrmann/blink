@@ -1,12 +1,10 @@
-package com.example.blink.ui.provider;
+package com.example.blink.ui;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -16,26 +14,32 @@ import com.example.blink.R;
 import com.example.blink.ShippingMethod;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Order;
-import com.example.blink.databinding.FragmentProviderOrdersBinding;
+import com.example.blink.databinding.ActivityDelivererBinding;
 
 import java.util.List;
 
-public class ProviderOrdersFragment extends Fragment {
-    private FragmentProviderOrdersBinding binding;
+public class DelivererActivity extends AppCompatActivity {
+
+    ActivityDelivererBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentProviderOrdersBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        binding = ActivityDelivererBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        Toolbar toolbar = binding.toolbar;
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.auftraege);
 
         createOrderViews();
 
-        return root;
     }
 
     private void createOrderViews() {
-        AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
-        List<Order> orders = db.orderDao().GetWithShipmentMethod(ShippingMethod.PickUp);
+        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+        List<Order> orders = db.orderDao().GetWithShipmentMethod(ShippingMethod.Delivery);
 
         for (Order order : orders) {
             View orderView = getLayoutInflater().inflate(R.layout.sample_provider_orders_order_view, binding.ordersContainer, false);
@@ -48,7 +52,7 @@ public class ProviderOrdersFragment extends Fragment {
             orderNumberTextView.setText(order.orderId.toString());
             priceTextView.setText(String.format("%.2f€", order.price));
             paymentMethodTextView.setText(getPaymentMethodText(order.paymentMethod));
-            statusButton.setText(getStatusButtonText(order.status));
+            statusButton.setText(getStatusText(order.status));
 
             if (order.status.equals(OrderStatus.Completed)) {
                 statusButton.setEnabled(false);
@@ -72,17 +76,17 @@ public class ProviderOrdersFragment extends Fragment {
         return getString(R.string.ec_card);
     }
 
-    private String getStatusButtonText(String status) {
+    private String getStatusText(String status) {
         if (status.equals(OrderStatus.Submitted)) {
-            return getString(R.string.markAsReady);
+            return getString(R.string.acceptOrder);
         }
-        else if (status.equals(OrderStatus.ReadyForPickUp)) {
+        else if (status.equals(OrderStatus.Accepted)) {
             return getString(R.string.complete);
         }
         else if (status.equals(OrderStatus.Completed)) {
             return getString(R.string.completed);
         }
 
-        return getString(R.string.markAsReady);
+        return getString(R.string.acceptOrder);
     }
 }

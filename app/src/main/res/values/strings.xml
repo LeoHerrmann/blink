@@ -78,7 +78,7 @@
     <string name="shipping_method">Versandmethode</string>
     <string name="payment_method">Bezahlmethode</string>
     <string name="delivery">Lieferung</string>
-    <string name="self_pick_up">Selbstabholung</string>
+    <string name="pick_up">Abholung</string>
     <string name="ec_card">EC-Karte</string>
     <string name="cash">Bar</string>
     <string name="heypay">HeyPay</string>
@@ -86,4 +86,13 @@
     <string name="your_order_was_submitted">Ihre Bestellung wurde eingereicht.</string>
     <string name="to_orders">Zur Bestellübersicht</string>
     <string name="title_orders">Bestellungen</string>
+    <string name="submitted">Eingereicht</string>
+    <string name="readyForPickup">Bereit zur Abholung</string>
+    <string name="accepted">Auftrag angenommen</string>
+    <string name="completed">Abgeschlossen</string>
+    <string name="order_number">Bestellung #</string>
+    <string name="markAsReady">Als bereit markieren</string>
+    <string name="complete">Abschließen</string>
+    <string name="acceptOrder">Auftrag annehmen</string>
+    <string name="auftraege">Aufträge</string>
 </resources>

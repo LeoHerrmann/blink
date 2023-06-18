@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         else if (username.equals("deliverer")) {
-            intent = new Intent(this, DelivererMain.class);
+            intent = new Intent(this, DelivererActivity.class);
         }
 
         else {
