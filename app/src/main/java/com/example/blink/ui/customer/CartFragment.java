@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 
 import com.example.blink.CustomTextWatcher;
@@ -27,6 +28,7 @@ import com.example.blink.databinding.FragmentCustomerCartBinding;
 import java.util.List;
 
 public class CartFragment extends Fragment {
+    private CustomerActivityViewModel viewModel;
     private FragmentCustomerCartBinding binding;
     private AppDatabase db;
     private List<CartItem> cartItems;
@@ -35,6 +37,9 @@ public class CartFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCustomerCartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        viewModel = new ViewModelProvider(getActivity()).get(CustomerActivityViewModel.class);
+
         db = AppDatabase.getInstance(requireContext().getApplicationContext());
 
         setupCheckoutButton();
@@ -47,6 +52,9 @@ public class CartFragment extends Fragment {
         binding.checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                double totalPrice = calculateSum();
+                viewModel.totalPriceOfCartItems.setValue(totalPrice);
+
                 NavController navController = findNavController(v);
                 navController.navigate(R.id.action_navigation_cart_to_customerCheckoutFragment);
             }
@@ -157,6 +165,11 @@ public class CartFragment extends Fragment {
     }
 
     private void updateSum() {
+        double sum = calculateSum();
+        setCheckoutButtonText(sum);
+    }
+
+    private double calculateSum() {
         double sum = 0;
 
         for (CartItem cartItem : cartItems) {
@@ -167,7 +180,7 @@ public class CartFragment extends Fragment {
             }
         }
 
-        setCheckoutButtonText(sum);
+        return sum;
     }
 
     private void setCheckoutButtonText(double price) {

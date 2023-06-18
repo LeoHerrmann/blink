@@ -5,6 +5,7 @@ import static androidx.navigation.Navigation.findNavController;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.example.blink.databinding.FragmentCustomerCheckoutBinding;
 public class CustomerCheckoutFragment extends Fragment {
 
     private FragmentCustomerCheckoutBinding binding;
+    private CustomerActivityViewModel viewModel;
 
 
     @Override
@@ -24,12 +26,23 @@ public class CustomerCheckoutFragment extends Fragment {
         binding = FragmentCustomerCheckoutBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        viewModel = new ViewModelProvider(getActivity()).get(CustomerActivityViewModel.class);
+
         setupCompleteButton();
 
         return root;
     }
 
     private void setupCompleteButton() {
+        Double price = viewModel.totalPriceOfCartItems.getValue();
+
+        binding.completeOrderButton.setText(
+                getString(R.string.sum) +
+                String.format("%.2f€", price) +
+                " - " +
+                getString(R.string.complete_order)
+        );
+
         binding.completeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
