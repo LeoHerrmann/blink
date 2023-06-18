@@ -61,7 +61,7 @@ public class ProductDetailsFragment extends Fragment {
         Menu menu = bottomNavigationView.getMenu();
         MenuItem item;
 
-        if (navigationOrigin.equals("search")) {
+        if (navigationOrigin != null && navigationOrigin.equals("search")) {
             item = menu.findItem(R.id.customerSearchFragment);
         } else {
             item = menu.findItem(R.id.customerHomeFragment);

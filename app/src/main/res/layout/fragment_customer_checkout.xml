@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8dp"
-    tools:context=".ui.customer.CustomerCheckoutFragment">
+    tools:context=".ui.customer.CheckoutFragment">
 
     <RadioGroup
+        android:id="@+id/shippingMethodRadioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -18,20 +19,22 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         <RadioButton
+            android:id="@+id/radioPickup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/self_pick_up"
+            android:checked="true"/>
+
+        <RadioButton
             android:id="@+id/radioDeliver"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/delivery" />
 
-        <RadioButton
-            android:id="@+id/radioPickup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/self_pick_up" />
-
     </RadioGroup>
 
     <RadioGroup
+        android:id="@+id/paymentMethodRadioGroup"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -47,7 +50,8 @@
             android:id="@+id/radioCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/ec_card" />
+            android:text="@string/ec_card"
+            android:checked="true"/>
 
         <RadioButton
             android:id="@+id/radioCash"

@@ -14,7 +14,8 @@ import android.view.ViewGroup;
 import com.example.blink.R;
 import com.example.blink.databinding.FragmentCustomerCheckoutSuccessBinding;
 
-public class CustomerCheckoutSuccessFragment extends Fragment {
+
+public class CheckoutSuccessFragment extends Fragment {
     private FragmentCustomerCheckoutSuccessBinding binding;
 
     @Override
@@ -32,9 +33,7 @@ public class CustomerCheckoutSuccessFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 NavController navController = findNavController(v);
-                navController.navigate(R.id.action_customerCheckoutSuccessFragment_to_navigation_profile);/*, null, new NavOptions.Builder()
-                        .setPopUpTo(R.id.customerOrdersFragment, false)
-                        .build());*/
+                navController.navigate(R.id.action_customerCheckoutSuccessFragment_to_navigation_profile);
             }
         });
     }

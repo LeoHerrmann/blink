@@ -12,7 +12,6 @@ public class Product {
         this.price = price;
         this.categoryName = categoryName;
         this.supplierName = supplierName;
-
     }
 
     @PrimaryKey @NonNull
