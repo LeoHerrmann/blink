@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/customerOrdersFragment"
-        android:name="com.example.blink.ui.customer.OrderFragment"
+        android:name="com.example.blink.ui.customer.OrdersFragment"
         android:label="Bestellungen"
         tools:layout="@layout/fragment_customer_orders" />
 
