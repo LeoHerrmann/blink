@@ -93,4 +93,6 @@
     <string name="order_number">Bestellung #</string>
     <string name="markAsReady">Als bereit markieren</string>
     <string name="complete">Abschließen</string>
+    <string name="acceptOrder">Auftrag annehmen</string>
+    <string name="auftraege">Aufträge</string>
 </resources>

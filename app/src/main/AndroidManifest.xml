@@ -22,7 +22,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name=".ui.DelivererMain"
+            android:name=".ui.DelivererActivity"
             android:exported="false" />
         <activity
             android:name=".ui.LoginActivity"
