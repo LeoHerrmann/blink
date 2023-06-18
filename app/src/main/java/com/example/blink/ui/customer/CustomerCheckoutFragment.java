@@ -46,6 +46,10 @@ public class CustomerCheckoutFragment extends Fragment {
         binding.completeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Daten holen
+                //Bestellung eintragen
+                //Warenkorb leeren
+
                 NavController navController = findNavController(v);
                 navController.navigate(R.id.action_customerCheckoutFragment_to_customerCheckoutSuccessFragment);
             }

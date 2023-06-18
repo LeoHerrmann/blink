@@ -18,16 +18,17 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         <RadioButton
+            android:id="@+id/radioPickup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/self_pick_up"
+            android:checked="true"/>
+
+        <RadioButton
             android:id="@+id/radioDeliver"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/delivery" />
-
-        <RadioButton
-            android:id="@+id/radioPickup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/self_pick_up" />
 
     </RadioGroup>
 
@@ -47,7 +48,8 @@
             android:id="@+id/radioCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/ec_card" />
+            android:text="@string/ec_card"
+            android:checked="true"/>
 
         <RadioButton
             android:id="@+id/radioCash"
