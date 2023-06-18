@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8dp"
-    tools:context=".ui.customer.CustomerCheckoutFragment">
+    tools:context=".ui.customer.CheckoutFragment">
 
     <RadioGroup
+        android:id="@+id/shippingMethodRadioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -33,6 +34,7 @@
     </RadioGroup>
 
     <RadioGroup
+        android:id="@+id/paymentMethodRadioGroup"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

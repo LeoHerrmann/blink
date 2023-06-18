@@ -14,5 +14,5 @@ public interface OrderDao {
     List<Order> GetAll();
 
     @Insert
-    void Insert(Order category);
+    void Insert(Order order);
 }

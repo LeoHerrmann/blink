@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/customerOrdersFragment"
-        android:name="com.example.blink.ui.customer.orders.OrderFragment"
+        android:name="com.example.blink.ui.customer.OrderFragment"
         android:label="Bestellungen"
         tools:layout="@layout/fragment_customer_orders" />
 
@@ -71,7 +71,7 @@
 
     <fragment
         android:id="@+id/customerCheckoutFragment"
-        android:name="com.example.blink.ui.customer.CustomerCheckoutFragment"
+        android:name="com.example.blink.ui.customer.CheckoutFragment"
         android:label="Kasse"
         tools:layout="@layout/fragment_customer_checkout">
         <action
@@ -87,7 +87,7 @@
 
     <fragment
         android:id="@+id/customerCheckoutSuccessFragment"
-        android:name="com.example.blink.ui.customer.CustomerCheckoutSuccessFragment"
+        android:name="com.example.blink.ui.customer.CheckoutSuccessFragment"
         android:label="Bestellung eingereicht">
         <action
             android:id="@+id/action_customerCheckoutSuccessFragment_to_navigation_profile"
