@@ -72,6 +72,13 @@ public class CartFragment extends Fragment {
         cartItems = db.cartItemDao().GetAll();
         products = db.productDao().GetAll();
 
+        TextView cartEmpty = binding.cartEmpty;
+        if(cartItems.size() > 0){
+            cartEmpty.setVisibility(View.GONE);
+        } else {
+            cartEmpty.setVisibility(View.VISIBLE);
+        }
+
         for (CartItem cartItem : cartItems) {
             String name = "";
             String price = "";
