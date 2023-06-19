@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/productAddedFragment"
-        android:name="com.example.blink.ui.provider.providerProductAddedFragment"
+        android:name="com.example.blink.ui.provider.ProviderProductAddedFragment"
         android:label="@string/product_added"
         tools:layout="@layout/fragment_provider_product_added">
         <action
