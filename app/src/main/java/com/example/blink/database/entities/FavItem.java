@@ -6,18 +6,14 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class FavItem {
-    public FavItem(Integer productId, Integer count)
+    public FavItem(Integer productId)
     {
-        this.count = count;
         this.productId = productId;
     }
 
     @PrimaryKey
     @NonNull
     public Integer favItemId;
-
-    @NonNull
-    public Integer count;
 
     @NonNull
     public Integer productId;

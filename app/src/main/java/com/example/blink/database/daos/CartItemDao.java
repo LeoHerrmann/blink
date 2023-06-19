@@ -25,9 +25,6 @@ public interface CartItemDao {
     @Query("DELETE FROM CartItem")
     void DeleteAll();
 
-    @Query("UPDATE CartItem SET count = :count WHERE productId = :productId")
-    void UpdateCountByProductId(Integer productId, Integer count);
-
     @Update
     void UpdateCartItem(CartItem cartItem);
 

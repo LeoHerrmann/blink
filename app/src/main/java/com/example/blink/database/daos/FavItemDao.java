@@ -27,9 +27,6 @@ public interface FavItemDao {
     @Query("DELETE FROM FavItem")
     void DeleteAll();
 
-    @Query("UPDATE FavItem SET count = :count WHERE productId = :productId")
-    void UpdateCountByProductId(Integer productId, Integer count);
-
     @Update
     void UpdateFavItem(FavItem favItem);
 

@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -21,8 +20,11 @@ import androidx.fragment.app.Fragment;
 import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.CartItem;
+import com.example.blink.database.entities.FavItem;
 import com.example.blink.databinding.FragmentProductDetailsBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.List;
 
 public class ProductDetailsFragment extends Fragment {
 
@@ -41,6 +43,10 @@ public class ProductDetailsFragment extends Fragment {
                 addToCart();
             }
         });
+
+
+        AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
+        List<CartItem> favorits = db.cartItemDao().GetAll();
         ToggleButton toggleButton = binding.toggleButton;
         toggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,10 +54,14 @@ public class ProductDetailsFragment extends Fragment {
                 boolean isChecked = toggleButton.isChecked();
                 if (isChecked) {
                     Log.d("toggle", "onClick: true");
+                    addToFav();
+
                 } else {
                     Log.d("toggle", "onClick: false");
                 }
             }
+
+
         });
 
 
@@ -129,6 +139,19 @@ public class ProductDetailsFragment extends Fragment {
                 addToCartButton.setText(R.string.add_to_cart);
             }
         }, 2000);
+    }
+
+    public void addToFav(){
+        String price = getArguments().getString("price");
+        String priceWithoutEuro = price.substring(0, price.length() - 1);
+
+        String productName = getArguments().getString("productName");
+        String supplierName = getArguments().getString("supplierName");
+
+        AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
+        Integer productId = db.productDao().GetProductId(productName, Double.parseDouble(priceWithoutEuro), supplierName);
+
+        FavItem newFavItem = new FavItem(productId);
     }
 
 }
