@@ -97,4 +97,6 @@
     <string name="auftraege">Aufträge</string>
     <string name="notasks">keine Aufträge</string>
     <string name="noOrders">Keine Bestellungen</string>
+    <string name="noFav">kein Favorit</string>
+    <string name="Fav">Favorit</string>
 </resources>
