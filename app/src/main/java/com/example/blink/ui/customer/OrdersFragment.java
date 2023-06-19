@@ -16,8 +16,6 @@ import com.example.blink.ShippingMethod;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Order;
 import com.example.blink.databinding.FragmentCustomerOrdersBinding;
-import com.google.android.material.chip.Chip;
-
 import java.util.List;
 
 public class OrdersFragment extends Fragment {
@@ -44,7 +42,7 @@ public class OrdersFragment extends Fragment {
             TextView priceTextView = orderView.findViewById(R.id.priceTextView);
             TextView shipmentMethodTextView = orderView.findViewById(R.id.shipmentMethodTextView);
             TextView paymentMethodTextView = orderView.findViewById(R.id.paymentMethodTextView);
-            Chip statusChip = orderView.findViewById(R.id.statusChip);
+            TextView statusChip = orderView.findViewById(R.id.statusChip);
 
             orderNumberTextView.setText(order.orderId.toString());
             priceTextView.setText(String.format("%.2f€", order.price));

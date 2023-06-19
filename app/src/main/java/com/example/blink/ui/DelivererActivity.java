@@ -20,6 +20,7 @@ import java.util.List;
 
 public class DelivererActivity extends AppCompatActivity {
 
+    AppDatabase db;
     ActivityDelivererBinding binding;
 
     @Override
@@ -33,14 +34,14 @@ public class DelivererActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.auftraege);
 
-        createOrderViews();
+        db = AppDatabase.getInstance(getApplicationContext());
 
+        createOrderViews();
     }
 
     private void createOrderViews() {
         binding.ordersContainer.removeAllViews();
 
-        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
         List<Order> orders = db.orderDao().GetWithShipmentMethod(ShippingMethod.Delivery);
 
         for (Order order : orders) {
