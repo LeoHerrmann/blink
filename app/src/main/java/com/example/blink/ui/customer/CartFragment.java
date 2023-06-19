@@ -126,7 +126,8 @@ public class CartFragment extends Fragment {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    executeStuff(getEditTextView());
+                    updateCartDatabaseEntry(getEditTextView());
+                    updateSum();
                 }
             });
 
@@ -136,7 +137,7 @@ public class CartFragment extends Fragment {
         updateSum();
     }
 
-    private void executeStuff(EditText editText) {
+    private void updateCartDatabaseEntry(EditText editText) {
         EditText countView = editText;
         String input = countView.getText().toString();
 
@@ -160,8 +161,6 @@ public class CartFragment extends Fragment {
 
         db.cartItemDao().UpdateCountByProductId(productId, count);
         cartItems = db.cartItemDao().GetAll();
-
-        updateSum();
     }
 
     private void updateSum() {
