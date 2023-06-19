@@ -95,4 +95,6 @@
     <string name="complete">Abschließen</string>
     <string name="acceptOrder">Auftrag annehmen</string>
     <string name="auftraege">Aufträge</string>
+    <string name="notasks">keine Aufträge</string>
+    <string name="noOrders">Keine Bestellungen</string>
 </resources>

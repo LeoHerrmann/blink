@@ -44,6 +44,13 @@ public class DelivererActivity extends AppCompatActivity {
 
         List<Order> orders = db.orderDao().GetWithShipmentMethod(ShippingMethod.Delivery);
 
+        TextView orderEmpty = binding.emptyDeliveries;
+        if(orders.size() > 0){
+            orderEmpty.setVisibility(View.GONE);
+        } else {
+            orderEmpty.setVisibility(View.VISIBLE);
+        }
+
         for (Order order : orders) {
             View orderView = getLayoutInflater().inflate(R.layout.sample_provider_orders_order_view, binding.ordersContainer, false);
 

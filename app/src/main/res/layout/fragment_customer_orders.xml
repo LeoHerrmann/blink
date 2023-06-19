@@ -9,7 +9,7 @@
         android:id="@+id/emptyOrders"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Keine Bestellungen"
+        android:text="@string/noOrders"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

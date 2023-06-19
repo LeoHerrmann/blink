@@ -39,6 +39,13 @@ public class ProviderOrdersFragment extends Fragment {
         AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
         List<Order> orders = db.orderDao().GetWithShipmentMethod(ShippingMethod.PickUp);
 
+        TextView orderEmpty = binding.noOrders;
+        if(orders.size() > 0){
+            orderEmpty.setVisibility(View.GONE);
+        } else {
+            orderEmpty.setVisibility(View.VISIBLE);
+        }
+
         for (Order order : orders) {
             View orderView = getLayoutInflater().inflate(R.layout.sample_provider_orders_order_view, binding.ordersContainer, false);
 
