@@ -34,6 +34,8 @@ public class ProviderOrdersFragment extends Fragment {
     }
 
     private void createOrderViews() {
+        binding.ordersContainer.removeAllViews();
+
         AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
         List<Order> orders = db.orderDao().GetWithShipmentMethod(ShippingMethod.PickUp);
 
@@ -50,7 +52,27 @@ public class ProviderOrdersFragment extends Fragment {
             paymentMethodTextView.setText(getPaymentMethodText(order.paymentMethod));
             statusButton.setText(getStatusButtonText(order.status));
 
-            if (order.status.equals(OrderStatus.Completed)) {
+            if (order.status.equals(OrderStatus.Submitted)) {
+                statusButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        order.status = OrderStatus.ReadyForPickUp;
+                        db.orderDao().Update(order);
+                        createOrderViews();
+                    }
+                });
+            }
+            else if (order.status.equals(OrderStatus.ReadyForPickUp)) {
+                statusButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        order.status = OrderStatus.Completed;
+                        db.orderDao().Update(order);
+                        createOrderViews();
+                    }
+                });
+            }
+            else if (order.status.equals(OrderStatus.Completed)) {
                 statusButton.setEnabled(false);
             }
 

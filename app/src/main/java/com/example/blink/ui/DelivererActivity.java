@@ -38,6 +38,8 @@ public class DelivererActivity extends AppCompatActivity {
     }
 
     private void createOrderViews() {
+        binding.ordersContainer.removeAllViews();
+
         AppDatabase db = AppDatabase.getInstance(getApplicationContext());
         List<Order> orders = db.orderDao().GetWithShipmentMethod(ShippingMethod.Delivery);
 
@@ -54,7 +56,27 @@ public class DelivererActivity extends AppCompatActivity {
             paymentMethodTextView.setText(getPaymentMethodText(order.paymentMethod));
             statusButton.setText(getStatusText(order.status));
 
-            if (order.status.equals(OrderStatus.Completed)) {
+            if (order.status.equals(OrderStatus.Submitted)) {
+                statusButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        order.status = OrderStatus.Accepted;
+                        db.orderDao().Update(order);
+                        createOrderViews();
+                    }
+                });
+            }
+            else if (order.status.equals(OrderStatus.Accepted)) {
+                statusButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        order.status = OrderStatus.Completed;
+                        db.orderDao().Update(order);
+                        createOrderViews();
+                    }
+                });
+            }
+            else if (order.status.equals(OrderStatus.Completed)) {
                 statusButton.setEnabled(false);
             }
 

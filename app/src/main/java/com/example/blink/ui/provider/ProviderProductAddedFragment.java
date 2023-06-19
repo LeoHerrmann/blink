@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import com.example.blink.R;
 import com.example.blink.databinding.FragmentProviderProductAddedBinding;
 
-public class providerProductAddedFragment extends Fragment {
+public class ProviderProductAddedFragment extends Fragment {
     FragmentProviderProductAddedBinding binding;
     ProviderActicityViewModel viewModel;
 
