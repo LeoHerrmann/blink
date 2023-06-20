@@ -6,10 +6,10 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.blink.R;
@@ -27,6 +27,14 @@ public class FavoritesFragment extends Fragment {
         binding = FragmentCustomerFavoritesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        createFavoriteViews();
+
+        return root;
+    }
+
+    private void createFavoriteViews() {
+        binding.favoritesContainer.removeAllViews();
+
         AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
         List<Product> products = db.productDao().GetFavoriteProducts();
 
@@ -42,10 +50,18 @@ public class FavoritesFragment extends Fragment {
             TextView nameTextView = productView.findViewById(R.id.nameTextView);
             TextView priceTextView = productView.findViewById(R.id.priceTextView);
             TextView supplierTextView = productView.findViewById(R.id.supplierTextView);
+            ImageButton deleteButton = productView.findViewById(R.id.deleteButton);
 
             nameTextView.setText(product.name);
             priceTextView.setText(String.format("%.2f€", product.price));
             supplierTextView.setText(product.supplierName);
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    db.favItemDao().DeleteByProductId(product.productId);
+                    createFavoriteViews();
+                }
+            });
 
             productView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -56,8 +72,6 @@ public class FavoritesFragment extends Fragment {
 
             binding.favoritesContainer.addView(productView);
         }
-
-        return root;
     }
 
     private void launchProductDetails(View v) {
