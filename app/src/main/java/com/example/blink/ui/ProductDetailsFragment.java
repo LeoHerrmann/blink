@@ -90,7 +90,11 @@ public class ProductDetailsFragment extends Fragment {
 
         if (navigationOrigin != null && navigationOrigin.equals("search")) {
             item = menu.findItem(R.id.customerSearchFragment);
-        } else {
+        }
+        else if (navigationOrigin != null && navigationOrigin.equals("favorites")) {
+            item = menu.findItem(R.id.favoritesFragment);
+        }
+        else {
             item = menu.findItem(R.id.customerHomeFragment);
         }
 
