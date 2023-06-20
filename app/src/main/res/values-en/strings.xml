@@ -37,7 +37,7 @@
     <string name="title_profile">Profile</string>
     <string name="add_to_cart">Add to Cart</string>
     <string name="product_information">Product info</string>
-    <string name="recently_bought">Recent Products</string>
+    <string name="recently_bought">Recently bought products</string>
     <string name="categories">Categories</string>
     <string name="search">Search</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -60,16 +60,16 @@
     <string name="orders">Orders</string>
     <string name="products">Products</string>
     <string name="productName">Product name</string>
-    <string name="price">price</string>
+    <string name="price">Price</string>
     <string name="description">Details</string>
     <string name="add_product">Add Product</string>
     <string name="category">Category</string>
     <string name="checkout">To checkout</string>
-    <string name="sum">"Sum: "</string>
+    <string name="sum">"Total: "</string>
     <string name="remove_from_cart">remove_from_cart</string>
     <string name="product_added">Product added</string>
     <string name="your_product_was_added">Your product has been added.</string>
-    <string name="back_to_products">Back to Product</string>
+    <string name="back_to_products">Back to products</string>
     <string name="delete">Delete</string>
     <string name="new_product">New product</string>
     <string name="delete_product">Delete Product</string>
@@ -83,8 +83,8 @@
     <string name="cash">Cash</string>
     <string name="heypay">HeyPay</string>
     <string name="complete_order">Complete Order</string>
-    <string name="your_order_was_submitted">Your order has been added.</string>
-    <string name="to_orders">Order overview</string>
+    <string name="your_order_was_submitted">Your order has been submitted.</string>
+    <string name="to_orders">Go to orders</string>
     <string name="title_orders">Orders</string>
     <string name="submitted">Submitted</string>
     <string name="readyForPickup">Ready for pickup</string>
