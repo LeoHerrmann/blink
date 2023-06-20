@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Product.class, Category.class, Supplier.class, CartItem.class, Order.class, FavItem.class}, version = 6)
+@Database(entities = {Product.class, Category.class, Supplier.class, CartItem.class, Order.class, FavItem.class}, version = 7)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ProductDao productDao();
     public abstract CategoryDao categoryDao();
