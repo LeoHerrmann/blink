@@ -30,6 +30,13 @@ public class FavoritesFragment extends Fragment {
         AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
         List<Product> products = db.productDao().GetFavoriteProducts();
 
+        TextView noFavs = binding.noFavs;
+        if(products.size() > 0){
+            noFavs.setVisibility(View.GONE);
+        } else {
+            noFavs.setVisibility(View.VISIBLE);
+        }
+
         for (Product product : products) {
             View productView = getLayoutInflater().inflate(R.layout.sample_customer_favorites_product_view, null);
             TextView nameTextView = productView.findViewById(R.id.nameTextView);
