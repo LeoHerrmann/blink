@@ -1,5 +1,6 @@
 package com.example.blink.ui;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,6 +16,7 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.blink.R;
@@ -29,6 +31,7 @@ import java.util.List;
 public class ProductDetailsFragment extends Fragment {
 
     private FragmentProductDetailsBinding binding;
+    AppDatabase db;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -36,50 +39,10 @@ public class ProductDetailsFragment extends Fragment {
         binding = FragmentProductDetailsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        Button addToCartButton = binding.addToCartButton;
-        addToCartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addToCart();
-            }
-        });
+        db = AppDatabase.getInstance(requireContext().getApplicationContext());
 
-
-        AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
-        List<CartItem> favorits = db.cartItemDao().GetAll();
-        ToggleButton toggleButton = binding.toggleButton;
-        toggleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean isChecked = toggleButton.isChecked();
-                if (isChecked) {
-                    Log.d("toggle", "onClick: true");
-                    addToFav();
-
-                } else {
-                    Log.d("toggle", "onClick: false");
-                    removeFromFav();
-                }
-            }
-
-
-        });
-
-        List<FavItem> beste = db.favItemDao().GetAll();
-
-        String price = getArguments().getString("price");
-        String priceWithoutEuro = price.substring(0, price.length() - 1);
-        String productName = getArguments().getString("productName");
-        String supplierName = getArguments().getString("supplierName");
-        Integer productId = db.productDao().GetProductId(productName, Double.parseDouble(priceWithoutEuro), supplierName);
-
-        boolean toggleState = false;
-        for(FavItem bestes: beste){
-            if(bestes.productId.equals(productId)){
-                toggleState = true;
-            }
-        }
-        toggleButton.setChecked(toggleState);
+        setupAddToCartButton();
+        setupFavoriteButton();
 
         return root;
     }
@@ -116,7 +79,18 @@ public class ProductDetailsFragment extends Fragment {
         item.setChecked(true);
     }
 
-    public void addToCart(){
+    private void setupAddToCartButton() {
+        Button addToCartButton = binding.addToCartButton;
+
+        addToCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addToCart();
+            }
+        });
+    }
+
+    private void addToCart(){
         String countInput = binding.countInput.getText().toString();
 
         if (countInput.isEmpty()) {
@@ -125,14 +99,7 @@ public class ProductDetailsFragment extends Fragment {
 
         int count = Integer.parseInt(countInput);
 
-        String price = getArguments().getString("price");
-        String priceWithoutEuro = price.substring(0, price.length() - 1);
-
-        String productName = getArguments().getString("productName");
-        String supplierName = getArguments().getString("supplierName");
-
-        AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
-        Integer productId = db.productDao().GetProductId(productName, Double.parseDouble(priceWithoutEuro), supplierName);
+        Integer productId = getProductId();
 
         // Wir gucken, ob bereits ein Eintrag mit der Produkt-ID existiert
         CartItem existingCartItem = db.cartItemDao().GetByProductId(productId);
@@ -161,34 +128,57 @@ public class ProductDetailsFragment extends Fragment {
         }, 2000);
     }
 
-    public void addToFav(){
-        AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
-        List<FavItem> beste = db.favItemDao().GetAll();
+    private void setupFavoriteButton() {
+        Integer productId = getProductId();
+        Button favoriteButton = binding.favoriteButton;
+
+        FavItem favItem = db.favItemDao().GetByProductId(productId);
+        boolean productIsFavItem = favItem != null;
+
+        if (productIsFavItem) {
+            binding.favoriteButton.setIconResource(R.drawable.baseline_star_24);
+        }
+        else {
+            binding.favoriteButton.setIconResource(R.drawable.baseline_star_border_24);
+        }
+
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FavItem favItem = db.favItemDao().GetByProductId(productId);
+                boolean productIsFavItem = favItem != null;
+
+                if (productIsFavItem) {
+                    removeFromFav();
+                    binding.favoriteButton.setIconResource(R.drawable.baseline_star_border_24);
+
+                } else {
+                    addToFav();
+                    binding.favoriteButton.setIconResource(R.drawable.baseline_star_24);
+                }
+            }
+        });
+    }
+
+    private Integer getProductId() {
         String price = getArguments().getString("price");
         String priceWithoutEuro = price.substring(0, price.length() - 1);
-
         String productName = getArguments().getString("productName");
         String supplierName = getArguments().getString("supplierName");
 
-
         Integer productId = db.productDao().GetProductId(productName, Double.parseDouble(priceWithoutEuro), supplierName);
 
+        return productId;
+    }
+
+    public void addToFav(){
+        Integer productId = getProductId();
         FavItem newFavItem = new FavItem(productId);
         db.favItemDao().Insert(newFavItem);
     }
+
     public void removeFromFav(){
-        AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
-        List<FavItem> beste = db.favItemDao().GetAll();
-
-        String price = getArguments().getString("price");
-        String priceWithoutEuro = price.substring(0, price.length() - 1);
-
-        String productName = getArguments().getString("productName");
-        String supplierName = getArguments().getString("supplierName");
-
-
-        Integer productId = db.productDao().GetProductId(productName, Double.parseDouble(priceWithoutEuro), supplierName);
+        Integer productId = getProductId();
         db.favItemDao().DeleteByProductId(productId);
     }
-
 }
