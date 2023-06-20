@@ -21,6 +21,8 @@ import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Order;
 import com.example.blink.databinding.FragmentCustomerCheckoutBinding;
 
+import java.util.Locale;
+
 public class CheckoutFragment extends Fragment {
 
     private FragmentCustomerCheckoutBinding binding;
@@ -75,7 +77,7 @@ public class CheckoutFragment extends Fragment {
 
         binding.completeOrderButton.setText(
                 getString(R.string.sum) +
-                        String.format("%.2f€", price) +
+                        String.format(Locale.ENGLISH, "%.2f€", price) +
                         " - " +
                         getString(R.string.complete_order)
         );

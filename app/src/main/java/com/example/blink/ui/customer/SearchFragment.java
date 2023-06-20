@@ -32,6 +32,7 @@ import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class SearchFragment extends Fragment {
 
@@ -355,7 +356,7 @@ public class SearchFragment extends Fragment {
             TextView supplierTextView = productView.findViewById(R.id.supplierTextView);
 
             nameTextView.setText(product.name);
-            priceTextView.setText(String.format("%.2f€", product.price));
+            priceTextView.setText(String.format(Locale.ENGLISH, "%.2f€", product.price));
             supplierTextView.setText(product.supplierName);
 
             productView.setOnClickListener(new View.OnClickListener() {

@@ -18,6 +18,7 @@ import com.example.blink.database.entities.Product;
 import com.example.blink.databinding.FragmentCustomerFavoritesBinding;
 
 import java.util.List;
+import java.util.Locale;
 
 public class FavoritesFragment extends Fragment {
     FragmentCustomerFavoritesBinding binding;
@@ -53,7 +54,7 @@ public class FavoritesFragment extends Fragment {
             ImageButton deleteButton = productView.findViewById(R.id.deleteButton);
 
             nameTextView.setText(product.name);
-            priceTextView.setText(String.format("%.2f€", product.price));
+            priceTextView.setText(String.format(Locale.ENGLISH, "%.2f€", product.price));
             supplierTextView.setText(product.supplierName);
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
