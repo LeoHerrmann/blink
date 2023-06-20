@@ -101,4 +101,5 @@
     <string name="Fav">Favorit</string>
     <string name="favorites">Favoriten</string>
     <string name="noFavs">Keine Favoriten</string>
+    <string name="warenkorb_leer">Warenkorb leer</string>
 </resources>

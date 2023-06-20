@@ -1,0 +1,105 @@
+<resources>
+    <string name="app_name">Blink</string>
+    <string name="login">Log In</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="title_activity_deliverer_main">DelivererMain</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
+        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
+        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
+        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
+        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
+        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
+        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
+        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
+        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
+        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
+        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
+        bibendum, vel congue leo egestas.\n\n
+        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
+        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
+        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
+        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
+        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
+        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
+        est.
+    </string>
+    <string name="title_activity_customer_main">CustomerMain</string>
+    <string name="title_home">Start</string>
+    <string name="title_cart">Cart</string>
+    <string name="title_profile">Profile</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="product_information">Product info</string>
+    <string name="recently_bought">Recent Products</string>
+    <string name="categories">Categories</string>
+    <string name="search">Search</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Category">Category</string>
+    <string name="Supplier">Supplier</string>
+    <string name="suppliers">Suppliers</string>
+    <string name="sortOrder">Sort</string>
+    <string name="NameAZ">Name A-Z</string>
+    <string name="NameZA">Name Z-A</string>
+    <string name="Price09">Price 0–9</string>
+    <string name="Price90">Price 9–0</string>
+    <string name="SortingAZ">Sorted by Name A-Z</string>
+    <string name="Sorting90">Sorted by price9–0</string>
+    <string name="Sorting09">Sorted by price 0–9</string>
+    <string name="SortingZA">Sorted by name Z-A</string>
+    <string name="count">Count</string>
+    <string name="added_to_cart">Added</string>
+    <string name="remove">Remove</string>
+    <string name="orders">Orders</string>
+    <string name="products">Products</string>
+    <string name="productName">Product name</string>
+    <string name="price">price</string>
+    <string name="description">Details</string>
+    <string name="add_product">Add Product</string>
+    <string name="category">Category</string>
+    <string name="checkout">To checkout</string>
+    <string name="sum">"Sum: "</string>
+    <string name="remove_from_cart">remove_from_cart</string>
+    <string name="product_added">Product added</string>
+    <string name="your_product_was_added">Your product has been added.</string>
+    <string name="back_to_products">Back to Product</string>
+    <string name="delete">Delete</string>
+    <string name="new_product">New product</string>
+    <string name="delete_product">Delete Product</string>
+    <string name="cancel">Cancel</string>
+    <string name="middle_dot_with_spaces">&#160;·&#160;</string>
+    <string name="shipping_method">Shipping method</string>
+    <string name="payment_method">Payment method</string>
+    <string name="delivery">Delivery</string>
+    <string name="pick_up">Pickup</string>
+    <string name="ec_card">EC-Card</string>
+    <string name="cash">Cash</string>
+    <string name="heypay">HeyPay</string>
+    <string name="complete_order">Complete Order</string>
+    <string name="your_order_was_submitted">Your order has been added.</string>
+    <string name="to_orders">Order overview</string>
+    <string name="title_orders">Orders</string>
+    <string name="submitted">Submitted</string>
+    <string name="readyForPickup">Ready for pickup</string>
+    <string name="accepted">Task accepted</string>
+    <string name="completed">Task completed</string>
+    <string name="order_number">Order #</string>
+    <string name="markAsReady">Mark as ready</string>
+    <string name="complete">Complete</string>
+    <string name="acceptOrder">Accept Task</string>
+    <string name="auftraege">Tasks</string>
+    <string name="notasks">No Tasks</string>
+    <string name="noOrders">No Orders</string>
+    <string name="noFav">No Favorites</string>
+    <string name="Fav">Favorite</string>
+    <string name="favorites">Favorites</string>
+    <string name="noFavs">No Favorite</string>
+    <string name="warenkorb_leer">Cart Empty</string>
+</resources>
