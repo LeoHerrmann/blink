@@ -66,7 +66,12 @@ public class CustomerActicity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.customerHomeFragment, R.id.customerSearchFragment, R.id.customerCartFragment, R.id.customerOrdersFragment)
+                R.id.customerHomeFragment,
+                R.id.customerSearchFragment,
+                R.id.favoritesFragment,
+                R.id.customerCartFragment,
+                R.id.customerOrdersFragment
+        )
                 .build();
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_customer_main);
