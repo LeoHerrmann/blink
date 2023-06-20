@@ -99,4 +99,5 @@
     <string name="noOrders">Keine Bestellungen</string>
     <string name="noFav">kein Favorit</string>
     <string name="Fav">Favorit</string>
+    <string name="favorites">Favoriten</string>
 </resources>

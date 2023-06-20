@@ -100,4 +100,10 @@
             app:popUpToInclusive="false" />
     </fragment>
 
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.blink.ui.customer.FavoritesFragment"
+        android:label="@string/favorites"
+        tools:layout="@layout/fragment_customer_favorites" />
+
 </navigation>
