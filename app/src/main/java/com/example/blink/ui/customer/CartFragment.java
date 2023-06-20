@@ -26,6 +26,7 @@ import com.example.blink.database.entities.Product;
 import com.example.blink.databinding.FragmentCustomerCartBinding;
 
 import java.util.List;
+import java.util.Locale;
 
 public class CartFragment extends Fragment {
     private CustomerActivityViewModel viewModel;
@@ -54,6 +55,10 @@ public class CartFragment extends Fragment {
             public void onClick(View v) {
                 double totalPrice = calculateSum();
                 viewModel.totalPriceOfCartItems.setValue(totalPrice);
+
+                if (totalPrice == 0) {
+                    return;
+                }
 
                 NavController navController = findNavController(v);
                 navController.navigate(R.id.action_navigation_cart_to_customerCheckoutFragment);
@@ -89,7 +94,7 @@ public class CartFragment extends Fragment {
             for (Product product : products) {
                 if (product.productId.equals(cartItem.productId)) {
                     name = product.name;
-                    price = String.format("%.2f€", product.price);
+                    price = String.format(Locale.ENGLISH, "%.2f€", product.price);
                     supplier = product.supplierName;
 
                     Button deleteButton = cartItemView.findViewById(R.id.removeFromCart);
@@ -192,7 +197,7 @@ public class CartFragment extends Fragment {
     private void setCheckoutButtonText(double price) {
         binding.checkoutButton.setText(
                 getString(R.string.sum) +
-                String.format("%.2f€", price) +
+                String.format(Locale.ENGLISH, "%.2f€", price) +
                 " - " +
                 getString(R.string.checkout)
         );
