@@ -95,6 +95,10 @@
     <string name="complete">Abschließen</string>
     <string name="acceptOrder">Auftrag annehmen</string>
     <string name="auftraege">Aufträge</string>
-    <string name="notasks">keine Aufträge</string>
+    <string name="notasks">Keine Aufträge</string>
     <string name="noOrders">Keine Bestellungen</string>
+    <string name="noFav">Kein Favorit</string>
+    <string name="Fav">Favorit</string>
+    <string name="favorites">Favoriten</string>
+    <string name="noFavs">Keine Favoriten</string>
 </resources>

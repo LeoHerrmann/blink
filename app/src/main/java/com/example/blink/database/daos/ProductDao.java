@@ -28,6 +28,9 @@ public interface ProductDao {
     @Query("SELECT * FROM Product WHERE supplierName = :supplierName ORDER BY name")
     List<Product> GetProductsWithSupplier(String supplierName);
 
+    @Query("SELECT * FROM Product WHERE productId IN (SELECT productId FROM FavItem)")
+    List<Product> GetFavoriteProducts();
+
     @Query("Select productId FROM Product WHERE name = :name AND price = :price AND supplierName = :supplierName")
     Integer GetProductId(String name, double price, String supplierName);
 

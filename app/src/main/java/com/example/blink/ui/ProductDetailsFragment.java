@@ -3,12 +3,14 @@ package com.example.blink.ui;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,8 +20,11 @@ import androidx.fragment.app.Fragment;
 import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.CartItem;
+import com.example.blink.database.entities.FavItem;
 import com.example.blink.databinding.FragmentProductDetailsBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.List;
 
 public class ProductDetailsFragment extends Fragment {
 
@@ -38,6 +43,43 @@ public class ProductDetailsFragment extends Fragment {
                 addToCart();
             }
         });
+
+
+        AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
+        List<CartItem> favorits = db.cartItemDao().GetAll();
+        ToggleButton toggleButton = binding.toggleButton;
+        toggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isChecked = toggleButton.isChecked();
+                if (isChecked) {
+                    Log.d("toggle", "onClick: true");
+                    addToFav();
+
+                } else {
+                    Log.d("toggle", "onClick: false");
+                    removeFromFav();
+                }
+            }
+
+
+        });
+
+        List<FavItem> beste = db.favItemDao().GetAll();
+
+        String price = getArguments().getString("price");
+        String priceWithoutEuro = price.substring(0, price.length() - 1);
+        String productName = getArguments().getString("productName");
+        String supplierName = getArguments().getString("supplierName");
+        Integer productId = db.productDao().GetProductId(productName, Double.parseDouble(priceWithoutEuro), supplierName);
+
+        boolean toggleState = false;
+        for(FavItem bestes: beste){
+            if(bestes.productId.equals(productId)){
+                toggleState = true;
+            }
+        }
+        toggleButton.setChecked(toggleState);
 
         return root;
     }
@@ -63,7 +105,11 @@ public class ProductDetailsFragment extends Fragment {
 
         if (navigationOrigin != null && navigationOrigin.equals("search")) {
             item = menu.findItem(R.id.customerSearchFragment);
-        } else {
+        }
+        else if (navigationOrigin != null && navigationOrigin.equals("favorites")) {
+            item = menu.findItem(R.id.favoritesFragment);
+        }
+        else {
             item = menu.findItem(R.id.customerHomeFragment);
         }
 
@@ -113,6 +159,36 @@ public class ProductDetailsFragment extends Fragment {
                 addToCartButton.setText(R.string.add_to_cart);
             }
         }, 2000);
+    }
+
+    public void addToFav(){
+        AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
+        List<FavItem> beste = db.favItemDao().GetAll();
+        String price = getArguments().getString("price");
+        String priceWithoutEuro = price.substring(0, price.length() - 1);
+
+        String productName = getArguments().getString("productName");
+        String supplierName = getArguments().getString("supplierName");
+
+
+        Integer productId = db.productDao().GetProductId(productName, Double.parseDouble(priceWithoutEuro), supplierName);
+
+        FavItem newFavItem = new FavItem(productId);
+        db.favItemDao().Insert(newFavItem);
+    }
+    public void removeFromFav(){
+        AppDatabase db = AppDatabase.getInstance(requireContext().getApplicationContext());
+        List<FavItem> beste = db.favItemDao().GetAll();
+
+        String price = getArguments().getString("price");
+        String priceWithoutEuro = price.substring(0, price.length() - 1);
+
+        String productName = getArguments().getString("productName");
+        String supplierName = getArguments().getString("supplierName");
+
+
+        Integer productId = db.productDao().GetProductId(productName, Double.parseDouble(priceWithoutEuro), supplierName);
+        db.favItemDao().DeleteByProductId(productId);
     }
 
 }
