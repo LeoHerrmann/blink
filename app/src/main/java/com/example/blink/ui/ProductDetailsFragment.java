@@ -58,6 +58,7 @@ public class ProductDetailsFragment extends Fragment {
 
                 } else {
                     Log.d("toggle", "onClick: false");
+                    removeFromFav();
                 }
             }
 
@@ -152,6 +153,10 @@ public class ProductDetailsFragment extends Fragment {
         Integer productId = db.productDao().GetProductId(productName, Double.parseDouble(priceWithoutEuro), supplierName);
 
         FavItem newFavItem = new FavItem(productId);
+        db.favItemDao().Insert(newFavItem);
+    }
+    public void removeFromFav(){
+
     }
 
 }

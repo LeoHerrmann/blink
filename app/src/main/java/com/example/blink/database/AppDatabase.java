@@ -9,11 +9,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.blink.database.daos.CartItemDao;
 import com.example.blink.database.daos.CategoryDao;
+import com.example.blink.database.daos.FavItemDao;
 import com.example.blink.database.daos.OrderDao;
 import com.example.blink.database.daos.ProductDao;
 import com.example.blink.database.daos.SupplierDao;
 import com.example.blink.database.entities.CartItem;
 import com.example.blink.database.entities.Category;
+import com.example.blink.database.entities.FavItem;
 import com.example.blink.database.entities.Order;
 import com.example.blink.database.entities.Product;
 import com.example.blink.database.entities.Supplier;
@@ -22,13 +24,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Product.class, Category.class, Supplier.class, CartItem.class, Order.class}, version = 6)
+@Database(entities = {Product.class, Category.class, Supplier.class, CartItem.class, Order.class, FavItem.class}, version = 6)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ProductDao productDao();
     public abstract CategoryDao categoryDao();
     public abstract SupplierDao supplierDao();
     public abstract CartItemDao cartItemDao();
     public abstract OrderDao orderDao();
+    public abstract FavItemDao favItemDao();
 
     private static AppDatabase instance;
 
