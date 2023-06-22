@@ -123,5 +123,6 @@ public class ProviderProductsFragment extends Fragment {
         AppDatabase db = AppDatabase.getInstance(getActivity().getApplicationContext());
         db.productDao().Delete(productId);
         db.cartItemDao().DeleteByProductId(productId);
+        db.favItemDao().DeleteByProductId(productId);
     }
 }
