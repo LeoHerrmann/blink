@@ -95,10 +95,10 @@
     <string name="auftraege">Tasks</string>
     <string name="notasks">No Tasks</string>
     <string name="noOrders">No Orders</string>
-    <string name="noFav">No Favorites</string>
+    <string name="noFav">No Favorite</string>
     <string name="Fav">Favorite</string>
     <string name="favorites">Favorites</string>
-    <string name="noFavs">No Favorite</string>
+    <string name="noFavs">No Favorites</string>
     <string name="warenkorb_leer">Cart Empty</string>
     <string name="zu_favoriten_hinzufuegen">Add to favorites</string>
     <string name="aus_favoriten_entfernen">Remove from favorites</string>

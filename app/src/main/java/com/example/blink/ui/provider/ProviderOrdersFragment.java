@@ -53,12 +53,15 @@ public class ProviderOrdersFragment extends Fragment {
             TextView orderNumberTextView = orderView.findViewById(R.id.orderNumberTextView);
             TextView priceTextView = orderView.findViewById(R.id.priceTextView);
             TextView paymentMethodTextView = orderView.findViewById(R.id.paymentMethodTextView);
+
             Button statusButton = orderView.findViewById(R.id.statusButton);
+            TextView statusText = orderView.findViewById(R.id.statusText);
 
             orderNumberTextView.setText(order.orderId.toString());
             priceTextView.setText(String.format(Locale.getDefault(), "%.2f€", order.price));
             paymentMethodTextView.setText(getPaymentMethodText(order.paymentMethod));
             statusButton.setText(getStatusButtonText(order.status));
+            statusText.setText(getStatusButtonText(order.status));
 
             if (order.status.equals(OrderStatus.Submitted)) {
                 statusButton.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +84,8 @@ public class ProviderOrdersFragment extends Fragment {
                 });
             }
             else if (order.status.equals(OrderStatus.Completed)) {
-                statusButton.setEnabled(false);
+                statusButton.setVisibility(View.GONE);
+                statusText.setVisibility(View.VISIBLE);
             }
 
             binding.ordersContainer.addView(orderView);

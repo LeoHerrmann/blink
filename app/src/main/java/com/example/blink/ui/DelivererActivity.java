@@ -58,12 +58,15 @@ public class DelivererActivity extends AppCompatActivity {
             TextView orderNumberTextView = orderView.findViewById(R.id.orderNumberTextView);
             TextView priceTextView = orderView.findViewById(R.id.priceTextView);
             TextView paymentMethodTextView = orderView.findViewById(R.id.paymentMethodTextView);
+
             Button statusButton = orderView.findViewById(R.id.statusButton);
+            TextView statusText = orderView.findViewById(R.id.statusText);
 
             orderNumberTextView.setText(order.orderId.toString());
             priceTextView.setText(String.format(Locale.getDefault(), "%.2f€", order.price));
             paymentMethodTextView.setText(getPaymentMethodText(order.paymentMethod));
             statusButton.setText(getStatusText(order.status));
+            statusText.setText(getStatusText(order.status));
 
             if (order.status.equals(OrderStatus.Submitted)) {
                 statusButton.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +89,8 @@ public class DelivererActivity extends AppCompatActivity {
                 });
             }
             else if (order.status.equals(OrderStatus.Completed)) {
-                statusButton.setEnabled(false);
+                statusButton.setVisibility(View.GONE);
+                statusText.setVisibility(View.VISIBLE);
             }
 
             binding.ordersContainer.addView(orderView);
