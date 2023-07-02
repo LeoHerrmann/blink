@@ -102,4 +102,6 @@
     <string name="favorites">Favoriten</string>
     <string name="noFavs">Keine Favoriten</string>
     <string name="warenkorb_leer">Warenkorb leer</string>
+    <string name="zu_favoriten_hinzufuegen">Zu Favoriten hinzufügen</string>
+    <string name="aus_favoriten_entfernen">Aus Favoriten entfernen</string>
 </resources>
