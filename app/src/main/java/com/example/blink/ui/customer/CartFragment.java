@@ -25,6 +25,7 @@ import com.example.blink.database.entities.CartItem;
 import com.example.blink.database.entities.Product;
 import com.example.blink.databinding.FragmentCustomerCartBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -75,7 +76,13 @@ public class CartFragment extends Fragment {
         binding.mainContent.removeAllViews();
 
         cartItems = db.cartItemDao().GetAll();
-        products = db.productDao().GetAll();
+        List<Integer> productIds = new ArrayList<>();
+
+        for (CartItem cartItem : cartItems) {
+             productIds.add(cartItem.productId);
+        }
+
+        products = db.productDao().GetProductsWithIds(productIds);
 
         TextView cartEmpty = binding.cartEmpty;
         if(cartItems.size() > 0){
