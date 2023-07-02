@@ -53,7 +53,7 @@ public class ProductDetailsFragment extends Fragment {
 
         String navigationOrigin = getArguments().getString("navigationOrigin");
 
-        binding.priceTextView.setText(String.format(Locale.ENGLISH, "%.2f€", product.price));
+        binding.priceTextView.setText(String.format("%.2f€", product.price));
         binding.supplierTextView.setText(product.supplierName);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);

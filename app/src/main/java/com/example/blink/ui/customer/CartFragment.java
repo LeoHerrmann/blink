@@ -101,7 +101,7 @@ public class CartFragment extends Fragment {
             for (Product product : products) {
                 if (product.productId.equals(cartItem.productId)) {
                     name = product.name;
-                    price = String.format(Locale.ENGLISH, "%.2f€", product.price);
+                    price = String.format("%.2f€", product.price);
                     supplier = product.supplierName;
 
                     Button deleteButton = cartItemView.findViewById(R.id.removeFromCart);
@@ -192,7 +192,7 @@ public class CartFragment extends Fragment {
     private void setCheckoutButtonText(double price) {
         binding.checkoutButton.setText(
                 getString(R.string.sum) +
-                String.format(Locale.ENGLISH, "%.2f€", price) +
+                String.format("%.2f€", price) +
                 " - " +
                 getString(R.string.checkout)
         );

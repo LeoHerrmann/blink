@@ -104,7 +104,7 @@ public class HomeFragment extends Fragment {
         TextView supplierTextView = productView.findViewById(R.id.supplierTextView);
         TextView nameView = productView.findViewById(R.id.nameTextView);
 
-        String priceString = String.format(Locale.ENGLISH, "%.2f€", product.price);
+        String priceString = String.format("%.2f€", product.price);
         priceTextView.setText(priceString);
         supplierTextView.setText(product.supplierName);
         nameView.setText(product.name);
