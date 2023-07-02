@@ -29,6 +29,7 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class HomeFragment extends Fragment {
 
@@ -68,50 +69,6 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
-    public void launchProductDetails(View v) {
-        TextView priceTextView = v.findViewById(R.id.priceTextView);
-        TextView supplierTextView = v.findViewById(R.id.supplierTextView);
-        TextView productTextView = v.findViewById(R.id.nameTextView);
-        String price = (String) priceTextView.getText();
-        String supplierName = (String) supplierTextView.getText();
-        String productName = (String) productTextView.getText();
-
-        Bundle bundle = new Bundle();
-        bundle.putString("productName", productName);
-        bundle.putString("supplierName", supplierName);
-        bundle.putString("price", price);
-
-        NavController navController = NavHostFragment.findNavController(this);
-        navController.navigate(R.id.action_navigation_home_to_productDetailsFragment, bundle);
-    }
-
-    private void launchCategoryDetails(String categoryName){
-        Log.d("test", categoryName);
-        ArrayList<String> selectedCategories = new ArrayList<String>();
-        selectedCategories.add(categoryName);
-        customerMainViewModel.selectedCategoryFilters.setValue(selectedCategories);
-
-        NavigationBarView navView = getActivity().findViewById(R.id.nav_view);
-        navView.setSelectedItemId(R.id.customerSearchFragment);
-    }
-
-    private void initializeCategoriesGrid() {
-        int displayWidth = getItemWidthInDP();
-        int itemWidth = 130;
-        int columnCount = displayWidth / itemWidth;
-
-        GridLayout gridLayout = binding.categoriesGridLayout;
-        gridLayout.setColumnCount(columnCount);
-    }
-
-    private int getItemWidthInDP() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        WindowManager windowManager = (WindowManager) requireContext().getSystemService(Context.WINDOW_SERVICE);
-        windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-        int screenWidthInDp = (int) (displayMetrics.widthPixels / displayMetrics.density);
-        return screenWidthInDp;
-    }
-
     private void addCategoryView(String categoryName) {
         GridLayout categoriesGridLayout = binding.categoriesGridLayout;
         View categoryView = getLayoutInflater().inflate(R.layout.sample_customer_home_category_view, null);
@@ -147,7 +104,7 @@ public class HomeFragment extends Fragment {
         TextView supplierTextView = productView.findViewById(R.id.supplierTextView);
         TextView nameView = productView.findViewById(R.id.nameTextView);
 
-        String priceString = getPriceString(product.price);
+        String priceString = String.format("%.2f€", product.price);
         priceTextView.setText(priceString);
         supplierTextView.setText(product.supplierName);
         nameView.setText(product.name);
@@ -156,35 +113,45 @@ public class HomeFragment extends Fragment {
         productViewLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchProductDetails(v);
+                launchProductDetails(product.productId);
             }
         });
 
         productContainer.addView(productView);
     }
 
-    private String getPriceString(double price) {
-        String priceString = String.valueOf(price);
+    private void launchProductDetails(int productId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("productId", productId);
 
-        if (priceString.contains(".")) {
-            // Wir trennen den String in zwei Teile: den Teil vor dem Punkt und den Teil danach
-            String[] teile = priceString.split("\\.");
+        NavController navController = NavHostFragment.findNavController(this);
+        navController.navigate(R.id.action_navigation_home_to_productDetailsFragment, bundle);
+    }
 
-            // Überprüfen, ob der Teil nach dem Punkt weniger als zwei Stellen hat
-            if (teile[1].length() < 2) {
-                // Füge Nullen hinzu, um auf zwei Nachkommastellen zu kommen
-                teile[1] = teile[1] + "0";
-            }
+    private void launchCategoryDetails(String categoryName){
+        Log.d("test", categoryName);
+        ArrayList<String> selectedCategories = new ArrayList<String>();
+        selectedCategories.add(categoryName);
+        customerMainViewModel.selectedCategoryFilters.setValue(selectedCategories);
 
-            // Verbinde die Teile wieder zu einem String
-            priceString = teile[0] + "." + teile[1];
-        } else {
-            // Wenn der String keinen Punkt enthält, fügen wir ".00" hinzu
-            priceString = priceString + ".00";
-        }
+        NavigationBarView navView = getActivity().findViewById(R.id.nav_view);
+        navView.setSelectedItemId(R.id.customerSearchFragment);
+    }
 
-        priceString += "€";
+    private void initializeCategoriesGrid() {
+        int displayWidth = getItemWidthInDP();
+        int itemWidth = 130;
+        int columnCount = displayWidth / itemWidth;
 
-        return priceString;
+        GridLayout gridLayout = binding.categoriesGridLayout;
+        gridLayout.setColumnCount(columnCount);
+    }
+
+    private int getItemWidthInDP() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) requireContext().getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+        int screenWidthInDp = (int) (displayMetrics.widthPixels / displayMetrics.density);
+        return screenWidthInDp;
     }
 }

@@ -77,7 +77,7 @@ public class CheckoutFragment extends Fragment {
 
         binding.completeOrderButton.setText(
                 getString(R.string.sum) +
-                        String.format(Locale.ENGLISH, "%.2f€", price) +
+                        String.format("%.2f€", price) +
                         " - " +
                         getString(R.string.complete_order)
         );

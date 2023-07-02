@@ -53,7 +53,7 @@ public class OrdersFragment extends Fragment {
             TextView statusChip = orderView.findViewById(R.id.statusChip);
 
             orderNumberTextView.setText(order.orderId.toString());
-            priceTextView.setText(String.format(Locale.ENGLISH, "%.2f€", order.price));
+            priceTextView.setText(String.format("%.2f€", order.price));
             shipmentMethodTextView.setText(getShipmentMethodText(order.shippingMethod));
             paymentMethodTextView.setText(getPaymentMethodText(order.paymentMethod));
             statusChip.setText(getStatusText(order.status));

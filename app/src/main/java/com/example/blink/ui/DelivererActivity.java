@@ -61,7 +61,7 @@ public class DelivererActivity extends AppCompatActivity {
             Button statusButton = orderView.findViewById(R.id.statusButton);
 
             orderNumberTextView.setText(order.orderId.toString());
-            priceTextView.setText(String.format(Locale.ENGLISH, "%.2f€", order.price));
+            priceTextView.setText(String.format("%.2f€", order.price));
             paymentMethodTextView.setText(getPaymentMethodText(order.paymentMethod));
             statusButton.setText(getStatusText(order.status));
 

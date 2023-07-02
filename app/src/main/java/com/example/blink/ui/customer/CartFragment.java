@@ -25,6 +25,7 @@ import com.example.blink.database.entities.CartItem;
 import com.example.blink.database.entities.Product;
 import com.example.blink.databinding.FragmentCustomerCartBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -75,7 +76,13 @@ public class CartFragment extends Fragment {
         binding.mainContent.removeAllViews();
 
         cartItems = db.cartItemDao().GetAll();
-        products = db.productDao().GetAll();
+        List<Integer> productIds = new ArrayList<>();
+
+        for (CartItem cartItem : cartItems) {
+             productIds.add(cartItem.productId);
+        }
+
+        products = db.productDao().GetProductsWithIds(productIds);
 
         TextView cartEmpty = binding.cartEmpty;
         if(cartItems.size() > 0){
@@ -94,7 +101,7 @@ public class CartFragment extends Fragment {
             for (Product product : products) {
                 if (product.productId.equals(cartItem.productId)) {
                     name = product.name;
-                    price = String.format(Locale.ENGLISH, "%.2f€", product.price);
+                    price = String.format("%.2f€", product.price);
                     supplier = product.supplierName;
 
                     Button deleteButton = cartItemView.findViewById(R.id.removeFromCart);
@@ -138,7 +145,7 @@ public class CartFragment extends Fragment {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    updateCartDatabaseEntry(getEditTextView());
+                    updateCartDatabaseEntry(getEditTextView(), cartItem.productId);
                     updateSum();
                 }
             });
@@ -149,25 +156,13 @@ public class CartFragment extends Fragment {
         updateSum();
     }
 
-    private void updateCartDatabaseEntry(EditText editText) {
+    private void updateCartDatabaseEntry(EditText editText, int productId) {
         EditText countView = editText;
         String input = countView.getText().toString();
 
         if (input.isEmpty()) {
             return;
         }
-
-        View productView = (View) editText.getParent().getParent().getParent().getParent();
-        TextView productNameView = productView.findViewById(R.id.productName);
-        TextView productPriceView = productView.findViewById(R.id.productPrice);
-        TextView productSupplierView = productView.findViewById(R.id.productSupplier);
-
-        String name = productNameView.getText().toString();
-        String priceAsString = productPriceView.getText().toString();
-        String priceWithoutEuro = priceAsString.substring(0, priceAsString.length() - 1);
-        String supplier = productSupplierView.getText().toString();
-
-        Integer productId = db.productDao().GetProductId(name, Double.parseDouble(priceWithoutEuro), supplier);
 
         Integer count = Integer.valueOf(input);
 
@@ -197,7 +192,7 @@ public class CartFragment extends Fragment {
     private void setCheckoutButtonText(double price) {
         binding.checkoutButton.setText(
                 getString(R.string.sum) +
-                String.format(Locale.ENGLISH, "%.2f€", price) +
+                String.format("%.2f€", price) +
                 " - " +
                 getString(R.string.checkout)
         );

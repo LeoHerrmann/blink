@@ -1,37 +1,35 @@
 package com.example.blink.ui;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.CartItem;
 import com.example.blink.database.entities.FavItem;
+import com.example.blink.database.entities.Product;
 import com.example.blink.databinding.FragmentProductDetailsBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.List;
+import java.util.Locale;
 
 public class ProductDetailsFragment extends Fragment {
 
     private FragmentProductDetailsBinding binding;
     AppDatabase db;
+    Product product;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -40,6 +38,8 @@ public class ProductDetailsFragment extends Fragment {
         View root = binding.getRoot();
 
         db = AppDatabase.getInstance(requireContext().getApplicationContext());
+        int productId = getArguments().getInt("productId");
+        product = db.productDao().GetById(productId);
 
         setupAddToCartButton();
         setupFavoriteButton();
@@ -51,16 +51,13 @@ public class ProductDetailsFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        String price = getArguments().getString("price");
-        String productName = getArguments().getString("productName");
-        String supplierName = getArguments().getString("supplierName");
         String navigationOrigin = getArguments().getString("navigationOrigin");
 
-        binding.priceTextView.setText(price);
-        binding.supplierTextView.setText(supplierName);
+        binding.priceTextView.setText(String.format("%.2f€", product.price));
+        binding.supplierTextView.setText(product.supplierName);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle(productName);
+        toolbar.setTitle(product.name);
 
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.nav_view);
         Menu menu = bottomNavigationView.getMenu();
@@ -99,14 +96,12 @@ public class ProductDetailsFragment extends Fragment {
 
         int count = Integer.parseInt(countInput);
 
-        Integer productId = getProductId();
-
         // Wir gucken, ob bereits ein Eintrag mit der Produkt-ID existiert
-        CartItem existingCartItem = db.cartItemDao().GetByProductId(productId);
+        CartItem existingCartItem = db.cartItemDao().GetByProductId(product.productId);
 
         if (existingCartItem == null) {
             // Wenn keiner existiert, dann erzeugen wir einen neuen Eintrag
-            CartItem newCartItem = new CartItem(productId, count);
+            CartItem newCartItem = new CartItem(product.productId, count);
             db.cartItemDao().Insert(newCartItem);
         }
         else {
@@ -129,10 +124,9 @@ public class ProductDetailsFragment extends Fragment {
     }
 
     private void setupFavoriteButton() {
-        Integer productId = getProductId();
         Button favoriteButton = binding.favoriteButton;
 
-        FavItem favItem = db.favItemDao().GetByProductId(productId);
+        FavItem favItem = db.favItemDao().GetByProductId(product.productId);
         boolean productIsFavItem = favItem != null;
 
         if (productIsFavItem) {
@@ -145,7 +139,7 @@ public class ProductDetailsFragment extends Fragment {
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FavItem favItem = db.favItemDao().GetByProductId(productId);
+                FavItem favItem = db.favItemDao().GetByProductId(product.productId);
                 boolean productIsFavItem = favItem != null;
 
                 if (productIsFavItem) {
@@ -160,25 +154,12 @@ public class ProductDetailsFragment extends Fragment {
         });
     }
 
-    private Integer getProductId() {
-        String price = getArguments().getString("price");
-        String priceWithoutEuro = price.substring(0, price.length() - 1);
-        String productName = getArguments().getString("productName");
-        String supplierName = getArguments().getString("supplierName");
-
-        Integer productId = db.productDao().GetProductId(productName, Double.parseDouble(priceWithoutEuro), supplierName);
-
-        return productId;
-    }
-
     public void addToFav(){
-        Integer productId = getProductId();
-        FavItem newFavItem = new FavItem(productId);
+        FavItem newFavItem = new FavItem(product.productId);
         db.favItemDao().Insert(newFavItem);
     }
 
     public void removeFromFav(){
-        Integer productId = getProductId();
-        db.favItemDao().DeleteByProductId(productId);
+        db.favItemDao().DeleteByProductId(product.productId);
     }
 }
