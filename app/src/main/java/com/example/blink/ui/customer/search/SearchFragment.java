@@ -41,6 +41,9 @@ public class SearchFragment extends Fragment {
     private List<Category> categories;
     private List<Supplier> suppliers;
 
+    SearchAdapter searchAdapter;
+    List<SearchItem> searchItems;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCustomerSearchBinding.inflate(inflater, container, false);
@@ -54,6 +57,18 @@ public class SearchFragment extends Fragment {
 
         initSearchBar();
         setupDialogs();
+
+        searchItems = new ArrayList<>();
+
+        RecyclerView productRecyclerView = binding.productsRecyclerView;
+        productRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        searchAdapter = new SearchAdapter(
+                getContext(),
+                searchItems
+        );
+
+        productRecyclerView.setAdapter(searchAdapter);
 
         performSearch();
 
@@ -344,25 +359,20 @@ public class SearchFragment extends Fragment {
                 customerMainViewModel.selectedSupplierFilters.getValue()
         );
 
-        List<SearchRecyclerViewItem> productRecyclerViewItems = new ArrayList<>();
+        searchItems = new ArrayList<>();
 
         for (Product product : products) {
-            SearchRecyclerViewItem searchRecyclerViewItem = new SearchRecyclerViewItem(
+            SearchItem searchRecyclerViewItem = new SearchItem(
                     product.productId,
                     product.name,
                     product.price,
                     product.supplierName
             );
 
-            productRecyclerViewItems.add(searchRecyclerViewItem);
+            searchItems.add(searchRecyclerViewItem);
         }
 
-        RecyclerView productRecyclerView = binding.productsRecyclerView;
-        productRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        productRecyclerView.setAdapter(new SearchAdapter(
-                getContext(),
-                productRecyclerViewItems
-        ));
+        searchAdapter.items = searchItems;
+        searchAdapter.notifyDataSetChanged();
     }
 }

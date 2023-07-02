@@ -1,6 +1,6 @@
 package com.example.blink.ui.customer.search;
 
-public class SearchRecyclerViewItem {
+public class SearchItem {
     public Integer getProductId() {
         return productId;
     }
@@ -14,7 +14,7 @@ public class SearchRecyclerViewItem {
     Double productPrice;
     String productSupplier;
 
-    public SearchRecyclerViewItem(Integer productId, String productName, Double productPrice, String productSupplier) {
+    public SearchItem(Integer productId, String productName, Double productPrice, String productSupplier) {
         this.productId = productId;
         this.productName = productName;
         this.productPrice = productPrice;

@@ -40,8 +40,6 @@
     <string name="recently_bought">Recently bought products</string>
     <string name="categories">Categories</string>
     <string name="search">Search</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Category">Category</string>
     <string name="Supplier">Supplier</string>
     <string name="suppliers">Suppliers</string>
@@ -51,9 +49,9 @@
     <string name="Price09">Price 0–9</string>
     <string name="Price90">Price 9–0</string>
     <string name="SortingAZ">Sorted by Name A-Z</string>
-    <string name="Sorting90">Sorted by price9–0</string>
-    <string name="Sorting09">Sorted by price 0–9</string>
-    <string name="SortingZA">Sorted by name Z-A</string>
+    <string name="Sorting90">Sorted by Price 9–0</string>
+    <string name="Sorting09">Sorted by Price 0–9</string>
+    <string name="SortingZA">Sorted by Name Z-A</string>
     <string name="count">Count</string>
     <string name="added_to_cart">Added</string>
     <string name="remove">Remove</string>

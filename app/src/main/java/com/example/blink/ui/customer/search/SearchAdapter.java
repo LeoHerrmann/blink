@@ -18,9 +18,9 @@ import java.util.Locale;
 
 public class SearchAdapter extends RecyclerView.Adapter {
     Context context;
-    List<SearchRecyclerViewItem> items;
+    List<SearchItem> items;
 
-    public SearchAdapter(Context context, List<SearchRecyclerViewItem> items) {
+    public SearchAdapter(Context context, List<SearchItem> items) {
         this.context = context;
         this.items = items;
     }
