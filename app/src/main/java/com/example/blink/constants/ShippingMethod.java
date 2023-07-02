@@ -1,4 +1,4 @@
-package com.example.blink;
+package com.example.blink.constants;
 
 public final class ShippingMethod {
     public static String PickUp = "pick-up";

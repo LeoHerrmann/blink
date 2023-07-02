@@ -72,7 +72,7 @@ public class ProviderProductsFragment extends Fragment {
             ImageButton deleteButton = productView.findViewById(R.id.deleteButton);
 
             nameTextView.setText(product.name);
-            priceTextView.setText(String.format("%.2f€", product.price));
+            priceTextView.setText(String.format(Locale.getDefault(), "%.2f€", product.price));
             categoryTextView.setText(product.categoryName);
 
             deleteButton.setOnClickListener(new View.OnClickListener() {

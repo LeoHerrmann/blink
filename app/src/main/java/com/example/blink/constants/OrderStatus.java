@@ -1,4 +1,4 @@
-package com.example.blink;
+package com.example.blink.constants;
 
 public final class OrderStatus {
     public static String Submitted = "submitted";

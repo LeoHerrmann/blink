@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.blink.OrderStatus;
-import com.example.blink.PaymentMethod;
+import com.example.blink.constants.OrderStatus;
+import com.example.blink.constants.PaymentMethod;
 import com.example.blink.R;
-import com.example.blink.ShippingMethod;
+import com.example.blink.constants.ShippingMethod;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Order;
 import com.example.blink.databinding.FragmentProviderOrdersBinding;
@@ -56,7 +56,7 @@ public class ProviderOrdersFragment extends Fragment {
             Button statusButton = orderView.findViewById(R.id.statusButton);
 
             orderNumberTextView.setText(order.orderId.toString());
-            priceTextView.setText(String.format("%.2f€", order.price));
+            priceTextView.setText(String.format(Locale.getDefault(), "%.2f€", order.price));
             paymentMethodTextView.setText(getPaymentMethodText(order.paymentMethod));
             statusButton.setText(getStatusButtonText(order.status));
 

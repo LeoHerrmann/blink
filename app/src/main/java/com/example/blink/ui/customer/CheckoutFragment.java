@@ -13,10 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
-import com.example.blink.OrderStatus;
-import com.example.blink.PaymentMethod;
+import com.example.blink.constants.OrderStatus;
+import com.example.blink.constants.PaymentMethod;
 import com.example.blink.R;
-import com.example.blink.ShippingMethod;
+import com.example.blink.constants.ShippingMethod;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Order;
 import com.example.blink.databinding.FragmentCustomerCheckoutBinding;
@@ -77,7 +77,7 @@ public class CheckoutFragment extends Fragment {
 
         binding.completeOrderButton.setText(
                 getString(R.string.sum) +
-                        String.format("%.2f€", price) +
+                        String.format(Locale.getDefault(), "%.2f€", price) +
                         " - " +
                         getString(R.string.complete_order)
         );

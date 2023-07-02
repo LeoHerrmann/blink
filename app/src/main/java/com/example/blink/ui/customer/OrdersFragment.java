@@ -9,10 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.blink.OrderStatus;
-import com.example.blink.PaymentMethod;
+import com.example.blink.constants.OrderStatus;
+import com.example.blink.constants.PaymentMethod;
 import com.example.blink.R;
-import com.example.blink.ShippingMethod;
+import com.example.blink.constants.ShippingMethod;
 import com.example.blink.database.AppDatabase;
 import com.example.blink.database.entities.Order;
 import com.example.blink.databinding.FragmentCustomerOrdersBinding;
@@ -53,7 +53,7 @@ public class OrdersFragment extends Fragment {
             TextView statusChip = orderView.findViewById(R.id.statusChip);
 
             orderNumberTextView.setText(order.orderId.toString());
-            priceTextView.setText(String.format("%.2f€", order.price));
+            priceTextView.setText(String.format(Locale.getDefault(), "%.2f€", order.price));
             shipmentMethodTextView.setText(getShipmentMethodText(order.shippingMethod));
             paymentMethodTextView.setText(getPaymentMethodText(order.paymentMethod));
             statusChip.setText(getStatusText(order.status));
