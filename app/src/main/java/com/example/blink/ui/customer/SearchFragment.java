@@ -1,7 +1,5 @@
 package com.example.blink.ui.customer;
 
-import static androidx.navigation.Navigation.findNavController;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -10,6 +8,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -362,7 +361,7 @@ public class SearchFragment extends Fragment {
             productView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    launchProductDetails(v);
+                    launchProductDetails(product.productId);
                 }
             });
 
@@ -370,21 +369,12 @@ public class SearchFragment extends Fragment {
         }
     }
 
-    private void launchProductDetails(View v) {
-        TextView priceTextView = v.findViewById(R.id.priceTextView);
-        TextView supplierTextView = v.findViewById(R.id.supplierTextView);
-        TextView productTextView = v.findViewById(R.id.nameTextView);
-        String price = (String) priceTextView.getText();
-        String supplierName = (String) supplierTextView.getText();
-        String productName = (String) productTextView.getText();
-
+    private void launchProductDetails(int productId) {
         Bundle bundle = new Bundle();
-        bundle.putString("productName", productName);
-        bundle.putString("supplierName", supplierName);
-        bundle.putString("price", price);
+        bundle.putInt("productId", productId);
         bundle.putString("navigationOrigin", "search");
 
-        NavController navController = findNavController(v);
+        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_activity_customer_main);
         navController.navigate(R.id.action_navigation_search_to_productDetailsFragment, bundle);
     }
 }

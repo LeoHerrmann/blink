@@ -13,6 +13,9 @@ public interface ProductDao {
     @Query("SELECT * FROM Product")
     List<Product> GetAll();
 
+    @Query("SELECT * FROM Product WHERE productId = :productId")
+    Product GetById(int productId);
+
     @Query("SELECT * FROM Product WHERE" +
             " name LIKE '%' || :searchString || '%' AND " +
             "categoryName IN (:categories) AND " +
@@ -21,7 +24,6 @@ public interface ProductDao {
             "CASE WHEN :order = 'Price09' THEN price END ASC, " +
             "CASE WHEN :order = 'Price90' THEN price END DESC, " +
             "CASE WHEN :order NOT IN ('NameZA', 'Price09', 'Price90') THEN name END ASC"
-
     )
     List<Product> GetWithNameLike(String searchString, String order, List<String> categories, List<String> suppliers);
 
@@ -30,9 +32,6 @@ public interface ProductDao {
 
     @Query("SELECT * FROM Product WHERE productId IN (SELECT productId FROM FavItem)")
     List<Product> GetFavoriteProducts();
-
-    @Query("Select productId FROM Product WHERE name = :name AND price = :price AND supplierName = :supplierName")
-    Integer GetProductId(String name, double price, String supplierName);
 
     @Query("SELECT * FROM Product WHERE productId IN (:productIds)")
     List<Product> GetProductsWithIds(List<Integer> productIds);

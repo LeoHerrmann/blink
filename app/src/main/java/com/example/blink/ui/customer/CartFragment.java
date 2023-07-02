@@ -138,7 +138,7 @@ public class CartFragment extends Fragment {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    updateCartDatabaseEntry(getEditTextView());
+                    updateCartDatabaseEntry(getEditTextView(), cartItem.productId);
                     updateSum();
                 }
             });
@@ -149,25 +149,13 @@ public class CartFragment extends Fragment {
         updateSum();
     }
 
-    private void updateCartDatabaseEntry(EditText editText) {
+    private void updateCartDatabaseEntry(EditText editText, int productId) {
         EditText countView = editText;
         String input = countView.getText().toString();
 
         if (input.isEmpty()) {
             return;
         }
-
-        View productView = (View) editText.getParent().getParent().getParent().getParent();
-        TextView productNameView = productView.findViewById(R.id.productName);
-        TextView productPriceView = productView.findViewById(R.id.productPrice);
-        TextView productSupplierView = productView.findViewById(R.id.productSupplier);
-
-        String name = productNameView.getText().toString();
-        String priceAsString = productPriceView.getText().toString();
-        String priceWithoutEuro = priceAsString.substring(0, priceAsString.length() - 1);
-        String supplier = productSupplierView.getText().toString();
-
-        Integer productId = db.productDao().GetProductId(name, Double.parseDouble(priceWithoutEuro), supplier);
 
         Integer count = Integer.valueOf(input);
 

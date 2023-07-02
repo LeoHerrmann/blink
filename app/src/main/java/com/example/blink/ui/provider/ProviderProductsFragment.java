@@ -78,7 +78,7 @@ public class ProviderProductsFragment extends Fragment {
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   openConfirmDeleteDialog(view);
+                   openConfirmDeleteDialog(product.productId, product.name);
                 }
             });
 
@@ -86,21 +86,10 @@ public class ProviderProductsFragment extends Fragment {
         }
     }
 
-    private void openConfirmDeleteDialog(View view) {
-        View productView = (View) view.getParent();
-        TextView nameTextView = productView.findViewById(R.id.nameTextView);
-        TextView priceTextView = productView.findViewById(R.id.priceTextView);
-
-        String name = nameTextView.getText().toString();
-        String price = priceTextView.getText().toString();
-        String priceWithoutEuro = price.substring(0, price.length() - 1);
-        String supplier = viewModel.providerName.getValue();
-
-        AppDatabase db = AppDatabase.getInstance(getActivity().getApplicationContext());
-        Integer productId = db.productDao().GetProductId(name, Double.parseDouble(priceWithoutEuro), supplier);
-
+    private void openConfirmDeleteDialog(int productId, String productName) {
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
-        builder.setMessage("Sind sie sicher, dass sie das Produkt '" + name + "' löschen möchten?")
+
+        builder.setMessage("Sind sie sicher, dass sie das Produkt '" + productName + "' löschen möchten?")
                 .setTitle(R.string.delete_product)
                 .setPositiveButton(R.string.delete_product, new DialogInterface.OnClickListener() {
                     @Override
@@ -115,6 +104,7 @@ public class ProviderProductsFragment extends Fragment {
 
                     }
                 });
+
         AlertDialog dialog = builder.create();
         dialog.show();
     }

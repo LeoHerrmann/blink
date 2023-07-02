@@ -1,11 +1,11 @@
 package com.example.blink.ui.customer;
 
-import static androidx.navigation.Navigation.findNavController;
-
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +67,7 @@ public class FavoritesFragment extends Fragment {
             productView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    launchProductDetails(v);
+                    launchProductDetails(product.productId);
                 }
             });
 
@@ -75,21 +75,12 @@ public class FavoritesFragment extends Fragment {
         }
     }
 
-    private void launchProductDetails(View v) {
-        TextView priceTextView = v.findViewById(R.id.priceTextView);
-        TextView supplierTextView = v.findViewById(R.id.supplierTextView);
-        TextView productTextView = v.findViewById(R.id.nameTextView);
-        String price = (String) priceTextView.getText();
-        String supplierName = (String) supplierTextView.getText();
-        String productName = (String) productTextView.getText();
-
+    private void launchProductDetails(int productId) {
         Bundle bundle = new Bundle();
-        bundle.putString("productName", productName);
-        bundle.putString("supplierName", supplierName);
-        bundle.putString("price", price);
+        bundle.putInt("productId", productId);
         bundle.putString("navigationOrigin", "favorites");
 
-        NavController navController = findNavController(v);
+        NavController navController = NavHostFragment.findNavController(this);
         navController.navigate(R.id.action_favoritesFragment_to_customerProductDetailsFragment, bundle);
     }
 }
