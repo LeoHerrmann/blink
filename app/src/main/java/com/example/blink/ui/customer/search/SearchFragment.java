@@ -1,4 +1,4 @@
-package com.example.blink.ui.customer;
+package com.example.blink.ui.customer.search;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -7,8 +7,8 @@ import android.os.Bundle;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +18,6 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.example.blink.R;
 import com.example.blink.database.AppDatabase;
@@ -26,12 +25,12 @@ import com.example.blink.database.entities.Category;
 import com.example.blink.database.entities.Product;
 import com.example.blink.database.entities.Supplier;
 import com.example.blink.databinding.FragmentCustomerSearchBinding;
+import com.example.blink.ui.customer.CustomerActivityViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class SearchFragment extends Fragment {
 
@@ -345,36 +344,25 @@ public class SearchFragment extends Fragment {
                 customerMainViewModel.selectedSupplierFilters.getValue()
         );
 
-        LinearLayout productContainer = binding.productContainer;
-        productContainer.removeAllViews();
+        List<SearchRecyclerViewItem> productRecyclerViewItems = new ArrayList<>();
 
         for (Product product : products) {
-            View productView = getLayoutInflater().inflate(R.layout.sample_customer_search_product_view, null);
-            TextView nameTextView = productView.findViewById(R.id.nameTextView);
-            TextView priceTextView = productView.findViewById(R.id.priceTextView);
-            TextView supplierTextView = productView.findViewById(R.id.supplierTextView);
+            SearchRecyclerViewItem searchRecyclerViewItem = new SearchRecyclerViewItem(
+                    product.productId,
+                    product.name,
+                    product.price,
+                    product.supplierName
+            );
 
-            nameTextView.setText(product.name);
-            priceTextView.setText(String.format(Locale.getDefault(), "%.2f€", product.price));
-            supplierTextView.setText(product.supplierName);
-
-            productView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    launchProductDetails(product.productId);
-                }
-            });
-
-            productContainer.addView(productView);
+            productRecyclerViewItems.add(searchRecyclerViewItem);
         }
-    }
 
-    private void launchProductDetails(int productId) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("productId", productId);
-        bundle.putString("navigationOrigin", "search");
+        RecyclerView productRecyclerView = binding.productsRecyclerView;
+        productRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_activity_customer_main);
-        navController.navigate(R.id.action_navigation_search_to_productDetailsFragment, bundle);
+        productRecyclerView.setAdapter(new SearchAdapter(
+                getContext(),
+                productRecyclerViewItems
+        ));
     }
 }

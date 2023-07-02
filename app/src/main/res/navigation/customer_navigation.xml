@@ -57,7 +57,7 @@
 
     <fragment
         android:id="@+id/customerSearchFragment"
-        android:name="com.example.blink.ui.customer.SearchFragment"
+        android:name="com.example.blink.ui.customer.search.SearchFragment"
         android:label="@string/search"
         tools:layout="@layout/fragment_customer_search" >
         <action
