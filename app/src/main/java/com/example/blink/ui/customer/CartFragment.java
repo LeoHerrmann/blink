@@ -189,7 +189,14 @@ public class CartFragment extends Fragment {
         return sum;
     }
 
-    private void setCheckoutButtonText(double price) {
+    private void setCheckoutButtonText(Double price) {
+        if (price.equals(0.0)) {
+            binding.checkoutButton.setVisibility(View.GONE);
+            return;
+        }
+
+        binding.checkoutButton.setVisibility(View.VISIBLE);
+
         binding.checkoutButton.setText(
                 getString(R.string.sum) +
                 String.format(Locale.getDefault(), "%.2f€", price) +
