@@ -131,9 +131,11 @@ public class ProductDetailsFragment extends Fragment {
 
         if (productIsFavItem) {
             binding.favoriteButton.setIconResource(R.drawable.baseline_star_24);
+            binding.favoriteButton.setText(R.string.aus_favoriten_entfernen);
         }
         else {
             binding.favoriteButton.setIconResource(R.drawable.baseline_star_border_24);
+            binding.favoriteButton.setText(R.string.zu_favoriten_hinzufuegen);
         }
 
         favoriteButton.setOnClickListener(new View.OnClickListener() {
@@ -145,10 +147,12 @@ public class ProductDetailsFragment extends Fragment {
                 if (productIsFavItem) {
                     removeFromFav();
                     binding.favoriteButton.setIconResource(R.drawable.baseline_star_border_24);
+                    binding.favoriteButton.setText(R.string.zu_favoriten_hinzufuegen);
 
                 } else {
                     addToFav();
                     binding.favoriteButton.setIconResource(R.drawable.baseline_star_24);
+                    binding.favoriteButton.setText(R.string.aus_favoriten_entfernen);
                 }
             }
         });

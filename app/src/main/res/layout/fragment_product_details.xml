@@ -39,11 +39,12 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/favoriteButton"
-                    style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                    style="@style/Widget.Material3.Button.TonalButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    app:icon="@drawable/baseline_star_border_24" />
+                    app:icon="@drawable/baseline_star_border_24"
+                    android:text="@string/zu_favoriten_hinzufuegen"/>
 
             </FrameLayout>
 
