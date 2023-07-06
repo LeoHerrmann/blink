@@ -1,14 +1,6 @@
 package com.example.blink.ui.customer.search;
 
 public class SearchItem {
-    public Integer getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
-
     Integer productId;
     String productName;
     Double productPrice;
@@ -19,6 +11,14 @@ public class SearchItem {
         this.productName = productName;
         this.productPrice = productPrice;
         this.productSupplier = productSupplier;
+    }
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public String getProductName() {
