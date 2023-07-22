@@ -13,7 +13,10 @@ This prototype supports three types of users:
 
 ## Visuals
 
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+<img src="/screenshots/home-1.png" width="200px"/> <img src="/screenshots/kundeSuche.png" width="200px"/> <img src="/screenshots/kundeSortieren.png" width="200px"/>
+
+<img src="/screenshots/warenkorbVoll.png" width="200px"/> <img src="/screenshots/anbieterAngebot.png" width="200px"/> <img src="/screenshots/anbieterBestellungen.png" width="200px"/>
+
 
 ## Usage
 
