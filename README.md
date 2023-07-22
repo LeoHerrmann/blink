@@ -4,7 +4,7 @@
 
 Prototype of an Android app for a grocery shopping service.
 
-This project was realized as a part of the course "Human Computer Interaction" at Hochschule Darmstadt in collaboration with [TOPsti](http://github.com/TOPsti). Our task was to implement a given set of features. These features do not have to be fully functional. Instead we were asked to focus on high quality user experience.
+This project was realized as a part of the course "Human Computer Interaction" at Hochschule Darmstadt in collaboration with [TOPsti](https://github.com/T9310). Our task was to implement a given set of features. These features do not have to be fully functional. Instead we were asked to focus on high quality user experience.
 
 This prototype supports three types of users:
 - customers browse the products and place orders
